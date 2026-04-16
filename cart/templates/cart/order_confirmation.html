@@ -1,0 +1,256 @@
+{% extends 'base.html' %}
+{% block title %}Order Confirmation - COMPUTER & CCTV HUB{% endblock %}
+{% block content %}
+<div class="container-lg py-5">
+  <!-- Success Message -->
+  <div class="row mb-5">
+    <div class="col-lg-8 mx-auto">
+      <div class="text-center mb-5">
+        <div class="mb-4" style="animation: scaleIn 0.6s ease-out;">
+          <i class="fas fa-check-circle text-success" style="font-size: 4rem;"></i>
+        </div>
+        <h1 class="display-5 fw-bold mb-2 text-success">Order Confirmed!</h1>
+        <p class="text-muted lead">Your order has been placed successfully</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Order Details -->
+  <div class="row mb-5">
+    <div class="col-lg-8 mx-auto">
+      <div class="card border-0 shadow-lg mb-4">
+        <div class="card-body p-5">
+          <div class="row g-4">
+            <!-- Order Information -->
+            <div class="col-md-6">
+              <div class="bg-light p-4 rounded-3">
+                <h6 class="fw-bold mb-3 text-info">
+                  <i class="fas fa-receipt me-2"></i>Order Information
+                </h6>
+                <div class="mb-3">
+                  <small class="text-muted d-block">Order ID</small>
+                  <p class="fw-bold fs-5 mb-0">{{ order.order_id }}</p>
+                </div>
+                <div class="mb-3">
+                  <small class="text-muted d-block">Order Date</small>
+                  <p class="fw-500 mb-0">{{ order.created_at|date:"d M, Y - H:i" }}</p>
+                </div>
+                <div class="mb-3">
+                  <small class="text-muted d-block">Payment Method</small>
+                  <p class="fw-500 mb-0">
+                    <span class="badge bg-warning">Cash on Delivery (COD)</span>
+                  </p>
+                </div>
+                <div>
+                  <small class="text-muted d-block">Status</small>
+                  <p class="fw-500 mb-0">
+                    <span class="badge bg-info">{{ order.get_status_display }}</span>
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Customer Information -->
+            <div class="col-md-6">
+              <div class="bg-light p-4 rounded-3">
+                <h6 class="fw-bold mb-3 text-info">
+                  <i class="fas fa-user me-2"></i>Customer Information
+                </h6>
+                <div class="mb-3">
+                  <small class="text-muted d-block">Name</small>
+                  <p class="fw-500 mb-0">{{ order.delivery_full_name }}</p>
+                </div>
+                <div class="mb-3">
+                  <small class="text-muted d-block">Email</small>
+                  <p class="fw-500 mb-0">{{ order.delivery_email }}</p>
+                </div>
+                <div>
+                  <small class="text-muted d-block">Phone</small>
+                  <p class="fw-500 mb-0">{{ order.delivery_phone }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Delivery Address -->
+      <div class="card border-0 shadow-lg mb-4">
+        <div class="card-body p-5">
+          <h5 class="fw-bold mb-4">
+            <i class="fas fa-map-marker-alt text-info me-2"></i>Delivery Address
+          </h5>
+          <div class="bg-light p-4 rounded-3">
+            <p class="mb-2">
+              <strong>{{ order.delivery_full_name }}</strong>
+            </p>
+            <p class="mb-1">{{ order.delivery_street_address }}</p>
+            {% if order.delivery_apartment %}
+              <p class="mb-1">{{ order.delivery_apartment }}</p>
+            {% endif %}
+            <p class="mb-1">{{ order.delivery_city }}, {{ order.delivery_state }} {{ order.delivery_postal_code }}</p>
+            <p class="mb-0 mt-3">
+              <i class="fas fa-phone text-info me-2"></i>{{ order.delivery_phone }}
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Order Items -->
+      <div class="card border-0 shadow-lg mb-4">
+        <div class="card-body p-5">
+          <h5 class="fw-bold mb-4">
+            <i class="fas fa-box me-2 text-info"></i>Order Items ({{ items.count }})
+          </h5>
+          <div class="table-responsive">
+            <table class="table table-hover">
+              <thead class="table-light">
+                <tr>
+                  <th>Product</th>
+                  <th class="text-center">Quantity</th>
+                  <th class="text-end">Price</th>
+                  <th class="text-end">Subtotal</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for item in items %}
+                <tr>
+                  <td>
+                    <div class="fw-500">{{ item.product_name }}</div>
+                    <small class="text-muted">{{ item.app_label|title }}</small>
+                  </td>
+                  <td class="text-center">{{ item.quantity }}</td>
+                  <td class="text-end">₹{{ item.product_price|floatformat:2 }}</td>
+                  <td class="text-end fw-bold">₹{{ item.get_subtotal|floatformat:2 }}</td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Price Summary -->
+      <div class="card border-0 shadow-lg mb-4">
+        <div class="card-body p-5">
+          <h5 class="fw-bold mb-4">
+            <i class="fas fa-calculator text-info me-2"></i>Price Summary
+          </h5>
+          <div class="bg-light p-4 rounded-3">
+            <div class="row g-3">
+              <div class="col-12">
+                <div class="d-flex justify-content-between pb-3 border-bottom">
+                  <span class="text-muted">Subtotal</span>
+                  <span class="fw-500">₹{{ order.subtotal|floatformat:2 }}</span>
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="d-flex justify-content-between pb-3 border-bottom">
+                  <span class="text-muted">Tax (18% GST)</span>
+                  <span class="fw-500">₹{{ order.tax|floatformat:2 }}</span>
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="d-flex justify-content-between pb-3 border-bottom align-items-center">
+                  <span class="text-muted">Delivery Charges</span>
+                  <span class="fw-500 {% if order.delivery_charges == 0 %}text-success{% endif %}">
+                    {% if order.delivery_charges == 0 %}
+                      <span class="badge bg-success me-2">FREE</span>
+                    {% else %}
+                      ₹{{ order.delivery_charges|floatformat:2 }}
+                    {% endif %}
+                  </span>
+                </div>
+              </div>
+              <div class="col-12 pt-3">
+                <div class="d-flex justify-content-between align-items-center">
+                  <span class="fw-bold fs-5">Total Amount</span>
+                  <span class="fw-bold text-info fs-4">₹{{ order.total_amount|floatformat:2 }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Next Steps -->
+      <div class="card border-0 shadow-lg mb-5">
+        <div class="card-body p-5">
+          <h5 class="fw-bold mb-4">
+            <i class="fas fa-info-circle text-info me-2"></i>What Happens Next?
+          </h5>
+          <div class="row g-4">
+            <div class="col-md-6">
+              <div class="d-flex align-items-start">
+                <div class="rounded-circle bg-info bg-opacity-10 p-3 me-3 flex-shrink-0">
+                  <i class="fas fa-check text-info"></i>
+                </div>
+                <div>
+                  <h6 class="fw-bold mb-1">Order Confirmation</h6>
+                  <p class="text-muted small mb-0">You will receive a confirmation email shortly</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="d-flex align-items-start">
+                <div class="rounded-circle bg-info bg-opacity-10 p-3 me-3 flex-shrink-0">
+                  <i class="fas fa-truck text-info"></i>
+                </div>
+                <div>
+                  <h6 class="fw-bold mb-1">Shipping in Progress</h6>
+                  <p class="text-muted small mb-0">Your order will be shipped within 3-5 business days</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="d-flex align-items-start">
+                <div class="rounded-circle bg-info bg-opacity-10 p-3 me-3 flex-shrink-0">
+                  <i class="fas fa-phone text-info"></i>
+                </div>
+                <div>
+                  <h6 class="fw-bold mb-1">Delivery Call</h6>
+                  <p class="text-muted small mb-0">The delivery partner will call you before delivery</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="d-flex align-items-start">
+                <div class="rounded-circle bg-info bg-opacity-10 p-3 me-3 flex-shrink-0">
+                  <i class="fas fa-money-bill-wave text-info"></i>
+                </div>
+                <div>
+                  <h6 class="fw-bold mb-1">Payment at Delivery</h6>
+                  <p class="text-muted small mb-0">Pay the delivery partner in cash when the package arrives</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="d-flex gap-3 flex-wrap justify-content-center mb-5">
+        <a href="{% url 'home' %}" class="btn btn-primary btn-lg">
+          <i class="fas fa-home me-2"></i>Back to Home
+        </a>
+        <a href="{% url 'used_laptops:product_list' %}" class="btn btn-outline-primary btn-lg">
+          <i class="fas fa-shopping-smile me-2"></i>Continue Shopping
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  @keyframes scaleIn {
+    from {
+      transform: scale(0);
+      opacity: 0;
+    }
+    to {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+</style>
+{% endblock %}

@@ -1,0 +1,422 @@
+{% extends 'base.html' %}
+{% block title %}Accessories{% if category %} - {{ category.name }}{% endif %}{% endblock %}
+{% block content %}
+<style>
+  .filters-dropdown {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 20px;
+  }
+  
+  .dropdown-menu-custom {
+    display: none;
+    position: absolute;
+    background-color: #f8f9fa;
+    min-width: 350px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    z-index: 1;
+    max-height: 600px;
+    overflow-y: auto;
+    top: 100%;
+    right: 0;
+  }
+  
+  .dropdown-menu-custom.show {
+    display: block;
+  }
+  
+  .dropdown-content {
+    padding: 15px;
+  }
+  
+  .filter-section {
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #dee2e6;
+  }
+  
+  .filter-section:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+  }
+  
+  .filter-title {
+    font-weight: 600;
+    font-size: 15px;
+    margin-bottom: 12px;
+    color: #333;
+  }
+  
+  .filter-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .filter-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  .filter-item input[type="checkbox"],
+  .filter-item input[type="radio"] {
+    cursor: pointer;
+  }
+  
+  .filter-item label {
+    cursor: pointer;
+    margin-bottom: 0;
+    font-size: 13px;
+    user-select: none;
+  }
+  
+  .price-range-slider {
+    margin: 15px 0;
+    position: relative;
+  }
+  
+  .price-range-labels {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 12px;
+    font-size: 12px;
+    font-weight: 500;
+    color: #666;
+  }
+  
+  .price-range-slider input[type="range"] {
+    width: 100%;
+    height: 8px;
+    border-radius: 5px;
+    background: #e9ecef;
+    outline: none;
+    -webkit-appearance: none;
+    margin: 5px 0;
+    padding: 0;
+  }
+  
+  .price-range-slider input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #0d6efd;
+    cursor: pointer;
+    border: 2px solid white;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    transition: all 0.2s ease;
+  }
+  
+  .price-range-slider input[type="range"]::-webkit-slider-thumb:hover {
+    background: #0b5ed7;
+    transform: scale(1.1);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
+  }
+  
+  .price-range-slider input[type="range"]::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #0d6efd;
+    cursor: pointer;
+    border: 2px solid white;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    transition: all 0.2s ease;
+  }
+  
+  .price-range-slider input[type="range"]::-moz-range-thumb:hover {
+    background: #0b5ed7;
+    transform: scale(1.1);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
+  }
+  
+  .price-range-slider input[type="range"]::-webkit-slider-runnable-track {
+    background: linear-gradient(to right, #0d6efd 0%, #0d6efd var(--value), #e9ecef var(--value), #e9ecef 100%);
+    border-radius: 5px;
+    height: 8px;
+  }
+  
+  .price-range-slider input[type="range"]::-moz-range-track {
+    background: transparent;
+    border: none;
+  }
+  
+  .price-inputs {
+    display: flex;
+    gap: 8px;
+    margin-top: 10px;
+    align-items: center;
+  }
+  
+  .price-inputs input {
+    width: 60px;
+    padding: 6px 8px;
+    font-size: 12px;
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+  }
+  
+  .price-inputs span {
+    font-size: 12px;
+    color: #666;
+  }
+  
+  .dropdown-buttons {
+    display: flex;
+    gap: 10px;
+    padding-top: 15px;
+    border-top: 1px solid #dee2e6;
+  }
+  
+  .dropdown-buttons button {
+    flex: 1;
+    padding: 8px 12px;
+    font-size: 13px;
+  }
+  
+  .btn-apply {
+    background-color: #0d6efd;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 500;
+  }
+  
+  .btn-apply:hover {
+    background-color: #0b5ed7;
+  }
+  
+  .btn-clear {
+    background-color: #6c757d;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 500;
+  }
+  
+  .btn-clear:hover {
+    background-color: #5c636a;
+  }
+  
+  .dropdown-button {
+    background-color: #0d6efd;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 14px;
+  }
+  
+  .dropdown-button:hover {
+    background-color: #0b5ed7;
+  }
+  
+  .sort-select {
+    width: 100%;
+    padding: 6px 8px;
+    font-size: 13px;
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+    background-color: white;
+  }
+  
+  .products-grid {
+    margin-top: 30px;
+  }
+  
+  .header-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+  }
+</style>
+
+<div class="container-fluid">
+  <div class="header-wrapper">
+    <h2 class="mb-0">Accessories{% if category %} - {{ category.name }}{% endif %}</h2>
+    
+    <!-- Filter Dropdown -->
+    <div class="filters-dropdown">
+      <button class="dropdown-button" onclick="toggleDropdown()">
+        ⚙️ Filters
+      </button>
+    
+    <div id="filterDropdown" class="dropdown-menu-custom">
+      <div class="dropdown-content">
+        <form method="get" id="filterForm">
+          
+          <!-- Category Filter -->
+          <div class="filter-section">
+            <div class="filter-title">📁 Categories</div>
+            <div class="filter-group">
+              <div class="filter-item">
+                <input type="radio" id="cat_all" name="category" value="">
+                <label for="cat_all">All Categories</label>
+              </div>
+              {% for cat in categories %}
+                <div class="filter-item">
+                  <input type="radio" id="cat_{{ cat.id }}" name="category" value="{{ cat.slug }}" {% if category and category.id == cat.id %}checked{% endif %}>
+                  <label for="cat_{{ cat.id }}">{{ cat.name }}</label>
+                </div>
+              {% endfor %}
+            </div>
+          </div>
+
+          <!-- Price Range Filter -->
+          <div class="filter-section">
+            <div class="filter-title">💰 Price Range</div>
+            
+            <div class="price-range-labels">
+              <span>Lowest</span>
+              <span>Highest</span>
+            </div>
+            
+            <div class="price-range-slider">
+              <input type="range" id="priceMin" name="price_min_slider" min="{{ min_price }}" max="{{ max_price }}" value="{{ selected_price_min }}" class="form-range">
+              <input type="range" id="priceMax" name="price_max_slider" min="{{ min_price }}" max="{{ max_price }}" value="{{ selected_price_max }}" class="form-range">
+            </div>
+            
+            <div class="price-inputs">
+              <input type="number" id="minPrice" placeholder="Min" min="{{ min_price }}" max="{{ max_price }}" value="{{ selected_price_min }}">
+              <span>-</span>
+              <input type="number" id="maxPrice" placeholder="Max" min="{{ min_price }}" max="{{ max_price }}" value="{{ selected_price_max }}">
+            </div>
+            <small class="text-muted d-block mt-2">Selected: ${{ selected_price_min }} - ${{ selected_price_max }}</small>
+            <input type="hidden" name="price_min" id="priceMinHidden" value="{{ selected_price_min }}">
+            <input type="hidden" name="price_max" id="priceMaxHidden" value="{{ selected_price_max }}">
+          </div>
+
+          <!-- Sort Filter -->
+          <div class="filter-section">
+            <div class="filter-title">🔀 Sort By</div>
+            <select name="sort_by" class="sort-select">
+              <option value="-created_at" {% if sort_by == '-created_at' %}selected{% endif %}>Newest</option>
+              <option value="price" {% if sort_by == 'price' %}selected{% endif %}>Price: Low to High</option>
+              <option value="-price" {% if sort_by == '-price' %}selected{% endif %}>Price: High to Low</option>
+              <option value="name" {% if sort_by == 'name' %}selected{% endif %}>Name: A to Z</option>
+            </select>
+          </div>
+
+          <!-- Recently Added Filter -->
+          <div class="filter-section">
+            <div class="filter-title">✨ Availability</div>
+            <div class="filter-group">
+              <div class="filter-item">
+                <input type="checkbox" id="recent" name="show_recent" value="on" {% if show_recent %}checked{% endif %}>
+                <label for="recent">Recently Added (Last 7 days)</label>
+              </div>
+            </div>
+          </div>
+
+          <!-- Buttons -->
+          <div class="dropdown-buttons">
+            <button type="submit" class="btn-apply">Apply Filters</button>
+            <a href="{% url 'accessories:product_list' %}" class="btn-clear" style="text-decoration: none; display: flex; align-items: center; justify-content: center;">Clear</a>
+          </div>
+        </form>
+      </div>
+    </div>
+    </div>
+  </div>
+
+  <!-- Products Grid -->
+  <div class="row g-3 products-grid">
+    {% for product in products %}
+      <div class="col-6 col-md-4 col-lg-3">
+        {% include 'includes/product_card.html' with product=product app_label='accessories' %}
+      </div>
+    {% empty %}
+      <div class="col-12">
+        <div class="alert alert-info">
+          <strong>No products found</strong><br>
+          Try adjusting your filters or <a href="{% url 'accessories:product_list' %}">clear filters</a> to see all products.
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+
+<script>
+  function toggleDropdown() {
+    const dropdown = document.getElementById('filterDropdown');
+    dropdown.classList.toggle('show');
+  }
+
+  // Close dropdown when clicking outside
+  document.addEventListener('click', function(event) {
+    const dropdown = document.getElementById('filterDropdown');
+    const button = document.querySelector('.dropdown-button');
+    if (!dropdown.contains(event.target) && !button.contains(event.target)) {
+      dropdown.classList.remove('show');
+    }
+  });
+
+  const priceMin = document.getElementById('priceMin');
+  const priceMax = document.getElementById('priceMax');
+  const minPrice = document.getElementById('minPrice');
+  const maxPrice = document.getElementById('maxPrice');
+  const priceMinHidden = document.getElementById('priceMinHidden');
+  const priceMaxHidden = document.getElementById('priceMaxHidden');
+
+  // Function to update slider visual progress
+  function updateSliderProgress() {
+    const min = parseInt(priceMin.value);
+    const max = parseInt(priceMax.value);
+    const minPercent = ((min - parseInt(priceMin.min)) / (parseInt(priceMin.max) - parseInt(priceMin.min))) * 100;
+    const maxPercent = ((max - parseInt(priceMax.min)) / (parseInt(priceMax.max) - parseInt(priceMax.min))) * 100;
+    
+    priceMin.style.setProperty('--value', minPercent + '%');
+    priceMax.style.setProperty('--value', maxPercent + '%');
+  }
+
+  // Update inputs when sliders change
+  priceMin.addEventListener('input', function() {
+    if (parseInt(this.value) > parseInt(priceMax.value)) {
+      this.value = priceMax.value;
+    }
+    minPrice.value = this.value;
+    priceMinHidden.value = this.value;
+    updateSliderProgress();
+  });
+
+  priceMax.addEventListener('input', function() {
+    if (parseInt(this.value) < parseInt(priceMin.value)) {
+      this.value = priceMin.value;
+    }
+    maxPrice.value = this.value;
+    priceMaxHidden.value = this.value;
+    updateSliderProgress();
+  });
+
+  // Update sliders when text inputs change
+  minPrice.addEventListener('input', function() {
+    if (parseInt(this.value) <= parseInt(priceMax.value)) {
+      priceMin.value = this.value;
+      priceMinHidden.value = this.value;
+      updateSliderProgress();
+    }
+  });
+
+  maxPrice.addEventListener('input', function() {
+    if (parseInt(this.value) >= parseInt(priceMin.value)) {
+      priceMax.value = this.value;
+      priceMaxHidden.value = this.value;
+      updateSliderProgress();
+    }
+  });
+  
+  // Initialize slider progress on page load
+  updateSliderProgress();
+</script>
+
+{% endblock %}

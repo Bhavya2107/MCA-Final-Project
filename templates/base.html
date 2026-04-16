@@ -1,0 +1,219 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>
+      {% block title %}
+        COMPUTER & CCTV HUB - Premium Electronics Store
+      {% endblock %}
+    </title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link href="{% static 'css/styles.css' %}" rel="stylesheet" />
+    <meta name="theme-color" content="#06b6d4" />
+    <style>
+      :root { --primary: #0f172a; --accent: #06b6d4; }
+      body { background: linear-gradient(135deg, #f8fafc 0%, #f0f4f8 100%); min-height: 100vh; display: flex; flex-direction: column; }
+      main { flex: 1; }
+      .navbar { background: linear-gradient(135deg, rgba(15, 23, 42, 0.95) 0%, rgba(15, 23, 42, 0.9) 100%) !important; box-shadow: 0 4px 15px rgba(15, 23, 42, 0.1); border-bottom: 2px solid var(--accent); }
+      .navbar-brand { font-size: 1.5rem; letter-spacing: 1px; color: var(--accent) !important; font-weight: 800; }
+      .nav-link { color: #e2e8f0 !important; font-weight: 500; transition: all 0.3s ease; margin: 0 0.5rem; position: relative; }
+      .nav-link:hover { color: var(--accent) !important; transform: translateY(-2px); }
+      .nav-link::after { content: ''; position: absolute; bottom: -5px; left: 0; width: 0; height: 2px; background: var(--accent); transition: width 0.3s ease; }
+      .nav-link:hover::after { width: 100%; }
+      .site-header { padding: 1rem 0; }
+    </style>
+  </head>
+  <body>
+    <header class="site-header sticky-top">
+      <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container-lg">
+          <a class="navbar-brand d-flex align-items-center gap-2" href="/">
+            <span>COMPUTER & CCTV HUB</span>
+          </a>
+          <button class="navbar-toggler border-info" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav me-auto gap-1">
+              <!-- Laptop Dropdown - Show for all -->
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle fw-500" href="#" id="laptopDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  <i class="fas fa-laptop me-2"></i>Laptop
+                </a>
+                <ul class="dropdown-menu border-info border-1" aria-labelledby="laptopDropdown">
+                  <li><a class="dropdown-item" href="{% url 'new_laptops:request_laptop' %}"><i class="fas fa-star-half-alt me-2"></i>Request New Laptop</a></li>
+                  <li><a class="dropdown-item" href="{% url 'used_laptops:product_list' %}"><i class="fas fa-recycle me-2"></i>Refurbished Laptops</a></li>
+                </ul>
+              </li>
+
+              <!-- Accessories Link - Show for all users -->
+              <li class="nav-item">
+                <a class="nav-link fw-500" href="{% url 'accessories:product_list' %}"><i class="fas fa-keyboard me-2"></i>Accessories</a>
+              </li>
+
+              <!-- Contact Link - Show for all -->
+              <li class="nav-item">
+                <a class="nav-link fw-500" href="{% url 'contact:contact_page' %}"><i class="fas fa-envelope me-2"></i>Contact Us</a>
+              </li>
+
+              <!-- About Dropdown - mobile-only -->
+              <li class="nav-item dropdown d-lg-none">
+                <a class="nav-link dropdown-toggle fw-500" href="#" id="aboutDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  <i class="fas fa-info-circle me-2"></i>About
+                </a>
+                <ul class="dropdown-menu border-info border-1" aria-labelledby="aboutDropdown">
+                  <li>
+                    <a class="dropdown-item" href="{% url 'about' %}">
+                      <i class="fas fa-circle-info me-2"></i>About
+                    </a>
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="{% url 'developer' %}">
+                      <i class="fas fa-user-cog me-2"></i>About Developer
+                    </a>
+                  </li>
+                </ul>
+              </li>
+
+              <!-- About Link - desktop-only -->
+              <li class="nav-item d-none d-lg-block">
+                <a class="nav-link fw-500" href="{% url 'about' %}"><i class="fas fa-info-circle me-2"></i>About</a>
+              </li>
+            </ul>
+
+            <!-- Right Side Navigation -->
+            <ul class="navbar-nav gap-1">
+              <!-- Cart Button - Only for authenticated users -->
+              {% if user.is_authenticated %}
+                <li class="nav-item">
+                  <a class="nav-link fw-500 btn btn-outline-info btn-sm ms-lg-2 px-3 position-relative text-start" href="{% url 'cart:view' %}">
+                    <i class="fas fa-shopping-cart me-2"></i>Cart
+                    {% if user.cart.get_total_items > 0 %}
+                      <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="font-size: 0.7rem;">
+                        {{ user.cart.get_total_items }}
+                      </span>
+                    {% endif %}
+                  </a>
+                </li>
+              {% endif %}
+              
+              <!-- Authentication Section -->
+              {% if user.is_authenticated %}
+                <!-- Profile Dropdown - Only for authenticated users -->
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle fw-500" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="fas fa-user-circle me-2"></i>Profile
+                  </a>
+                  <ul class="dropdown-menu dropdown-menu-end border-info border-1" aria-labelledby="userDropdown">
+                    <li><a class="dropdown-item" href="{% url 'accounts:profile' %}"><i class="fas fa-user me-2"></i>My Profile</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item text-danger" href="{% url 'accounts:logout' %}"><i class="fas fa-sign-out-alt me-2"></i>Logout</a></li>
+                  </ul>
+                </li>
+              {% else %}
+                <!-- Login/Register Buttons - Only for non-authenticated users -->
+                <li class="nav-item">
+                  <a class="nav-link fw-500 btn btn-outline-info btn-sm ms-lg-2 px-3 text-start" href="{% url 'accounts:login' %}"><i class="fas fa-sign-in-alt me-2"></i>Login</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link fw-500 btn btn-info btn-sm ms-lg-2 px-3 text-white text-start" href="{% url 'accounts:register' %}"><i class="fas fa-user-plus me-2"></i>Register</a>
+                </li>
+              {% endif %}
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="flex-grow-1 py-5">
+      <div class="container-lg">
+        {% block content %}
+
+        {% endblock %}
+      </div>
+    </main>
+
+    <footer class="bg-dark text-light mt-5 pt-5 pb-3 border-top border-info border-2">
+      <div class="container-lg">
+        <div class="row g-4 mb-4">
+          <!-- Brand Section -->
+          <div class="col-md-4 col-lg-4">
+            <div class="d-flex align-items-center gap-2 mb-3">
+              <i class="fas fa-shield-alt text-info fs-4"></i>
+              <h5 class="mb-0 fw-bold text-info">COMPUTER & CCTV HUB</h5>
+            </div>
+            <p class="text-light small lh-lg">
+              Trusted provider of premium computers, CCTV systems, and accessories. Your one-stop shop for all technology and security needs.
+            </p>
+            <div class="d-flex gap-3 mt-3">
+              <a href="#" class="text-info text-decoration-none transition-all hover-scale" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+              <a href="#" class="text-info text-decoration-none transition-all hover-scale" title="Twitter"><i class="fab fa-twitter"></i></a>
+              <a href="#" class="text-info text-decoration-none transition-all hover-scale" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+              <a href="#" class="text-info text-decoration-none transition-all hover-scale" title="Instagram"><i class="fab fa-instagram"></i></a>
+            </div>
+          </div>
+
+          <!-- Quick Links -->
+          <div class="col-md-4 col-lg-4">
+            <h6 class="fw-bold text-info text-uppercase mb-3" style="letter-spacing: 1px;">Quick Links</h6>
+            <ul class="list-unstyled gap-2 d-flex flex-column">
+              <li><a href="{% url 'home' %}" class="text-light text-decoration-none small fw-500 transition-all"><i class="fas fa-angle-right me-2 text-info"></i>Home</a></li>
+              <li><a href="{% url 'new_laptops:request_laptop' %}" class="text-light text-decoration-none small fw-500 transition-all"><i class="fas fa-angle-right me-2 text-info"></i>Request Laptop</a></li>
+              <li><a href="{% url 'used_laptops:product_list' %}" class="text-light text-decoration-none small fw-500 transition-all"><i class="fas fa-angle-right me-2 text-info"></i>Refurbished Laptops</a></li>
+              <li><a href="{% url 'accessories:product_list' %}" class="text-light text-decoration-none small fw-500 transition-all"><i class="fas fa-angle-right me-2 text-info"></i>Accessories</a></li>
+            </ul>
+          </div>
+
+          <!-- Support Links -->
+          <div class="col-md-4 col-lg-4">
+            <h6 class="fw-bold text-info text-uppercase mb-3" style="letter-spacing: 1px;">Support & Info</h6>
+            <ul class="list-unstyled gap-2 d-flex flex-column">
+              <li><a href="{% url 'contact:contact_page' %}" class="text-light text-decoration-none small fw-500 transition-all"><i class="fas fa-angle-right me-2 text-info"></i>Contact Us</a></li>
+              <li><a href="{% url 'cart:view' %}" class="text-light text-decoration-none small fw-500 transition-all"><i class="fas fa-angle-right me-2 text-info"></i>Shopping Cart</a></li>
+              <li><a href="{% url 'privacy' %}" class="text-light text-decoration-none small fw-500 transition-all"><i class="fas fa-angle-right me-2 text-info"></i>Privacy Policy</a></li>
+              <li><a href="{% url 'terms' %}" class="text-light text-decoration-none small fw-500 transition-all"><i class="fas fa-angle-right me-2 text-info"></i>Terms & Conditions</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Copyright Section -->
+        <div class="border-top border-secondary pt-4 text-center">
+          <div class="row align-items-center">
+            <div class="col-md-6 text-md-start mb-3 mb-md-0">
+              <p class="text-light small mb-0">
+                &copy; {% now 'Y' %} <strong class="text-info">COMPUTER & CCTV HUB</strong>. All rights reserved.
+              </p>
+            </div>
+            {% comment %} <div class="col-md-6 text-md-end">
+              <p class="text-secondary small mb-0">
+                 Developed by Bhavya H. Prajapati
+              </p>
+            </div> {% endcomment %}
+            <div class="col-md-6 text-md-end">
+              <small class="text-secondary d-none d-md-block">
+                <i class="fas fa-code me-1"></i> <a href="{% url 'developer' %}" class="text-info text-decoration-none">Developed by Bhavya H. Prajapati</a>
+              </small>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <style>
+      .transition-all { transition: all 0.3s ease; }
+      footer a { transition: all 0.3s ease; }
+      footer a:hover { color: #06b6d4 !important; padding-left: 4px; }
+      .navbar { animation: slideDown 0.5s ease-out; }
+      @keyframes slideDown { from { transform: translateY(-100%); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+      @media (max-width: 768px) {
+        .navbar-brand { font-size: 1.25rem; }
+        footer { padding: 2rem 0 !important; }
+      }
+    </style>
+  </body>
+</html>

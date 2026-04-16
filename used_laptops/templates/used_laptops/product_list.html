@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block title %}Refurbished Laptops{% if category %} - {{ category.name }}{% endif %}{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <h2 class="mb-0">Refurbished Laptops{% if category %} - {{ category.name }}{% endif %}</h2>
+  <div><a class="btn btn-outline-secondary btn-sm" href="/used/">All</a></div>
+</div>
+
+<div class="row g-3">
+  {% for product in products %}
+    <div class="col-12 col-sm-6 col-md-4">
+      {% include 'includes/product_card.html' with product=product app_label='used_laptops' %}
+    </div>
+  {% empty %}
+    <div class="col-12"> <div class="alert alert-info">No products yet.</div> </div>
+  {% endfor %}
+</div>
+
+{% endblock %}

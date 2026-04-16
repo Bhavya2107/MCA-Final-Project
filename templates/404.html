@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% block title %}Page Not Found - Laptop Shop{% endblock %}
+{% block content %}
+<div class="container-lg py-5">
+  <div class="row">
+    <div class="col-lg-6 mx-auto">
+      <div class="text-center">
+        <div class="mb-4">
+          <h1 style="font-size: 8rem; font-weight: 900; color: #06b6d4; margin: 0; line-height: 1;">404</h1>
+          <p class="fs-4 text-muted">Page Not Found</p>
+        </div>
+
+        <div class="card border-0 shadow-sm p-5">
+          <i class="fas fa-search text-info mb-4" style="font-size: 3rem;"></i>
+          <h3 class="fw-bold mb-3">Oops! We couldn't find that page.</h3>
+          <p class="text-muted mb-4 lh-lg">
+            It seems the page you're looking for has been moved or doesn't exist anymore. 
+            Don't worry, we have plenty of great products to explore!
+          </p>
+
+          <div class="d-flex gap-3 justify-content-center flex-wrap">
+            <a href="{% url 'home' %}" class="btn btn-primary btn-lg">
+              <i class="fas fa-home me-2"></i>Back to Home
+            </a>
+            <a href="{% url 'new_laptops:product_list' %}" class="btn btn-outline-primary btn-lg">
+              <i class="fas fa-laptop me-2"></i>Shop Laptops
+            </a>
+          </div>
+        </div>
+
+        <div class="mt-5 pt-4 border-top">
+          <h5 class="fw-bold mb-3">Popular Pages</h5>
+          <div class="d-flex gap-3 justify-content-center flex-wrap">
+            <a href="{% url 'new_laptops:product_list' %}" class="btn btn-sm btn-outline-secondary">New Laptops</a>
+            <a href="{% url 'used_laptops:product_list' %}" class="btn btn-sm btn-outline-secondary">Refurbished Laptops</a>
+            <a href="{% url 'accessories:product_list' %}" class="btn btn-sm btn-outline-secondary">Accessories</a>
+            <a href="{% url 'contact:contact_page' %}" class="btn btn-sm btn-outline-secondary">Contact Us</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

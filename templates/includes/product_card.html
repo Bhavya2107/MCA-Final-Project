@@ -1,0 +1,44 @@
+<div class="card h-100 shadow-sm product-card">
+  {% if product.images.all %}
+    {% with img=product.images.all.0 %}
+      <img src="{{ img.image.url }}" class="card-img-top" alt="{{ img.alt_text }}">
+    {% endwith %}
+  {% else %}
+    <img src="https://via.placeholder.com/600x400?text=No+Image" class="card-img-top" alt="No image">
+  {% endif %}
+  <div class="card-body d-flex flex-column p-3">
+    <h6 class="card-title mb-2"><a class="stretched-link text-dark" href="{{ product.get_absolute_url }}">{{ product.name }}</a></h6>
+    <div class="mt-auto">
+      <div class="d-flex justify-content-between align-items-center mb-2">
+        <strong class="text-primary fs-6">₹{{ product.price|floatformat:2 }}</strong>
+        {% if product.available %}
+          <span class="badge bg-success">In stock</span>
+        {% else %}
+          <span class="badge bg-secondary">Unavailable</span>
+        {% endif %}
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="d-flex gap-1">
+        {% if user.is_authenticated and product.available %}
+          <form method="post" action="{% url 'cart:add' app_label product.id %}" class="flex-fill">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-info btn-sm w-100" title="Add product to cart">
+              <i class="fas fa-shopping-cart me-1"></i>Add Cart
+            </button>
+          </form>
+        {% endif %}
+        <a href="{{ product.get_absolute_url }}" class="btn btn-outline-primary btn-sm flex-fill">
+          <i class="fas fa-eye me-1"></i>View
+        </a>
+      </div>
+
+      <!-- Login Prompt for Anonymous Users -->
+      {% if not user.is_authenticated and product.available %}
+        <div class="alert alert-info alert-sm mt-2 mb-0">
+          <small><a href="{% url 'accounts:login' %}" class="alert-link">Login</a> to add items to cart</small>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</div>

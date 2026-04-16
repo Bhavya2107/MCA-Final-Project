@@ -1,0 +1,179 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+  Home - COMPUTER & CCTV HUB
+{% endblock %}
+{% block content %}
+
+  {% comment %} <!-- Hero Section with Large Logo -->
+  <div class="hero-section mb-5 pt-5 pb-5">
+    <div class="container-lg py-5">
+      <img src="{% static 'images/logo.svg' %}" alt="COMPUTER & CCTV HUB Logo" class="logo-hero">
+      <h1 class="display-4 fw-bold text-info mb-3">COMPUTER & CCTV HUB</h1>
+      <p class="lead text-white mb-0">Your Trusted Partner for Quality Computers & Security Solutions</p>
+    </div>
+  </div> {% endcomment %}
+
+  <!-- CTA Section with Background Image -->
+  <div class="mb-5 rounded-4 overflow-hidden laptop-section" style="background-image: url('{% static 'images/laptop-bg.webp' %}'); background-size: cover; background-position: center; background-attachment: fixed; position: relative; border: 2px solid rgba(6, 182, 212, 0.2); box-shadow: 0 8px 32px rgba(6, 182, 212, 0.15);">
+    <!-- Overlay for better text readability -->
+    <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(135deg, rgba(255, 255, 255, 0.92) 0%, rgba(248, 250, 252, 0.95) 100%); z-index: 0;"></div>
+    
+    <div class="container-fluid py-5 px-4 px-lg-5" style="position: relative; z-index: 1;">
+      <div class="row align-items-center g-5">
+        <div class="col-lg-7">
+          <h2 class="display-5 fw-bold mb-4" style="background: linear-gradient(135deg, #0f172a 0%, #06b6d4 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Find Your Perfect Solution</h2>
+          <p class="fs-5 text-secondary mb-4 lh-lg">Whether you're looking for a brand new laptop with the latest technology, a refurbished machine with great value, or accessories to enhance your setup — we have everything you need.</p>
+          <ul class="list-unstyled mb-4">
+            <li class="mb-3"><i class="fas fa-check-circle text-info me-3" style="font-size: 1.2rem;"></i><span><strong>Authentic Products</strong> - 100% genuine items</span></li>
+            <li class="mb-3"><i class="fas fa-check-circle text-info me-3" style="font-size: 1.2rem;"></i><span><strong>Expert Support</strong> - Knowledgeable team</span></li>
+            <li><i class="fas fa-check-circle text-info me-3" style="font-size: 1.2rem;"></i><span><strong>Best Prices</strong> - Competitive rates</span></li>
+          </ul>
+        </div>
+        <div class="col-lg-5">
+          <div class="d-flex flex-column gap-4">
+            <a class="btn btn-lg fw-bold" style="background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%); color: white; border: none; padding: 16px 32px; box-shadow: 0 4px 15px rgba(6, 182, 212, 0.3); border-radius: 12px; transition: all 0.3s ease;" href="{% url 'new_laptops:request_laptop' %}">
+              <i class="fas fa-laptop me-2"></i>Quick Start - Shop New
+            </a>
+            <a class="btn btn-lg fw-bold" style="border: 2px solid #06b6d4; color: #06b6d4; background: white; padding: 14px 32px; border-radius: 12px; transition: all 0.3s ease;" href="/used/">
+              <i class="fas fa-recycle me-2"></i>Refurbished Options
+            </a>
+            <a class="btn btn-lg fw-bold" style="border: 2px solid #0f172a; color: #0f172a; background: rgba(15, 23, 42, 0.05); padding: 14px 32px; border-radius: 12px; transition: all 0.3s ease;" href="{% url 'contact:contact_page' %}">
+              <i class="fas fa-phone me-2"></i>Get Expert Advice
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Featured Categories Section -->
+  <div class="mb-5">
+    <div class="mb-4">
+      <h2 class="display-6 fw-bold mb-2">What We Offer</h2>
+      <p class="text-secondary fs-5">Explore our wide range of products and services</p>
+    </div>
+
+    <div class="row g-3 g-md-4">
+      <!-- New Laptops Card -->
+      <div class="col-12 col-sm-6 col-lg-4">
+        <div class="feature-card h-100" style="cursor: pointer; transition: all 0.3s ease;">
+          <div class="card-icon mb-3">
+            <i class="fas fa-laptop text-info" style="font-size: 2.5rem;"></i>
+          </div>
+          <h5 class="card-title fw-bold mb-2">New Laptops</h5>
+          <p class="card-text text-secondary mb-3">Latest models from top brands with full warranty and technical support.</p>
+          <div class="feature-highlights mb-3">
+            <small class="badge bg-info bg-opacity-10 text-info me-2 mb-2">Latest Models</small>
+            <small class="badge bg-info bg-opacity-10 text-info mb-2">Warranty</small>
+          </div>
+          <a href="{% url 'new_laptops:request_laptop' %}" class="btn btn-primary btn-sm w-100">
+            <i class="fas fa-arrow-right me-2"></i>Explore
+          </a>
+        </div>
+      </div>
+
+      <!-- Refurbished Laptops Card -->
+      <div class="col-12 col-sm-6 col-lg-4">
+        <div class="feature-card h-100" style="cursor: pointer; transition: all 0.3s ease;">
+          <div class="card-icon mb-3">
+            <i class="fas fa-recycle text-info" style="font-size: 2.5rem;"></i>
+          </div>
+          <h5 class="card-title fw-bold mb-2">Refurbished Laptops</h5>
+          <p class="card-text text-secondary mb-3">Thoroughly inspected pre-owned machines at unbeatable prices.</p>
+          <div class="feature-highlights mb-3">
+            <small class="badge bg-info bg-opacity-10 text-info me-2 mb-2">Save Up to 50%</small>
+            <small class="badge bg-info bg-opacity-10 text-info mb-2">Tested</small>
+          </div>
+          <a href="/used/" class="btn btn-primary btn-sm w-100">
+            <i class="fas fa-arrow-right me-2"></i>Browse
+          </a>
+        </div>
+      </div>
+
+      <!-- Accessories Card -->
+      <div class="col-12 col-sm-6 col-lg-4">
+        <div class="feature-card h-100" style="cursor: pointer; transition: all 0.3s ease;">
+          <div class="card-icon mb-3">
+            <i class="fas fa-keyboard text-info" style="font-size: 2.5rem;"></i>
+          </div>
+          <h5 class="card-title fw-bold mb-2">Accessories</h5>
+          <p class="card-text text-secondary mb-3">Complete your setup with bags, chargers, peripherals, and more.</p>
+          <div class="feature-highlights mb-3">
+            <small class="badge bg-info bg-opacity-10 text-info me-2 mb-2">Wide Selection</small>
+            <small class="badge bg-info bg-opacity-10 text-info mb-2">Quality Brands</small>
+          </div>
+          <a href="/accessories/" class="btn btn-primary btn-sm w-100">
+            <i class="fas fa-arrow-right me-2"></i>Shop
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Why Choose Us Section -->
+  <div class="mb-5 py-5" style="background: linear-gradient(135deg, rgba(6, 182, 212, 0.05) 0%, rgba(6, 182, 212, 0.02) 100%); border-radius: 15px; border: 1px solid rgba(6, 182, 212, 0.15);">
+    <div class="container-fluid">
+      <h2 class="display-6 fw-bold mb-5 text-center">Why Choose COMPUTER & CCTV HUB?</h2>
+      
+      <div class="row g-5">
+        <!-- Row 1 -->
+        <div class="col-12 col-md-6">
+          <div style="background: white; border-radius: 14px; padding: 2rem; box-shadow: 0 4px 15px rgba(6, 182, 212, 0.1); transition: all 0.3s ease; text-align: center; height: 100%; animation: fadeInUp 0.5s ease-out;">
+            <div style="width: 70px; height: 70px; background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; color: white;">
+              <i class="fas fa-shield-alt" style="font-size: 2rem;"></i>
+            </div>
+            <h5 class="fw-bold mb-3" style="font-size: 1.15rem;">Trusted Quality</h5>
+            <p class="text-secondary" style="line-height: 1.6;">All products are genuine and thoroughly inspected for quality assurance.</p>
+          </div>
+        </div>
+
+        <div class="col-12 col-md-6">
+          <div style="background: white; border-radius: 14px; padding: 2rem; box-shadow: 0 4px 15px rgba(6, 182, 212, 0.1); transition: all 0.3s ease; text-align: center; height: 100%; animation: fadeInUp 0.5s ease-out 0.1s both;">
+            <div style="width: 70px; height: 70px; background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; color: white;">
+              <i class="fas fa-headset" style="font-size: 2rem;"></i>
+            </div>
+            <h5 class="fw-bold mb-3" style="font-size: 1.15rem;">Expert Support</h5>
+            <p class="text-secondary" style="line-height: 1.6;">Our knowledgeable team is ready to help you find the perfect product.</p>
+          </div>
+        </div>
+
+        <!-- Row 2 -->
+        <div class="col-12 col-md-6">
+          <div style="background: white; border-radius: 14px; padding: 2rem; box-shadow: 0 4px 15px rgba(6, 182, 212, 0.1); transition: all 0.3s ease; text-align: center; height: 100%; animation: fadeInUp 0.5s ease-out 0.2s both;">
+            <div style="width: 70px; height: 70px; background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; color: white;">
+              <i class="fas fa-tag" style="font-size: 2rem;"></i>
+            </div>
+            <h5 class="fw-bold mb-3" style="font-size: 1.15rem;">Best Prices</h5>
+            <p class="text-secondary" style="line-height: 1.6;">Competitive pricing with regular deals and special offers.</p>
+          </div>
+        </div>
+
+        <div class="col-12 col-md-6">
+          <div style="background: white; border-radius: 14px; padding: 2rem; box-shadow: 0 4px 15px rgba(6, 182, 212, 0.1); transition: all 0.3s ease; text-align: center; height: 100%; animation: fadeInUp 0.5s ease-out 0.3s both;">
+            <div style="width: 70px; height: 70px; background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; color: white;">
+              <i class="fas fa-truck" style="font-size: 2rem;"></i>
+            </div>
+            <h5 class="fw-bold mb-3" style="font-size: 1.15rem;">Fast Delivery</h5>
+            <p class="text-secondary" style="line-height: 1.6;">Quick processing and reliable delivery to your doorstep.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA Section -->
+  <div class="text-center mb-5 py-4">
+    <h2 class="display-6 fw-bold mb-3">Ready to Get Started?</h2>
+    <p class="fs-5 text-secondary mb-4">Browse our products or reach out for personalized assistance</p>
+    <div class="d-flex justify-content-center gap-3 flex-wrap">
+      <a href="{% url 'new_laptops:request_laptop' %}" class="btn btn-primary btn-lg">
+        <i class="fas fa-shopping-cart me-2"></i>Start Shopping
+      </a>
+      <a href="{% url 'contact:contact_page' %}" class="btn btn-outline-primary btn-lg">
+        <i class="fas fa-envelope me-2"></i>Contact Us
+      </a>
+    </div>
+  </div>
+
+{% endblock %}

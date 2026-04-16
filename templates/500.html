@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block title %}Server Error - Laptop Shop{% endblock %}
+{% block content %}
+<div class="container-lg py-5">
+  <div class="row">
+    <div class="col-lg-6 mx-auto">
+      <div class="text-center">
+        <div class="mb-4">
+          <h1 style="font-size: 8rem; font-weight: 900; color: #dc3545; margin: 0; line-height: 1;">500</h1>
+          <p class="fs-4 text-muted">Server Error</p>
+        </div>
+
+        <div class="card border-0 shadow-sm p-5">
+          <i class="fas fa-server text-danger mb-4" style="font-size: 3rem;"></i>
+          <h3 class="fw-bold mb-3">Something went wrong!</h3>
+          <p class="text-muted mb-4 lh-lg">
+            We're experiencing technical difficulties on our end. Our team has been notified and is working to fix the issue.
+            Please try again in a few moments.
+          </p>
+
+          <div class="d-flex gap-3 justify-content-center flex-wrap">
+            <a href="{% url 'home' %}" class="btn btn-primary btn-lg">
+              <i class="fas fa-home me-2"></i>Back to Home
+            </a>
+            <a href="{% url 'contact:contact_page' %}" class="btn btn-outline-primary btn-lg">
+              <i class="fas fa-headset me-2"></i>Contact Support
+            </a>
+          </div>
+        </div>
+
+        <div class="mt-5 pt-4 border-top">
+          <p class="text-muted small">
+            <i class="fas fa-info-circle me-2"></i>
+            If the problem persists, please <a href="{% url 'contact:contact_page' %}" class="text-decoration-none">contact us</a> 
+            and we'll help you right away.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

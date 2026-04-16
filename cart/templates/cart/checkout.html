@@ -1,0 +1,202 @@
+{% extends 'base.html' %}
+{% block title %}Checkout - COMPUTER & CCTV HUB{% endblock %}
+{% block content %}
+<div class="container-lg py-5">
+  <div class="row mb-5">
+    <div class="col-lg-8 mx-auto">
+      <!-- Progress Steps -->
+      <div class="row mb-5">
+        <div class="col-12">
+          <div class="d-flex justify-content-between align-items-center">
+            <div class="text-center flex-grow-1">
+              <div class="rounded-circle bg-info text-white d-inline-flex align-items-center justify-content-center mb-2" style="width: 40px; height: 40px; font-weight: bold;">1</div>
+              <div class="small text-muted">Review Cart</div>
+            </div>
+            <div class="flex-grow-1 border-top border-info my-2"></div>
+            <div class="text-center flex-grow-1">
+              <div class="rounded-circle bg-info text-white d-inline-flex align-items-center justify-content-center mb-2" style="width: 40px; height: 40px; font-weight: bold;">2</div>
+              <div class="small text-info fw-bold">Checkout</div>
+            </div>
+            <div class="flex-grow-1 border-top border-secondary my-2"></div>
+            <div class="text-center flex-grow-1">
+              <div class="rounded-circle bg-secondary text-white d-inline-flex align-items-center justify-content-center mb-2" style="width: 40px; height: 40px; font-weight: bold;">3</div>
+              <div class="small text-muted">Payment</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card border-0 shadow-lg">
+        <div class="card-body p-5">
+          <div class="text-center mb-5">
+            <i class="fas fa-credit-card text-info mb-3" style="font-size: 3rem;"></i>
+            <h2 class="fw-bold mb-2">Checkout</h2>
+            <p class="text-muted lead">Complete your purchase</p>
+          </div>
+
+          <div class="alert alert-info alert-dismissible fade show" role="alert">
+            <i class="fas fa-info-circle me-2"></i>
+            <strong>Demo Mode:</strong> This is a placeholder checkout flow. To complete a real purchase, integrate a payment gateway such as Razorpay, Stripe, or PayPal.
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+
+          <!-- Shipping Address Section -->
+          <div class="mb-5 pb-4 border-bottom">
+            <h5 class="fw-bold mb-4">
+              <i class="fas fa-map-marker-alt text-info me-2"></i>Shipping Address
+            </h5>
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label class="form-label fw-500">Full Name</label>
+                <input type="text" class="form-control form-control-lg" placeholder="Enter your full name">
+              </div>
+              <div class="col-md-6">
+                <label class="form-label fw-500">Email Address</label>
+                <input type="email" class="form-control form-control-lg" placeholder="Enter your email">
+              </div>
+              <div class="col-12">
+                <label class="form-label fw-500">Address</label>
+                <input type="text" class="form-control form-control-lg" placeholder="Street address">
+              </div>
+              <div class="col-md-6">
+                <label class="form-label fw-500">City</label>
+                <input type="text" class="form-control form-control-lg" placeholder="City">
+              </div>
+              <div class="col-md-3">
+                <label class="form-label fw-500">State</label>
+                <input type="text" class="form-control form-control-lg" placeholder="State">
+              </div>
+              <div class="col-md-3">
+                <label class="form-label fw-500">ZIP Code</label>
+                <input type="text" class="form-control form-control-lg" placeholder="PIN Code">
+              </div>
+              <div class="col-12">
+                <label class="form-label fw-500">Phone Number</label>
+                <input type="tel" class="form-control form-control-lg" placeholder="10-digit mobile number">
+              </div>
+            </div>
+          </div>
+
+          <!-- Payment Method Section -->
+          <div class="mb-5 pb-4 border-bottom">
+            <h5 class="fw-bold mb-4">
+              <i class="fas fa-wallet text-info me-2"></i>Payment Method
+            </h5>
+            <div class="row g-3">
+              <div class="col-12">
+                <div class="form-check p-3 border border-info rounded-2 cursor-pointer">
+                  <input class="form-check-input" type="radio" name="payment" id="credit_card" checked>
+                  <label class="form-check-label w-100" for="credit_card">
+                    <strong><i class="fas fa-credit-card me-2"></i>Credit/Debit Card</strong>
+                    <small class="text-muted d-block ms-4">Visa, Mastercard, American Express</small>
+                  </label>
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="form-check p-3 border rounded-2">
+                  <input class="form-check-input" type="radio" name="payment" id="upi">
+                  <label class="form-check-label w-100" for="upi">
+                    <strong><i class="fas fa-mobile-alt me-2"></i>UPI</strong>
+                    <small class="text-muted d-block ms-4">Google Pay, PhonePe, BHIM</small>
+                  </label>
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="form-check p-3 border rounded-2">
+                  <input class="form-check-input" type="radio" name="payment" id="netbanking">
+                  <label class="form-check-label w-100" for="netbanking">
+                    <strong><i class="fas fa-university me-2"></i>Net Banking</strong>
+                    <small class="text-muted d-block ms-4">All Indian banks supported</small>
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Order Summary -->
+          <div class="mb-5">
+            <h5 class="fw-bold mb-4">
+              <i class="fas fa-receipt text-info me-2"></i>Order Summary
+            </h5>
+            <div class="bg-light p-4 rounded-3">
+              <div class="d-flex justify-content-between mb-3 pb-3 border-bottom">
+                <span>Subtotal</span>
+                <span class="fw-500">₹{{ subtotal|floatformat:2 }}</span>
+              </div>
+              <div class="d-flex justify-content-between mb-3 pb-3 border-bottom">
+                <span>Tax (18% GST)</span>
+                <span class="fw-500">₹{{ tax|floatformat:2 }}</span>
+              </div>
+              <div class="d-flex justify-content-between mb-4 pb-3 border-bottom">
+                <span>Shipping</span>
+                <span class="fw-500 text-success">{% if shipping == 0 %}FREE{% else %}₹{{ shipping|floatformat:2 }}{% endif %}</span>
+              </div>
+              <div class="d-flex justify-content-between align-items-center">
+                <span class="fw-bold fs-5">Total Amount</span>
+                <span class="fw-bold text-info fs-4">₹{{ grand_total|floatformat:2 }}</span>
+              </div>
+            </div>
+          </div>
+
+            <div class="d-flex gap-3 flex-wrap">
+              <a href="{% url 'cart:view' %}" class="btn btn-outline-secondary btn-lg flex-grow-1">
+                <i class="fas fa-arrow-left me-2"></i>Back to Cart
+              </a>
+              <a href="{% url 'cart:delivery_address' %}" class="btn btn-primary btn-lg flex-grow-1">
+                <i class="fas fa-map-marker-alt me-2"></i>Deliver to Address
+              </a>
+            </div>
+
+          <div class="alert alert-warning mt-4 mb-0">
+            <small><i class="fas fa-exclamation-triangle me-2"></i>Please note: This is a demo checkout page. To process real payments, integrate a secure payment gateway.</small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Payment Confirmation Modal -->
+<div class="modal fade" id="paymentModal" tabindex="-1" aria-labelledby="paymentModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content border-0 shadow-lg">
+      <div class="modal-body text-center py-5">
+        <div class="mb-4">
+          <i class="fas fa-check-circle text-success mb-3" style="font-size: 3rem;"></i>
+        </div>
+        <h5 class="fw-bold mb-3">Order Placed Successfully!</h5>
+        <p class="text-muted mb-4">Your order has been confirmed. You will receive an order confirmation email shortly.</p>
+        <p class="fw-500 mb-4">
+          <strong>Order ID:</strong> {{ order_id|default:"LS-" }}
+        </p>
+        <div>
+          <a href="{% url 'home' %}" class="btn btn-primary btn-lg">
+            <i class="fas fa-home me-2"></i>Continue Shopping
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% if order_placed %}
+<script>
+  document.addEventListener('DOMContentLoaded', function(){
+    var modal = new bootstrap.Modal(document.getElementById('paymentModal'));
+    modal.show();
+  });
+</script>
+{% endif %}
+
+<script>
+    // Auto-close all alerts after 5 seconds
+    document.addEventListener('DOMContentLoaded', function() {
+        const alerts = document.querySelectorAll('.alert');
+        alerts.forEach(function(alert) {
+            setTimeout(function() {
+                const bsAlert = new bootstrap.Alert(alert);
+                bsAlert.close();
+            }, 5000); // 5000 milliseconds = 5 seconds
+        });
+    });
+</script>
+{% endblock %}

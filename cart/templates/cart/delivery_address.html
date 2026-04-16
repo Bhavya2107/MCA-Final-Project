@@ -1,0 +1,248 @@
+{% extends 'base.html' %}
+{% block title %}Delivery Address - COMPUTER & CCTV HUB{% endblock %}
+{% block content %}
+<div class="container-lg py-5">
+  <div class="row mb-5">
+    <div class="col-lg-8 mx-auto">
+      <!-- Progress Steps -->
+      <div class="row mb-5">
+        <div class="col-12">
+          <div class="d-flex justify-content-between align-items-center">
+            <div class="text-center flex-grow-1">
+              <div class="rounded-circle bg-info text-white d-inline-flex align-items-center justify-content-center mb-2" style="width: 40px; height: 40px; font-weight: bold;">✓</div>
+              <div class="small text-info">Review Cart</div>
+            </div>
+            <div class="flex-grow-1 border-top border-info my-2"></div>
+            <div class="text-center flex-grow-1">
+              <div class="rounded-circle bg-info text-white d-inline-flex align-items-center justify-content-center mb-2" style="width: 40px; height: 40px; font-weight: bold;">2</div>
+              <div class="small text-info fw-bold">Delivery Address</div>
+            </div>
+            <div class="flex-grow-1 border-top border-secondary my-2"></div>
+            <div class="text-center flex-grow-1">
+              <div class="rounded-circle bg-secondary text-white d-inline-flex align-items-center justify-content-center mb-2" style="width: 40px; height: 40px; font-weight: bold;">3</div>
+              <div class="small text-muted">Confirmation</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card border-0 shadow-lg">
+        <div class="card-body p-5">
+          <div class="text-center mb-5">
+            <i class="fas fa-map-marker-alt text-info mb-3" style="font-size: 3rem;"></i>
+            <h2 class="fw-bold mb-2">Delivery Address</h2>
+            <p class="text-muted lead">Please provide your delivery address</p>
+          </div>
+
+          <!-- Alert for Ahmedabad free delivery -->
+          <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <i class="fas fa-gift me-2"></i>
+            <strong>Great News!</strong> Delivery is <strong>FREE</strong> in Ahmedabad only. For other cities, delivery charge is ₹100.
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+
+          <form method="post" id="delivery-form" novalidate>
+            {% csrf_token %}
+
+            <!-- Delivery Information Section -->
+            <div class="mb-5 pb-4 border-bottom">
+              <h5 class="fw-bold mb-4">
+                <i class="fas fa-info-circle text-info me-2"></i>Contact Information
+              </h5>
+              <div class="row g-3">
+                <div class="col-md-6">
+                  <label class="form-label fw-500">Full Name *</label>
+                  {% if form.delivery_full_name.errors %}
+                    <input type="text" class="form-control form-control-lg is-invalid" name="delivery_full_name" value="{{ form.delivery_full_name.value }}">
+                    <div class="invalid-feedback d-block">{{ form.delivery_full_name.errors|first }}</div>
+                  {% else %}
+                    <input type="text" class="form-control form-control-lg" name="delivery_full_name" value="{{ form.delivery_full_name.value }}" placeholder="Enter your full name" required>
+                  {% endif %}
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label fw-500">Phone Number *</label>
+                  {% if form.delivery_phone.errors %}
+                    <input type="tel" class="form-control form-control-lg is-invalid" name="delivery_phone" value="{{ form.delivery_phone.value }}">
+                    <div class="invalid-feedback d-block">{{ form.delivery_phone.errors|first }}</div>
+                  {% else %}
+                    <input type="tel" class="form-control form-control-lg" name="delivery_phone" value="{{ form.delivery_phone.value }}" placeholder="10-digit mobile number" required>
+                  {% endif %}
+                </div>
+                <div class="col-12">
+                  <label class="form-label fw-500">Email Address *</label>
+                  {% if form.delivery_email.errors %}
+                    <input type="email" class="form-control form-control-lg is-invalid" name="delivery_email" value="{{ form.delivery_email.value }}">
+                    <div class="invalid-feedback d-block">{{ form.delivery_email.errors|first }}</div>
+                  {% else %}
+                    <input type="email" class="form-control form-control-lg" name="delivery_email" value="{{ form.delivery_email.value }}" placeholder="Enter your email" required>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+
+            <!-- Delivery Address Section -->
+            <div class="mb-5 pb-4 border-bottom">
+              <h5 class="fw-bold mb-4">
+                <i class="fas fa-map-marker-alt text-info me-2"></i>Delivery Address
+              </h5>
+              <div class="row g-3">
+                <div class="col-12">
+                  <label class="form-label fw-500">Street Address *</label>
+                  {% if form.delivery_street_address.errors %}
+                    <input type="text" class="form-control form-control-lg is-invalid" name="delivery_street_address" value="{{ form.delivery_street_address.value }}">
+                    <div class="invalid-feedback d-block">{{ form.delivery_street_address.errors|first }}</div>
+                  {% else %}
+                    <input type="text" class="form-control form-control-lg" name="delivery_street_address" value="{{ form.delivery_street_address.value }}" placeholder="Street address" required>
+                  {% endif %}
+                </div>
+                <div class="col-12">
+                  <label class="form-label fw-500">Apartment, Suite, etc. (Optional)</label>
+                  <input type="text" class="form-control form-control-lg" name="delivery_apartment" value="{{ form.delivery_apartment.value }}" placeholder="Apartment, suite, etc.">
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label fw-500">City *</label>
+                  {% if form.delivery_city.errors %}
+                    <input type="text" class="form-control form-control-lg is-invalid" name="delivery_city" value="{{ form.delivery_city.value }}">
+                    <div class="invalid-feedback d-block">{{ form.delivery_city.errors|first }}</div>
+                  {% else %}
+                    <input type="text" class="form-control form-control-lg" id="city-input" name="delivery_city" value="{{ form.delivery_city.value }}" placeholder="City" required>
+                  {% endif %}
+                </div>
+                <div class="col-md-3">
+                  <label class="form-label fw-500">State *</label>
+                  {% if form.delivery_state.errors %}
+                    <input type="text" class="form-control form-control-lg is-invalid" name="delivery_state" value="{{ form.delivery_state.value }}">
+                    <div class="invalid-feedback d-block">{{ form.delivery_state.errors|first }}</div>
+                  {% else %}
+                    <input type="text" class="form-control form-control-lg" name="delivery_state" value="{{ form.delivery_state.value }}" placeholder="State" required>
+                  {% endif %}
+                </div>
+                <div class="col-md-3">
+                  <label class="form-label fw-500">Postal Code *</label>
+                  {% if form.delivery_postal_code.errors %}
+                    <input type="text" class="form-control form-control-lg is-invalid" name="delivery_postal_code" value="{{ form.delivery_postal_code.value }}">
+                    <div class="invalid-feedback d-block">{{ form.delivery_postal_code.errors|first }}</div>
+                  {% else %}
+                    <input type="text" class="form-control form-control-lg" name="delivery_postal_code" value="{{ form.delivery_postal_code.value }}" placeholder="PIN Code" required>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+
+            <!-- Order Summary -->
+            <div class="mb-5">
+              <h5 class="fw-bold mb-4">
+                <i class="fas fa-receipt text-info me-2"></i>Order Summary
+              </h5>
+              
+              <!-- Cart Items -->
+              <div class="bg-light p-4 rounded-3 mb-4">
+                <div class="table-responsive">
+                  <table class="table table-sm mb-0">
+                    <tbody>
+                      {% for item in items %}
+                      <tr>
+                        <td class="ps-0">
+                          <div class="fw-500">{{ item.product_name }}</div>
+                          <small class="text-muted">₹{{ item.price|floatformat:2 }} × {{ item.quantity }}</small>
+                        </td>
+                        <td class="text-end pe-0">
+                          <span class="fw-500">₹{{ item.get_subtotal|floatformat:2 }}</span>
+                        </td>
+                      </tr>
+                      {% endfor %}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <!-- Price Breakdown -->
+              <div class="bg-light p-4 rounded-3">
+                <div class="d-flex justify-content-between mb-3 pb-3 border-bottom">
+                  <span>Subtotal</span>
+                  <span class="fw-500">₹{{ subtotal|floatformat:2 }}</span>
+                </div>
+                <div class="d-flex justify-content-between mb-3 pb-3 border-bottom">
+                  <span>Tax (18% GST)</span>
+                  <span class="fw-500">₹{{ tax|floatformat:2 }}</span>
+                </div>
+                <div class="d-flex justify-content-between mb-4 pb-3 border-bottom">
+                  <span>Delivery Charges</span>
+                  <span class="fw-500 delivery-charges-display text-danger">₹100</span>
+                  <small class="text-success ahmedabad-hint" style="display: none; position: absolute; right: 1rem;">Free in Ahmedabad!</small>
+                </div>
+                <div class="d-flex justify-content-between align-items-center">
+                  <span class="fw-bold fs-5">Total Amount</span>
+                  <span class="fw-bold text-info fs-4 total-amount-display">₹{{ subtotal|add:tax|floatformat:2 }}</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Payment Method -->
+            <div class="mb-5 pb-4 border-bottom">
+              <h5 class="fw-bold mb-4">
+                <i class="fas fa-wallet text-info me-2"></i>Payment Method
+              </h5>
+              <div class="alert alert-info">
+                <strong><i class="fas fa-money-bill-wave me-2"></i>Cash on Delivery (COD)</strong><br>
+                Pay directly to the delivery partner when your order arrives.
+              </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="d-flex gap-3 flex-wrap">
+              <a href="{% url 'cart:checkout' %}" class="btn btn-outline-secondary btn-lg flex-grow-1">
+                <i class="fas fa-arrow-left me-2"></i>Back to Checkout
+              </a>
+              <button type="submit" class="btn btn-primary btn-lg flex-grow-1">
+                <i class="fas fa-check-circle me-2"></i>Confirm Order
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Update delivery charges based on city
+  document.getElementById('city-input').addEventListener('change', function() {
+    const city = this.value.toLowerCase().trim();
+    const deliveryCharges = document.querySelector('.delivery-charges-display');
+    const ahmedabadHint = document.querySelector('.ahmedabad-hint');
+    const subtotal = parseFloat('{{ subtotal|floatformat:2 }}');
+    const tax = parseFloat('{{ tax|floatformat:2 }}');
+    const totalDisplay = document.querySelector('.total-amount-display');
+    
+    if (city === 'ahmedabad') {
+      deliveryCharges.textContent = '₹0.00';
+      deliveryCharges.classList.remove('text-danger');
+      deliveryCharges.classList.add('text-success');
+      ahmedabadHint.style.display = 'block';
+      totalDisplay.textContent = '₹' + (subtotal + tax).toFixed(2);
+    } else {
+      deliveryCharges.textContent = '₹100.00';
+      deliveryCharges.classList.remove('text-success');
+      deliveryCharges.classList.add('text-danger');
+      ahmedabadHint.style.display = 'none';
+      totalDisplay.textContent = '₹' + (subtotal + tax + 100).toFixed(2);
+    }
+  });
+
+  // Form validation
+  document.getElementById('delivery-form').addEventListener('submit', function(e) {
+    if (!this.checkValidity()) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+    this.classList.add('was-validated');
+  });
+</script>
+
+<style>
+  .ahmedabad-hint {
+    font-size: 0.85rem;
+  }
+</style>
+{% endblock %}
