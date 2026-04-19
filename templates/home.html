@@ -1,0 +1,431 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+  Home - COMPUTER & CCTV HUB
+{% endblock %}
+
+{% block content %}
+  <style>
+    /* What We Offer Section Styles */
+    .offer-card {
+      position: relative;
+    }
+    
+    .offer-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 40px rgba(6, 182, 212, 0.2);
+    }
+    
+    .offer-card .card-header {
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .offer-card .card-header::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: inherit;
+      opacity: 0.1;
+      transform: rotate(45deg);
+      transition: all 0.4s ease;
+    }
+    
+    .offer-card:hover .card-header::before {
+      transform: rotate(45deg) scale(1.1);
+    }
+    
+    .icon-wrapper {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 80px;
+      height: 80px;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 50%;
+      backdrop-filter: blur(10px);
+      border: 2px solid rgba(255, 255, 255, 0.3);
+    }
+    
+    .features-list {
+      background: rgba(6, 182, 212, 0.02);
+      border-radius: 12px;
+      padding: 16px;
+    }
+    
+    .feature-item {
+      transition: all 0.3s ease;
+    }
+    
+    .feature-item:hover {
+      transform: translateX(4px);
+    }
+    
+    .btn {
+      transition: all 0.3s ease;
+    }
+    
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    }
+    
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .offer-card {
+        margin-bottom: 2rem;
+      }
+    
+      .offer-card .card-header {
+        padding: 2rem 1rem;
+      }
+    
+      .icon-wrapper {
+        width: 60px;
+        height: 60px;
+      }
+    
+      .icon-wrapper i {
+        font-size: 2rem;
+      }
+    
+      .features-list {
+        padding: 12px;
+      }
+    }
+    
+    @media (max-width: 576px) {
+      .offer-card {
+        border-radius: 15px;
+      }
+    
+      .offer-card .card-body {
+        padding: 1.5rem;
+      }
+    }
+    
+    /* Animation keyframes */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    .offer-card {
+      animation: fadeInUp 0.6s ease-out;
+    }
+    
+    .offer-card:nth-child(2) {
+      animation-delay: 0.1s;
+    }
+    
+    .offer-card:nth-child(3) {
+      animation-delay: 0.2s;
+    }
+  </style>
+
+  {% comment %} <!-- Hero Section with Large Logo -->
+  <div class="hero-section mb-5 pt-5 pb-5">
+    <div class="container-lg py-5">
+      <img src="{% static 'images/logo.svg' %}" alt="COMPUTER & CCTV HUB Logo" class="logo-hero" />
+      <h1 class="display-4 fw-bold text-info mb-3">COMPUTER & CCTV HUB</h1>
+      <p class="lead text-white mb-0">Your Trusted Partner for Quality Computers & Security Solutions</p>
+    </div>
+  </div> {% endcomment %}
+
+  <!-- CTA Section with Background Image -->
+  <div class="mb-5 rounded-4 overflow-hidden laptop-section" style="position: relative; background: linear-gradient(135deg, rgba(248,250,252,1) 0%, rgba(241,245,249,1) 100%); border: 1px solid rgba(6, 182, 212, 0.16); box-shadow: 0 18px 45px rgba(6, 182, 212, 0.12);">
+    <div class="container-fluid px-0">
+      <div class="row g-0 align-items-stretch">
+        <div class="col-12 col-lg-7">
+          <div style="height: 100%; padding: 55px 28px; padding-left: 32px; padding-right: 32px; background: linear-gradient(135deg, rgba(255,255,255,0.96) 0%, rgba(248,250,252,0.98) 100%); position: relative; overflow: hidden;">
+            <div style="position: absolute; top: -80px; left: -80px; width: 220px; height: 220px; border-radius: 50%; background: rgba(6, 182, 212, 0.06);"></div>
+            <div style="position: absolute; bottom: -100px; right: -60px; width: 220px; height: 220px; border-radius: 50%; background: rgba(8, 145, 178, 0.05);"></div>
+
+            <div style="position: relative; z-index: 2; max-width: 720px;">
+              <div style="display: inline-flex; align-items: center; gap: 10px; padding: 9px 16px; border-radius: 999px; background: rgba(6, 182, 212, 0.08); color: #0891b2; font-size: 0.92rem; font-weight: 700; margin-bottom: 20px;">
+                <i class="fas fa-laptop-house"></i>
+                <span>COMPUTER & CCTV HUB</span>
+              </div>
+
+              <h2 class="display-5 fw-bold mb-4" style="background: linear-gradient(135deg, #0f172a 0%, #06b6d4 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; line-height: 1.12;">Find Your Perfect Solution</h2>
+
+              <div style="display: flex; flex-direction: column; gap: 14px; margin-bottom: 34px;">
+                <div style="display: flex; align-items: center; padding: 14px 16px; background: rgba(255,255,255,0.72); border: 1px solid rgba(6, 182, 212, 0.10); border-radius: 14px; box-shadow: 0 6px 18px rgba(15, 23, 42, 0.04);">
+                  <i class="fas fa-check-circle text-info me-3" style="font-size: 1.2rem;"></i>
+                  <span><strong>Authentic Products</strong> - 100% genuine items</span>
+                </div>
+
+                <div style="display: flex; align-items: center; padding: 14px 16px; background: rgba(255,255,255,0.72); border: 1px solid rgba(6, 182, 212, 0.10); border-radius: 14px; box-shadow: 0 6px 18px rgba(15, 23, 42, 0.04);">
+                  <i class="fas fa-check-circle text-info me-3" style="font-size: 1.2rem;"></i>
+                  <span><strong>Expert Support</strong> - Knowledgeable team</span>
+                </div>
+
+                <div style="display: flex; align-items: center; padding: 14px 16px; background: rgba(255,255,255,0.72); border: 1px solid rgba(6, 182, 212, 0.10); border-radius: 14px; box-shadow: 0 6px 18px rgba(15, 23, 42, 0.04);">
+                  <i class="fas fa-check-circle text-info me-3" style="font-size: 1.2rem;"></i>
+                  <span><strong>Best Prices</strong> - Competitive rates</span>
+                </div>
+              </div>
+
+              <div class="d-flex flex-column gap-3" style="max-width: auto;">
+                <a class="btn btn-lg fw-bold" style="background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%); color: white; border: none; padding: 15px 28px; box-shadow: 0 8px 20px rgba(6, 182, 212, 0.26); border-radius: 14px; transition: all 0.3s ease; width: 100%;" href="{% url 'new_laptops:request_laptop' %}" onmouseover="this.style.transform='translateY(-4px)'; this.style.boxShadow='0 16px 30px rgba(6, 182, 212, 0.34)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 8px 20px rgba(6, 182, 212, 0.26)';"><i class="fas fa-laptop me-2"></i>Quick Start - Shop New</a>
+
+                <a class="btn btn-lg fw-bold" style="border: 2px solid #06b6d4; color: #06b6d4; background: white; padding: 15px 28px; border-radius: 14px; transition: all 0.3s ease; box-shadow: 0 6px 16px rgba(6, 182, 212, 0.08); width: 100%;" href="/used/" onmouseover="this.style.transform='translateY(-4px)'; this.style.background='#ecfeff'; this.style.boxShadow='0 14px 28px rgba(6, 182, 212, 0.18)';" onmouseout="this.style.transform='translateY(0)'; this.style.background='white'; this.style.boxShadow='0 6px 16px rgba(6, 182, 212, 0.08)';"><i class="fas fa-recycle me-2"></i>Refurbished Options</a>
+
+                <a class="btn btn-lg fw-bold" style="border: 2px solid #0f172a; color: #0f172a; background: rgba(15, 23, 42, 0.05); padding: 15px 28px; border-radius: 14px; transition: all 0.3s ease; box-shadow: 0 6px 16px rgba(15, 23, 42, 0.05); width: 100%;" href="{% url 'contact:contact_page' %}" onmouseover="this.style.transform='translateY(-4px)'; this.style.background='rgba(15, 23, 42, 0.10)'; this.style.boxShadow='0 14px 28px rgba(15, 23, 42, 0.14)';" onmouseout="this.style.transform='translateY(0)'; this.style.background='rgba(15, 23, 42, 0.05)'; this.style.boxShadow='0 6px 16px rgba(15, 23, 42, 0.05)';"><i class="fas fa-phone me-2"></i>Get Expert Advice</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12 col-lg-5">
+          <div style="position: relative; min-height: 100%; height: 100%; background-image: url('{% static 'images/laptop-bg.webp' %}'); background-size: cover; background-position: center; background-repeat: no-repeat; min-height: 520px;">
+            <div style="position: absolute; inset: 0; background: linear-gradient(180deg, rgba(15,23,42,0.18) 0%, rgba(15,23,42,0.30) 100%);"></div>
+
+            <div style="position: absolute; top: 28px; right: 28px; background: rgba(255,255,255,0.14); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.22); color: white; padding: 10px 16px; border-radius: 999px; font-weight: 600;">Latest Collection</div>
+
+            <div style="position: absolute; left: 28px; bottom: 28px; right: 28px; background: rgba(255,255,255,0.14); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.20); border-radius: 20px; padding: 22px; color: white; box-shadow: 0 12px 30px rgba(15, 23, 42, 0.18);">
+              <div style="font-size: 0.95rem; opacity: 0.9; margin-bottom: 8px;">Reliable Products</div>
+              <div style="font-size: 1.4rem; font-weight: 700; line-height: 1.3;">New laptops, refurbished options, and accessories for every setup.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- What We Offer Section -->
+  <div class="mb-5">
+    <div class="container-fluid">
+      <div class="text-center mb-5">
+        <h2 class="display-5 fw-bold mb-3" style="background: linear-gradient(135deg, #0f172a 0%, #06b6d4 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">What We Offer</h2>
+        <p class="text-secondary fs-5 mb-0">Explore our wide range of products and services</p>
+      </div>
+
+      <div class="row g-4 justify-content-center">
+        <!-- New Laptops Card -->
+        <div class="col-12 col-sm-6 col-xl-4">
+          <div class="offer-card h-100" style="background: white; border-radius: 20px; box-shadow: 0 8px 32px rgba(6, 182, 212, 0.1); border: 1px solid rgba(6, 182, 212, 0.1); transition: all 0.4s ease; cursor: pointer; overflow: hidden;">
+            <div class="card-header text-center py-4" style="background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%); color: white;">
+              <div class="icon-wrapper mb-3">
+                <i class="fas fa-laptop" style="font-size: 3rem;"></i>
+              </div>
+              <h4 class="fw-bold mb-0">New Laptops</h4>
+            </div>
+            <div class="card-body p-4">
+              <p class="text-secondary mb-4 lh-base">Latest models from top brands with full warranty and technical support.</p>
+              <div class="features-list mb-4">
+                <div class="feature-item d-flex align-items-center mb-2">
+                  <i class="fas fa-check-circle text-info me-3"></i>
+                  <span class="small fw-medium">Latest Models</span>
+                </div>
+                <div class="feature-item d-flex align-items-center mb-2">
+                  <i class="fas fa-check-circle text-info me-3"></i>
+                  <span class="small fw-medium">Full Warranty</span>
+                </div>
+                <div class="feature-item d-flex align-items-center">
+                  <i class="fas fa-check-circle text-info me-3"></i>
+                  <span class="small fw-medium">Expert Support</span>
+                </div>
+              </div>
+              <a href="{% url 'new_laptops:request_laptop' %}" class="btn w-100 fw-bold" style="border-radius: 10px; padding: 12px; background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%); color: #fff; border: none;"><i class="fas fa-arrow-right me-2"></i>Request Now</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Refurbished Laptops Card -->
+        <div class="col-12 col-sm-6 col-xl-4">
+          <div class="offer-card h-100" style="background: white; border-radius: 20px; box-shadow: 0 8px 32px rgba(6, 182, 212, 0.1); border: 1px solid rgba(6, 182, 212, 0.1); transition: all 0.4s ease; cursor: pointer; overflow: hidden;">
+            <div class="card-header text-center py-4" style="background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%); color: white;">
+              <div class="icon-wrapper mb-3">
+                <i class="fas fa-recycle" style="font-size: 3rem;"></i>
+              </div>
+              <h4 class="fw-bold mb-0">Refurbished Laptops</h4>
+            </div>
+            <div class="card-body p-4">
+              <p class="text-secondary mb-4 lh-base">Thoroughly inspected pre-owned machines at unbeatable prices.</p>
+              <div class="features-list mb-4">
+                <div class="feature-item d-flex align-items-center mb-2">
+                  <i class="fas fa-check-circle text-info me-3"></i>
+                  <span class="small fw-medium">Save Up to 50%</span>
+                </div>
+                <div class="feature-item d-flex align-items-center mb-2">
+                  <i class="fas fa-check-circle text-info me-3"></i>
+                  <span class="small fw-medium">Fully Tested</span>
+                </div>
+                <div class="feature-item d-flex align-items-center">
+                  <i class="fas fa-check-circle text-info me-3"></i>
+                  <span class="small fw-medium">Quality Assured</span>
+                </div>
+              </div>
+              <a href="/used/" class="btn w-100 fw-bold" style="border-radius: 10px; padding: 12px; background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%); color: #fff; border: none;"><i class="fas fa-arrow-right me-2"></i>Browse Deals</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Accessories Card -->
+        <div class="col-12 col-sm-6 col-xl-4">
+          <div class="offer-card h-100" style="background: white; border-radius: 20px; box-shadow: 0 8px 32px rgba(6, 182, 212, 0.1); border: 1px solid rgba(6, 182, 212, 0.1); transition: all 0.4s ease; cursor: pointer; overflow: hidden;">
+            <div class="card-header text-center py-4" style="background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%); color: white;">
+              <div class="icon-wrapper mb-3">
+                <i class="fas fa-keyboard" style="font-size: 3rem;"></i>
+              </div>
+              <h4 class="fw-bold mb-0">Accessories</h4>
+            </div>
+            <div class="card-body p-4">
+              <p class="text-secondary mb-4 lh-base">Complete your setup with bags, chargers, peripherals, and more.</p>
+              <div class="features-list mb-4">
+                <div class="feature-item d-flex align-items-center mb-2">
+                  <i class="fas fa-check-circle text-info me-3"></i>
+                  <span class="small fw-medium">Wide Selection</span>
+                </div>
+                <div class="feature-item d-flex align-items-center mb-2">
+                  <i class="fas fa-check-circle text-info me-3"></i>
+                  <span class="small fw-medium">Quality Brands</span>
+                </div>
+                <div class="feature-item d-flex align-items-center">
+                  <i class="fas fa-check-circle text-info me-3"></i>
+                  <span class="small fw-medium">Best Prices</span>
+                </div>
+              </div>
+              <a href="/accessories/" class="btn w-100 fw-bold" style="background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%); color: white; border: none; border-radius: 10px; padding: 12px;"><i class="fas fa-arrow-right me-2"></i>Shop Now</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Featured Products Section -->
+  <div class="mb-5 rounded-4 overflow-hidden" style="position: relative; background-image: url('{% static 'images/laptop-bg.webp' %}'); background-size: cover; background-position: center; background-repeat: no-repeat; border: 1px solid rgba(6, 182, 212, 0.16); box-shadow: 0 18px 45px rgba(6, 182, 212, 0.10);">
+    <div style="position: absolute; inset: 0; background: linear-gradient(135deg, rgba(255,255,255,0.35) 0%, rgba(248,250,252,0.32) 45%, rgba(241,245,249,0.28) 100%); z-index: 1;"></div>
+
+    <div class="container-fluid py-5 px-4 px-lg-5" style="position: relative; z-index: 2;">
+      <div class="text-center mb-5">
+        <h2 class="display-6 fw-bold mb-3" style="background: linear-gradient(135deg, #0f172a 0%, #06b6d4 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Featured Products</h2>
+        <p class="text-secondary fs-5 mb-0">Explore our latest laptops, refurbished systems, and accessories</p>
+      </div>
+
+      <div class="row g-4">
+        {% for product in featured_products %}
+          <div class="col-12 col-sm-6 col-lg-4 col-xl-3">
+            <div style="background: rgba(255,255,255,0.96); border-radius: 18px; overflow: hidden; box-shadow: 0 8px 24px rgba(6, 182, 212, 0.08); border: 1px solid rgba(6, 182, 212, 0.10); height: 100%; transition: all 0.35s ease;" onmouseover="this.style.transform='translateY(-8px)'; this.style.boxShadow='0 18px 36px rgba(6, 182, 212, 0.18)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 8px 24px rgba(6, 182, 212, 0.08)';">
+              <div style="height: 220px; background: #f8fafc; display: flex; align-items: center; justify-content: center; overflow: hidden;">
+                {% if product.image %}
+                  <img src="{{ product.image.url }}" alt="{{ product.name }}" style="width: 100%; height: 100%; object-fit: cover; transition: all 0.35s ease;" onmouseover="this.style.transform='scale(1.06)';" onmouseout="this.style.transform='scale(1)';" />
+                {% else %}
+                  <div style="color: #94a3b8; font-size: 2rem;">
+                    <i class="fas fa-laptop"></i>
+                  </div>
+                {% endif %}
+              </div>
+
+              <div style="padding: 20px;">
+                <h5 class="fw-bold mb-2" style="color: #0f172a; font-size: 1.05rem; line-height: 1.4;">{{ product.name }}</h5>
+
+                {% if product.category %}
+                  <div style="font-size: 0.85rem; color: #0891b2; font-weight: 600; margin-bottom: 10px;">{{ product.category }}</div>
+                {% endif %}
+
+                {% if product.price %}
+                  <div class="mb-3" style="font-size: 1.15rem; font-weight: 700; color: #06b6d4;">Rs. {{ product.price }}</div>
+                {% endif %}
+
+                {% if product.short_description %}
+                  <p class="text-secondary mb-3" style="font-size: 0.92rem; line-height: 1.6;">{{ product.short_description|truncatechars:80 }}</p>
+                {% endif %}
+
+                <a href="{{ product.get_absolute_url }}" class="btn w-100 fw-bold" style="background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%); color: white; border: none; border-radius: 12px; padding: 12px; transition: all 0.3s ease;" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 12px 24px rgba(6, 182, 212, 0.22)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';"><i class="fas fa-eye me-2"></i>View Product</a>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+
+  <!-- Why Choose Us Section -->
+  <div class="mb-5 py-5" style="background: linear-gradient(135deg, rgba(6, 182, 212, 0.05) 0%, rgba(6, 182, 212, 0.02) 100%); border-radius: 15px; border: 1px solid rgba(6, 182, 212, 0.15);">
+    <div class="container-fluid">
+      <h2 class="display-6 fw-bold mb-5 text-center">Why Choose COMPUTER & CCTV HUB?</h2>
+
+      <div class="row g-5">
+        <div class="col-12 col-md-6 col-lg-3">
+          <div style="background: white; border-radius: 14px; padding: 2rem; box-shadow: 0 4px 15px rgba(6, 182, 212, 0.1); text-align: center; height: 100%; transition: all 0.35s ease;" onmouseover="this.style.transform='translateY(-12px) scale(1.02)'; this.style.boxShadow='0 12px 30px rgba(6, 182, 212, 0.22)'; this.children[0].style.transform='rotate(8deg) scale(1.12)'; this.children[0].style.boxShadow='0 10px 20px rgba(6, 182, 212, 0.28)'; this.children[0].children[0].style.transform='scale(1.15)';" onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.boxShadow='0 4px 15px rgba(6, 182, 212, 0.1)'; this.children[0].style.transform='rotate(0deg) scale(1)'; this.children[0].style.boxShadow='none'; this.children[0].children[0].style.transform='scale(1)';">
+            <div style="width: 70px; height: 70px; background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; color: white; transition: all 0.35s ease;">
+              <i class="fas fa-shield-alt" style="font-size: 2rem; transition: all 0.35s ease;"></i>
+            </div>
+            <h5 class="fw-bold mb-3" style="font-size: 1.15rem;">Trusted Quality</h5>
+            <p class="text-secondary" style="line-height: 1.6;">All products are genuine and thoroughly inspected for quality assurance.</p>
+          </div>
+        </div>
+
+        <div class="col-12 col-md-6 col-lg-3">
+          <div style="background: white; border-radius: 14px; padding: 2rem; box-shadow: 0 4px 15px rgba(6, 182, 212, 0.1); text-align: center; height: 100%; transition: all 0.35s ease;" onmouseover="this.style.transform='translateY(-12px) scale(1.02)'; this.style.boxShadow='0 12px 30px rgba(6, 182, 212, 0.22)'; this.children[0].style.transform='rotate(8deg) scale(1.12)'; this.children[0].style.boxShadow='0 10px 20px rgba(6, 182, 212, 0.28)'; this.children[0].children[0].style.transform='scale(1.15)';" onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.boxShadow='0 4px 15px rgba(6, 182, 212, 0.1)'; this.children[0].style.transform='rotate(0deg) scale(1)'; this.children[0].style.boxShadow='none'; this.children[0].children[0].style.transform='scale(1)';">
+            <div style="width: 70px; height: 70px; background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; color: white; transition: all 0.35s ease;">
+              <i class="fas fa-headset" style="font-size: 2rem; transition: all 0.35s ease;"></i>
+            </div>
+            <h5 class="fw-bold mb-3" style="font-size: 1.15rem;">Expert Support</h5>
+            <p class="text-secondary" style="line-height: 1.6;">Our knowledgeable team is ready to help you find the perfect product.</p>
+          </div>
+        </div>
+
+        <div class="col-12 col-md-6 col-lg-3">
+          <div style="background: white; border-radius: 14px; padding: 2rem; box-shadow: 0 4px 15px rgba(6, 182, 212, 0.1); text-align: center; height: 100%; transition: all 0.35s ease;" onmouseover="this.style.transform='translateY(-12px) scale(1.02)'; this.style.boxShadow='0 12px 30px rgba(6, 182, 212, 0.22)'; this.children[0].style.transform='rotate(8deg) scale(1.12)'; this.children[0].style.boxShadow='0 10px 20px rgba(6, 182, 212, 0.28)'; this.children[0].children[0].style.transform='scale(1.15)';" onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.boxShadow='0 4px 15px rgba(6, 182, 212, 0.1)'; this.children[0].style.transform='rotate(0deg) scale(1)'; this.children[0].style.boxShadow='none'; this.children[0].children[0].style.transform='scale(1)';">
+            <div style="width: 70px; height: 70px; background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; color: white; transition: all 0.35s ease;">
+              <i class="fas fa-tag" style="font-size: 2rem; transition: all 0.35s ease;"></i>
+            </div>
+            <h5 class="fw-bold mb-3" style="font-size: 1.15rem;">Best Prices</h5>
+            <p class="text-secondary" style="line-height: 1.6;">Competitive pricing with regular deals and special offers.</p>
+          </div>
+        </div>
+
+        <div class="col-12 col-md-6 col-lg-3">
+          <div style="background: white; border-radius: 14px; padding: 2rem; box-shadow: 0 4px 15px rgba(6, 182, 212, 0.1); text-align: center; height: 100%; transition: all 0.35s ease;" onmouseover="this.style.transform='translateY(-12px) scale(1.02)'; this.style.boxShadow='0 12px 30px rgba(6, 182, 212, 0.22)'; this.children[0].style.transform='rotate(8deg) scale(1.12)'; this.children[0].style.boxShadow='0 10px 20px rgba(6, 182, 212, 0.28)'; this.children[0].children[0].style.transform='scale(1.15)';" onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.boxShadow='0 4px 15px rgba(6, 182, 212, 0.1)'; this.children[0].style.transform='rotate(0deg) scale(1)'; this.children[0].style.boxShadow='none'; this.children[0].children[0].style.transform='scale(1)';">
+            <div style="width: 70px; height: 70px; background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; color: white; transition: all 0.35s ease;">
+              <i class="fas fa-truck" style="font-size: 2rem; transition: all 0.35s ease;"></i>
+            </div>
+            <h5 class="fw-bold mb-3" style="font-size: 1.15rem;">Fast Delivery</h5>
+            <p class="text-secondary" style="line-height: 1.6;">Quick processing and reliable delivery to your doorstep.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA Section -->
+  <div class="mb-4 pt-5 pb-4">
+    <div class="container-fluid">
+      <div style="background: linear-gradient(135deg, #0f172a 0%, #164e63 100%); border-radius: 24px; padding: 50px 25px; position: relative; overflow: hidden;">
+        <div style="position: absolute; top: -40px; right: -40px; width: 180px; height: 180px; background: rgba(255,255,255,0.06); border-radius: 50%;"></div>
+        <div style="position: absolute; bottom: -50px; left: -50px; width: 220px; height: 220px; background: rgba(255,255,255,0.04); border-radius: 50%;"></div>
+
+        <div class="row align-items-center text-center text-lg-start" style="position: relative; z-index: 2;">
+          <div class="col-12 col-lg-8 mb-4 mb-lg-0">
+            <span style="display: inline-block; background: rgba(255,255,255,0.12); color: #cffafe; padding: 8px 16px; border-radius: 50px; font-size: 0.9rem; font-weight: 600; margin-bottom: 18px;">COMPUTER & CCTV HUB</span>
+
+            <h2 class="fw-bold mb-3" style="font-size: clamp(2rem, 4vw, 3rem); color: white; line-height: 1.2;">Ready to Upgrade Your Setup?</h2>
+
+            <p class="mb-0" style="font-size: 1.08rem; color: rgba(255,255,255,0.78); max-width: 700px;">Explore reliable products for home, office, and security needs, or connect with our team for quick help choosing the right solution.</p>
+          </div>
+
+          <div class="col-12 col-lg-4">
+            <div class="d-flex flex-column flex-sm-row flex-lg-column gap-3 align-items-center align-items-lg-stretch justify-content-center">
+              <a href="{% url 'new_laptops:request_laptop' %}" class="btn" style="background: #06b6d4; color: white; border: none; border-radius: 14px; padding: 15px 28px; font-size: 1rem; font-weight: 700; box-shadow: 0 10px 25px rgba(6, 182, 212, 0.28); transition: all 0.3s ease; min-width: 220px;" onmouseover="this.style.transform='translateY(-3px)'; this.style.background='#0891b2'; this.style.boxShadow='0 16px 30px rgba(6, 182, 212, 0.35)';" onmouseout="this.style.transform='translateY(0)'; this.style.background='#06b6d4'; this.style.boxShadow='0 10px 25px rgba(6, 182, 212, 0.28)';"><i class="fas fa-shopping-cart me-2"></i>Start Shopping</a>
+
+              <a href="{% url 'contact:contact_page' %}" class="btn" style="background: transparent; color: white; border: 1.5px solid rgba(255,255,255,0.35); border-radius: 14px; padding: 15px 28px; font-size: 1rem; font-weight: 700; transition: all 0.3s ease; min-width: 220px;" onmouseover="this.style.transform='translateY(-3px)'; this.style.background='rgba(255,255,255,0.10)'; this.style.borderColor='rgba(255,255,255,0.65)';" onmouseout="this.style.transform='translateY(0)'; this.style.background='transparent'; this.style.borderColor='rgba(255,255,255,0.35)';"><i class="fas fa-envelope me-2"></i>Contact Us</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

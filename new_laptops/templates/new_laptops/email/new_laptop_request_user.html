@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      body { margin: 0; padding: 0; font-family: Arial, sans-serif; background: #f4f7fb; }
+      .email-wrapper { width: 100%; background: #f4f7fb; padding: 20px 0; }
+      .email-container { max-width: 600px; margin: 0 auto; background: #ffffff; border-radius: 16px; overflow: hidden; }
+      .email-header { padding: 30px 25px; text-align: center; background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%); color: #ffffff; }
+      .email-header h1 { margin: 0; font-size: 24px; letter-spacing: 0.5px; }
+      .email-body { padding: 25px; color: #22303f; }
+      .email-body h2 { font-size: 20px; margin-bottom: 16px; }
+      .email-body p { margin-bottom: 16px; line-height: 1.65; }
+      .request-summary { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 18px; margin: 20px 0; }
+      .request-summary p { margin: 0 0 10px; font-size: 0.95rem; }
+      .request-summary strong { color: #0f172a; }
+      .badge { display: inline-block; padding: 8px 14px; margin-bottom: 20px; border-radius: 999px; background: #e0f2fe; color: #0369a1; font-size: 0.9rem; font-weight: 700; }
+      .footer { padding: 20px 25px 30px; text-align: center; font-size: 0.9rem; color: #6b7280; }
+      a.button { display: inline-block; padding: 12px 24px; border-radius: 999px; background: #06b6d4; color: #ffffff !important; text-decoration: none; font-weight: 700; margin-top: 10px; }
+      @media (max-width: 480px) {
+        .email-header { padding: 24px 18px; }
+        .email-body { padding: 20px; }
+        .email-header h1 { font-size: 20px; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="email-wrapper">
+      <div class="email-container">
+        <div class="email-header">
+          <span class="badge">Laptop Request</span>
+          <h1>Request Received</h1>
+        </div>
+        <div class="email-body">
+          <h2>Hi {{ request.name }},</h2>
+          <p>Thank you for submitting your laptop request. We’ve received your details and our team will contact you soon with the best options.</p>
+          <div class="request-summary">
+            <p><strong>Email:</strong> {{ request.email }}</p>
+            <p><strong>Mobile:</strong> {{ request.mobile_number|default:'Not provided' }}</p>
+            <p><strong>Laptop Category:</strong> {{ request.laptop_type }}</p>
+            <p><strong>Laptop Model / Requirements:</strong> {{ request.laptop_name }}</p>
+          </div>
+          <p>We are reviewing your request now and will reach out within 24-48 hours.</p>
+          <p style="margin-top: 20px; color: #475569;">If you need help before then, reply to this email or visit our support page.</p>
+        </div>
+        <div class="footer">
+          COMPUTER & CCTV HUB<br />Laptop Request Confirmation
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

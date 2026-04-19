@@ -1,0 +1,179 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Register - COMPUTER & CCTV HUB{% endblock %}
+
+{% block content %}
+<div class="container-sm py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-5">
+            <div class="card border-info border-2 shadow-lg rounded-3">
+                <div class="card-body p-5">
+                    <div class="text-center mb-4">
+                        <img src="{% static 'images/logo.svg' %}" alt="Logo" style="height: 60px; width: auto; margin-bottom: 10px;">
+                        <h2 class="card-title mt-3 text-dark">Create Account</h2>
+                        <p class="text-secondary small">Join COMPUTER & CCTV HUB and start shopping today</p>
+                    </div>
+
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                                {{ message }}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+
+                    <form method="post" novalidate>
+                        {% csrf_token %}
+                        <!-- Username Field -->
+                        <div class="mb-3">
+                            <label for="{{ form.username.id_for_label }}" class="form-label fw-600">Username</label>
+                            {% if form.username.errors %}
+                                {{ form.username }}
+                                <div class="invalid-feedback d-block">
+                                    {% for error in form.username.errors %}
+                                        <span class="text-danger"><i class="fas fa-exclamation-circle"></i> {{ error }}</span><br>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ form.username }}
+                            {% endif %}
+                        </div>
+
+                        <!-- Email Field -->
+                        <div class="mb-3">
+                            <label for="{{ form.email.id_for_label }}" class="form-label fw-600">Email Address</label>
+                            {% if form.email.errors %}
+                                {{ form.email }}
+                                <div class="invalid-feedback d-block">
+                                    {% for error in form.email.errors %}
+                                        <span class="text-danger"><i class="fas fa-exclamation-circle"></i> {{ error }}</span><br>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ form.email }}
+                            {% endif %}
+                        </div>
+
+                        <!-- Phone Number Field -->
+                        <div class="mb-3">
+                            <label for="{{ form.phone_number.id_for_label }}" class="form-label fw-600">Phone Number</label>
+                            {% if form.phone_number.errors %}
+                                {{ form.phone_number }}
+                                <div class="invalid-feedback d-block">
+                                    {% for error in form.phone_number.errors %}
+                                        <span class="text-danger"><i class="fas fa-exclamation-circle"></i> {{ error }}</span><br>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ form.phone_number }}
+                            {% endif %}
+                            <small class="text-secondary d-block mt-1">E.g., +66812345678 or 0812345678</small>
+                        </div>
+
+                        <!-- Password Field -->
+                        <div class="mb-3">
+                            <label for="{{ form.password1.id_for_label }}" class="form-label fw-600">Password</label>
+                            {% if form.password1.errors %}
+                                {{ form.password1 }}
+                                <div class="invalid-feedback d-block">
+                                    {% for error in form.password1.errors %}
+                                        <span class="text-danger"><i class="fas fa-exclamation-circle"></i> {{ error }}</span><br>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ form.password1 }}
+                            {% endif %}
+                            {% if form.password1.help_text %}
+                                <small class="text-secondary d-block mt-1">
+                                    {% autoescape off %}{{ form.password1.help_text }}{% endautoescape %}
+                                </small>
+                            {% endif %}
+                        </div>
+
+                        <!-- Confirm Password Field -->
+                        <div class="mb-3">
+                            <label for="{{ form.password2.id_for_label }}" class="form-label fw-600">Confirm Password</label>
+                            {% if form.password2.errors %}
+                                {{ form.password2 }}
+                                <div class="invalid-feedback d-block">
+                                    {% for error in form.password2.errors %}
+                                        <span class="text-danger"><i class="fas fa-exclamation-circle"></i> {{ error }}</span><br>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ form.password2 }}
+                            {% endif %}
+                        </div>
+
+                        <!-- Non-field errors -->
+                        {% if form.non_field_errors %}
+                            <div class="alert alert-danger" role="alert">
+                                {% for error in form.non_field_errors %}
+                                    <i class="fas fa-exclamation-triangle"></i> {{ error }}<br>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+
+                        <!-- Submit Button -->
+                        <button type="submit" class="btn btn-info btn-lg w-100 fw-600 mt-4">
+                            <i class="fas fa-user-check me-2"></i>Create Account
+                        </button>
+                    </form>
+
+                    <hr class="my-4">
+
+                    <!-- Footer -->
+                    <div class="text-center">
+                        <p class="text-secondary mb-0">Already have an account?
+                            <a href="{% url 'accounts:login' %}" class="text-info fw-600 text-decoration-none">
+                                Login here <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .card {
+        backdrop-filter: blur(10px);
+        transition: all 0.3s ease;
+    }
+    .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 40px rgba(6, 182, 212, 0.15) !important;
+    }
+    .form-control, .form-control:focus {
+        border-color: #06b6d4;
+    }
+    .form-control:focus {
+        box-shadow: 0 0 0 0.2rem rgba(6, 182, 212, 0.25);
+    }
+    .btn-info {
+        background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%);
+        border: none;
+        transition: all 0.3s ease;
+    }
+    .btn-info:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 25px rgba(6, 182, 212, 0.3);
+    }
+</style>
+
+<script>
+    // Auto-close all alerts after 5 seconds
+    document.addEventListener('DOMContentLoaded', function() {
+        const alerts = document.querySelectorAll('.alert');
+        alerts.forEach(function(alert) {
+            setTimeout(function() {
+                const bsAlert = new bootstrap.Alert(alert);
+                bsAlert.close();
+            }, 5000); // 5000 milliseconds = 5 seconds
+        });
+    });
+</script>
+{% endblock %}

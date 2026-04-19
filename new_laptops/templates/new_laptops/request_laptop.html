@@ -1,0 +1,582 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Request a New Laptop - COMPUTER & CCTV HUB{% endblock %}
+
+{% block content %}
+<div class="container-fluid py-4 py-lg-5">
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-10 col-lg-8 col-xl-6">
+            <!-- Header Section -->
+            <div class="text-center mb-4 mb-lg-5">
+                <div class="d-inline-flex align-items-center justify-content-center bg-info bg-opacity-10 rounded-circle p-3 mb-3" style="width: 80px; height: 80px;">
+                    <i class="fas fa-laptop text-info" style="font-size: 2rem;"></i>
+                </div>
+                <h1 class="display-5 fw-bold text-dark mb-2">Request Your Perfect Laptop</h1>
+                <p class="lead text-secondary mb-0">Tell us what you're looking for, and we'll help you find it</p>
+            </div>
+
+            <!-- Progress Indicator -->
+            <div class="mb-4 d-none d-md-block">
+                <div class="d-flex justify-content-center align-items-center">
+                    <div class="step-indicator active">
+                        <div class="step-number">1</div>
+                        <div class="step-label">Your Info</div>
+                    </div>
+                    <div class="step-connector"></div>
+                    <div class="step-indicator active">
+                        <div class="step-number">2</div>
+                        <div class="step-label">Laptop Details</div>
+                    </div>
+                    <div class="step-connector"></div>
+                    <div class="step-indicator">
+                        <div class="step-number">3</div>
+                        <div class="step-label">Get Matched</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Form Card -->
+            <div class="card border-0 shadow-lg rounded-4 overflow-hidden">
+                <div class="card-body p-0">
+                    <!-- Messages -->
+                    {% if messages %}
+                        <div class="px-4 pt-4">
+                            {% for message in messages %}
+                                <div class="alert alert-{{ message.tags }} alert-dismissible fade show rounded-3 border-0 shadow-sm" role="alert">
+                                    <div class="d-flex align-items-center">
+                                        <i class="fas fa-{{ message.tags|default:'info' }}-circle me-2 fs-5"></i>
+                                        <div>{{ message }}</div>
+                                    </div>
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+
+                    <form method="post" action="{% url 'new_laptops:request_laptop' %}" novalidate class="p-4 p-lg-5">
+                        {% csrf_token %}
+
+                        <!-- Step 1: User Information -->
+                        <div class="step-section mb-5">
+                            <div class="d-flex align-items-center mb-4">
+                                <div class="step-badge me-3">1</div>
+                                <div>
+                                    <h3 class="h4 fw-bold text-dark mb-1">Your Information</h3>
+                                    <p class="text-secondary small mb-0">We'll use this to contact you about your request</p>
+                                </div>
+                            </div>
+
+                            <div class="row g-3">
+                                <div class="col-12 col-md-6">
+                                    <div class="info-card">
+                                        <div class="info-icon">
+                                            <i class="fas fa-user"></i>
+                                        </div>
+                                        <div class="info-content">
+                                            <label class="info-label">Full Name</label>
+                                            <div class="info-value">{{ user_name|default:"Not provided" }}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-6">
+                                    <div class="info-card">
+                                        <div class="info-icon">
+                                            <i class="fas fa-phone"></i>
+                                        </div>
+                                        <div class="info-content">
+                                            <label class="info-label">Mobile Number</label>
+                                            <div class="info-value">{{ user_mobile|default:"Not provided" }}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-12">
+                                    <div class="info-card">
+                                        <div class="info-icon">
+                                            <i class="fas fa-envelope"></i>
+                                        </div>
+                                        <div class="info-content">
+                                            <label class="info-label">Email Address</label>
+                                            <div class="info-value">{{ user_email|default:"Not provided" }}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+
+                        <!-- Step 2: Laptop Requirements -->
+                        <div class="step-section">
+                            <div class="d-flex align-items-center mb-4">
+                                <div class="step-badge me-3">2</div>
+                                <div>
+                                    <h3 class="h4 fw-bold text-dark mb-1">What Laptop Are You Looking For?</h3>
+                                    {% comment %} <p class="text-secondary small mb-0">Help us understand your needs so we can find the perfect match</p> {% endcomment %}
+                                </div>
+                            </div>
+
+                            <div class="row g-4">
+                                <!-- Laptop Type -->
+                                <div class="col-12">
+                                    <div class="form-group-modern">
+                                        <label for="{{ form.laptop_type.id_for_label }}" class="form-label-modern">
+                                            <i class="fas fa-list-ul me-2"></i>
+                                            Laptop Category
+                                            <span class="text-danger">*</span>
+                                        </label>
+                                        <div class="select-wrapper">
+                                            {{ form.laptop_type }}
+                                            <i class="fas fa-chevron-down select-arrow"></i>
+                                        </div>
+                                        {% if form.laptop_type.errors %}
+                                            <div class="error-message">
+                                                {% for error in form.laptop_type.errors %}
+                                                    <i class="fas fa-exclamation-circle"></i> {{ error }}
+                                                {% endfor %}
+                                            </div>
+                                        {% endif %}
+                                        {% comment %} <div class="form-help">{{ form.laptop_type.help_text }}</div> {% endcomment %}
+                                    </div>
+                                </div>
+
+                                <!-- Laptop Model -->
+                                <div class="col-12">
+                                    <div class="form-group-modern">
+                                        <label for="{{ form.laptop_name.id_for_label }}" class="form-label-modern">
+                                            <i class="fas fa-tag me-2"></i>
+                                            Specific Model or Requirements
+                                            <span class="text-danger">*</span>
+                                        </label>
+                                        <div class="input-wrapper">
+                                            {{ form.laptop_name }}
+                                            <div class="input-icon">
+                                                <i class="fas fa-search"></i>
+                                            </div>
+                                        </div>
+                                        {% if form.laptop_name.errors %}
+                                            <div class="error-message">
+                                                {% for error in form.laptop_name.errors %}
+                                                    <i class="fas fa-exclamation-circle"></i> {{ error }}
+                                                {% endfor %}
+                                            </div>
+                                        {% endif %}
+                                        {% comment %} <div class="form-help">E.g., "Dell XPS 13", "Gaming laptop under ₹80,000", "MacBook Pro M3"</div> {% endcomment %}
+                                    </div>
+                                </div>
+
+                                <!-- Non-field errors -->
+                                {% if form.non_field_errors %}
+                                    <div class="col-12">
+                                        <div class="alert alert-danger rounded-3 border-0">
+                                            {% for error in form.non_field_errors %}
+                                                <i class="fas fa-exclamation-triangle me-2"></i>{{ error }}<br>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <!-- Action Buttons -->
+                        <div class="row g-4">
+                            <div class="col-12 col-md-6">
+                                <button type="submit" class="btn-submit">
+                                    <i class="fas fa-paper-plane me-2"></i>
+                                    <span>Submit My Request</span>
+                                </button>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <a href="{% url 'home' %}" class="btn-cancel">
+                                    <i class="fas fa-arrow-left me-2"></i>
+                                    <span>Back to Home</span>
+                                </a>
+                            </div>
+                        </div>
+                    </form>
+
+                    <!-- Success Info -->
+                    <div class="bg-light p-4 border-top">
+                        <div class="d-flex align-items-start">
+                            <div class="flex-shrink-0 me-3">
+                                <div class="bg-success bg-opacity-10 rounded-circle p-2">
+                                    <i class="fas fa-check-circle text-success fs-4"></i>
+                                </div>
+                            </div>
+                            <div>
+                                <h6 class="fw-bold text-dark mb-2">What happens next?</h6>
+                                <p class="text-secondary small mb-0">
+                                    After you submit your request, our team will review it and contact you within 24-48 hours
+                                    with available options that match your requirements. We'll help you find the perfect laptop
+                                    at the best price!
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Additional Help -->
+            <div class="text-center mt-4">
+                <p class="text-secondary small">
+                    Need help choosing? <a href="{% url 'contact:contact_page' %}" class="text-info fw-500 text-decoration-none">Contact our experts</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+/* Progress Indicator */
+.step-indicator {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+}
+
+.step-number {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #e9ecef;
+    color: #6c757d;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+.step-indicator.active .step-number {
+    background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%);
+    color: white;
+}
+
+.step-label {
+    font-size: 12px;
+    font-weight: 500;
+    color: #6c757d;
+    text-align: center;
+}
+
+.step-indicator.active .step-label {
+    color: #06b6d4;
+}
+
+.step-connector {
+    width: 60px;
+    height: 2px;
+    background: #e9ecef;
+    margin: 0 10px;
+}
+
+/* Step Sections */
+.step-section {
+    {% comment %} padding: 2rem 0; {% endcomment %}
+    border-bottom: 1px solid #f8f9fa;
+}
+
+.step-section:last-child {
+    border-bottom: none;
+}
+
+.step-badge {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 14px;
+    flex-shrink: 0;
+}
+
+/* Info Cards */
+.info-card {
+    background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+    border: 1px solid #e9ecef;
+    border-radius: 12px;
+    padding: 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    transition: all 0.3s ease;
+}
+
+.info-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(6, 182, 212, 0.1);
+    border-color: #06b6d4;
+}
+
+.info-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+}
+
+.info-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.info-label {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #6c757d;
+    margin-bottom: 0.25rem;
+    display: block;
+}
+
+.info-value {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #212529;
+    word-break: break-word;
+}
+
+/* Form Groups */
+.form-group-modern {
+    margin-bottom: 1.5rem;
+}
+
+.form-label-modern {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #212529;
+    margin-bottom: 0.75rem;
+    display: block;
+}
+
+.select-wrapper, .input-wrapper {
+    position: relative;
+}
+
+.form-control, .form-select {
+    width: 100%;
+    padding: 0.875rem 1rem;
+    font-size: 1rem;
+    border: 2px solid #e9ecef;
+    border-radius: 10px;
+    background: white;
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+
+.form-control:focus, .form-select:focus {
+    border-color: #06b6d4;
+    box-shadow: 0 0 0 3px rgba(6, 182, 212, 0.1);
+    outline: none;
+}
+
+.select-arrow {
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #6c757d;
+    pointer-events: none;
+}
+
+.input-icon {
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #6c757d;
+}
+
+.error-message {
+    color: #dc3545;
+    font-size: 0.875rem;
+    margin-top: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.form-help {
+    font-size: 0.875rem;
+    color: #6c757d;
+    margin-top: 0.5rem;
+}
+
+/* Buttons */
+.btn-submit, .btn-cancel {
+    width: 100%;
+    padding: 1rem 1.5rem;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-submit {
+    background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%);
+    color: white;
+    box-shadow: 0 4px 15px rgba(6, 182, 212, 0.3);
+}
+
+.btn-submit:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(6, 182, 212, 0.4);
+    color: white;
+}
+
+.btn-cancel {
+    background: #f8f9fa;
+    color: #6c757d;
+    border: 2px solid #e9ecef;
+}
+
+.btn-cancel:hover {
+    background: #e9ecef;
+    color: #495057;
+    transform: translateY(-2px);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .display-5 {
+        font-size: 2rem;
+    }
+
+    .step-connector {
+        width: 30px;
+        margin: 0 5px;
+    }
+
+    .step-number {
+        width: 32px;
+        height: 32px;
+        font-size: 12px;
+    }
+
+    .info-card {
+        padding: 1rem;
+        flex-direction: column;
+        text-align: center;
+        gap: 0.75rem;
+    }
+
+    .info-icon {
+        width: 40px;
+        height: 40px;
+        font-size: 1rem;
+    }
+
+    .btn-submit, .btn-cancel {
+        padding: 0.875rem 1rem;
+        font-size: 0.95rem;
+    }
+
+    .step-section {
+        padding: 1.5rem 0;
+    }
+}
+
+@media (max-width: 576px) {
+    .container-fluid {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+
+    .card-body {
+        padding: 1.5rem !important;
+    }
+
+    .step-badge {
+        width: 28px;
+        height: 28px;
+        font-size: 12px;
+    }
+
+    .info-card {
+        padding: 0.875rem;
+    }
+}
+
+/* Animations */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.step-section {
+    animation: fadeInUp 0.6s ease-out;
+}
+
+/* Custom scrollbar for select */
+.form-select {
+    background-image: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+</style>
+
+<script>
+// Auto-close alerts after 5 seconds
+document.addEventListener('DOMContentLoaded', function() {
+    const alerts = document.querySelectorAll('.alert');
+    alerts.forEach(function(alert) {
+        setTimeout(function() {
+            const bsAlert = new bootstrap.Alert(alert);
+            bsAlert.close();
+        }, 5000);
+    });
+
+    // Debug form submission
+    const form = document.querySelector('form');
+    const submitBtn = document.querySelector('.btn-submit');
+
+    form.addEventListener('submit', function(e) {
+        console.log('Form submitted');
+        console.log('Form data:', new FormData(form));
+        
+        // Check required fields
+        const requiredFields = form.querySelectorAll('[required]');
+        let isValid = true;
+        requiredFields.forEach(field => {
+            if (!field.value.trim()) {
+                console.log(`Field ${field.name} is empty`);
+                isValid = false;
+            }
+        });
+        
+        if (isValid) {
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i><span>Submitting...</span>';
+            submitBtn.disabled = true;
+        } else {
+            e.preventDefault();
+            alert('Please fill in all required fields (Laptop Category and Specific Model).');
+            return false;
+        }
+    });
+});
+</script>
+{% endblock %}

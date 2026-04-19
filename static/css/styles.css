@@ -1,0 +1,150 @@
+/* Professional styles for COMPUTER & CCTV HUB — modern, clean cards */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap');
+
+:root {
+  --accent: #06b6d4;
+  --muted: #6b7280;
+  --bg: #0f172a;
+  --primary-gradient: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+}
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, Arial;
+  color: #0f172a;
+  background: #ffffff;
+}
+
+.navbar-brand {
+  font-weight: 700;
+  color: var(--bg) !important
+}
+
+.site-header {
+  background: transparent
+}
+
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 1.25rem
+}
+
+.card.product-card {
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease
+}
+
+.card.product-card:hover {
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15)
+}
+
+.product-card img {
+  width: 100%;
+  height: 180px;
+  display: block;
+  object-fit: cover;
+}
+
+.card-body h6 {
+  font-size: 0.95rem;
+  margin-bottom: .25rem;
+  font-weight: 600;
+}
+
+.price {
+  color: var(--accent);
+  font-weight: 700
+}
+
+.muted {
+  color: var(--muted)
+}
+
+.container-wide {
+  max-width: 1200px;
+  margin: 0 auto
+}
+
+/* Professional Animations & Hover Effects */
+/* Navigation animations are defined in base.html for better specificity and consistency */
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.product-card {
+  animation: fadeInUp 0.5s ease-out;
+}
+
+@media (max-width:576px) {
+  .product-card img {
+    height: auto
+  }
+
+  .product-grid {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1199px) {
+  .product-grid {
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr))
+  }
+}
+
+/* ===== COMPUTER & CCTV BRANDING ===== */
+
+/* Logo Animations and Styling - Primary styles in base.html */
+/* These are supplemental responsive overrides */
+
+/* Professional responsive design */
+@media (max-width: 768px) {
+  .navbar-brand {
+    font-size: 1.1rem !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .navbar-brand {
+    font-size: 0.95rem !important;
+  }
+}
+
+html,
+body {
+  min-height: 100%;
+  overflow-x: hidden;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1 0 auto;
+}
+
+footer,
+.footer-shell {
+  width: 100%;
+  height: auto !important;
+  min-height: auto !important;
+  max-height: none !important;
+  overflow: visible !important;
+  display: block !important;
+  position: relative !important;
+  flex-shrink: 0;
+}

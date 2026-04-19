@@ -1,0 +1,36 @@
+      {% extends "admin/base_site.html" %}
+      {% block content %}
+        <a class="btn btn-sm btn-outline-info mt-2" href="{% url 'admin:accessories_product_add' %}">Add New</a>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card p-3 text-center bg-white">
+        <h6 class="fw-bold text-muted">Inquiries</h6>
+        <div class="display-6 fw-bold text-info">{{ counts.inquiries }}</div>
+        <a class="btn btn-sm btn-outline-info mt-2" href="{% url 'admin:contact_inquiry_changelist' %}">View</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="row g-4">
+    <div class="col-lg-4">
+      <div class="card p-4 shadow-sm">
+        <h5 class="fw-bold">Quick Actions</h5>
+        <ul class="list-unstyled mt-3">
+          <li><a href="{% url 'admin:new_laptops_requestnewlaptop_changelist' %}" class="text-decoration-none">Laptop Requests</a></li>
+          <li><a href="{% url 'admin:used_laptops_product_changelist' %}" class="text-decoration-none">All Refurbished Products</a></li>
+          <li><a href="{% url 'admin:accessories_product_changelist' %}" class="text-decoration-none">All Accessories</a></li>
+          <li><a href="{% url 'admin:contact_inquiry_changelist' %}" class="text-decoration-none">Customer Inquiries</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="col-lg-8">
+      <div class="card p-4 shadow-sm">
+        <h5 class="fw-bold">Recent Activity</h5>
+        <p class="text-muted small">Recent changes will appear here (requires custom logging to populate).</p>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+{% block title %}Privacy Policy - COMPUTER & CCTV HUB{% endblock %}
+{% block content %}
+<div class="container-lg py-5">
+  <div class="row">
+    <div class="col-lg-8 mx-auto">
+      <div class="mb-5">
+        <h1 class="display-4 fw-bold mb-3">Privacy Policy</h1>
+        <p class="text-muted fs-5">Last updated: {% now 'F j, Y' %}</p>
+      </div>
+
+      <div class="card border-0 shadow-sm mb-4">
+        <div class="card-body">
+          <h5 class="card-title fw-bold text-info mb-3">1. Introduction</h5>
+          <p class="card-text">
+            COMPUTER & CCTV HUB ("we", "our", or "us") operates the www.computercctvhub.com website. This page informs you of our policies
+            regarding the collection, use, and disclosure of personal data when you use our Service and the choices you have associated
+            with that data. We use your data to provide and improve the Service. By using the Service, you agree to the collection
+            and use of information in accordance with this policy.
+          </p>
+        </div>
+      </div>
+
+      <div class="card border-0 shadow-sm mb-4">
+        <div class="card-body">
+          <h5 class="card-title fw-bold text-info mb-3">2. Information Collection and Use</h5>
+          <p class="card-text">We collect several different types of information for various purposes to provide and improve our Service to you.</p>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item border-0 ps-0"><strong>Personal Data:</strong> While using our Service, we may ask you to provide us with certain personally identifiable information that can be used to contact or identify you ("Personal Data"). This may include, but is not limited to:
+              <ul class="mt-2 ms-3">
+                <li>Email address</li>
+                <li>First name and last name</li>
+                <li>Phone number</li>
+                <li>Address, State, Province, ZIP/Postal code, City</li>
+                <li>Cookies and Usage Data</li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="card border-0 shadow-sm mb-4">
+        <div class="card-body">
+          <h5 class="card-title fw-bold text-info mb-3">3. Security of Data</h5>
+          <p class="card-text">
+            The security of your data is important to us but remember that no method of transmission over the Internet or method of
+            electronic storage is 100% secure. While we strive to use commercially acceptable means to protect your Personal Data,
+            we cannot guarantee its absolute security.
+          </p>
+        </div>
+      </div>
+
+      <div class="card border-0 shadow-sm mb-4">
+        <div class="card-body">
+          <h5 class="card-title fw-bold text-info mb-3">4. Changes to This Privacy Policy</h5>
+          <p class="card-text">
+            We may update our Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy
+            on this page. We will let you know via email and/or a prominent notice on our Service, prior to the change becoming
+            effective and update the "effective date" at the top of this Privacy Policy.
+          </p>
+        </div>
+      </div>
+
+      <div class="card border-0 shadow-sm mb-4">
+        <div class="card-body">
+          <h5 class="card-title fw-bold text-info mb-3">5. Contact Us</h5>
+          <p class="card-text">
+            If you have any questions about this Privacy Policy, please contact us at:
+          </p>
+          <div class="alert alert-info" role="alert">
+            <strong>Email:</strong> privacy@laptopshop.com<br>
+            <strong>Address:</strong> Tech Plaza, Innovation Street, Metro City, Country - 123456<br>
+            <strong>Phone:</strong> +91-XXX-XXX-XXXX
+          </div>
+        </div>
+      </div>
+
+      <div class="text-center mt-5">
+        <a href="{% url 'home' %}" class="btn btn-primary btn-lg">
+          <i class="fas fa-arrow-left me-2"></i>Back to Home
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

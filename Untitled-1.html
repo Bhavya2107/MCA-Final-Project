@@ -1,0 +1,82 @@
+<mxGraphModel>
+  <root>
+    <mxCell id="0" />
+    <mxCell id="1" parent="0" />
+
+    <!-- External Entities -->
+    <mxCell id="2" value="Customer / User" style="shape=rectangle;rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fontSize=13;" vertex="1" parent="1">
+      <mxGeometry x="40" y="300" width="150" height="60" as="geometry" />
+    </mxCell>
+
+    <mxCell id="3" value="Admin" style="shape=rectangle;rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fontSize=13;" vertex="1" parent="1">
+      <mxGeometry x="40" y="480" width="150" height="60" as="geometry" />
+    </mxCell>
+
+    <!-- Central Process -->
+    <mxCell id="4" value="0&#xa;Laptop &amp; Accessories&#xa;E-Commerce System" style="ellipse;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontStyle=1;fontSize=14;" vertex="1" parent="1">
+      <mxGeometry x="300" y="280" width="280" height="120" as="geometry" />
+    </mxCell>
+
+    <!-- Data Stores -->
+    <mxCell id="5" value="D1: Users &amp; Accounts DB" style="shape=table;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=12;" vertex="1" parent="1">
+      <mxGeometry x="680" y="160" width="200" height="50" as="geometry" />
+    </mxCell>
+
+    <mxCell id="6" value="D2: Products DB" style="shape=table;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=12;" vertex="1" parent="1">
+      <mxGeometry x="680" y="260" width="200" height="50" as="geometry" />
+    </mxCell>
+
+    <mxCell id="7" value="D3: Orders &amp; Cart DB" style="shape=table;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=12;" vertex="1" parent="1">
+      <mxGeometry x="680" y="360" width="200" height="50" as="geometry" />
+    </mxCell>
+
+    <mxCell id="8" value="D4: Inquiries DB" style="shape=table;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=12;" vertex="1" parent="1">
+      <mxGeometry x="680" y="460" width="200" height="50" as="geometry" />
+    </mxCell>
+
+    <!-- Arrows: User to System -->
+    <mxCell id="10" value="Register / Login&#xa;Browse Products&#xa;Place Order&#xa;Send Inquiry" style="edgeStyle=orthogonalEdgeStyle;fontSize=11;" edge="1" source="2" target="4" parent="1">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+
+    <!-- Arrows: System to User -->
+    <mxCell id="11" value="OTP / Auth Token&#xa;Product Info&#xa;Order Confirmation" style="edgeStyle=orthogonalEdgeStyle;fontSize=11;" edge="1" source="4" target="2" parent="1">
+      <mxGeometry relative="1" as="geometry">
+        <Array as="points">
+          <mxPoint x="270" y="420" />
+          <mxPoint x="115" y="420" />
+        </Array>
+      </mxGeometry>
+    </mxCell>
+
+    <!-- Arrows: Admin to System -->
+    <mxCell id="12" value="Manage Products&#xa;Update Orders&#xa;View Inquiries" style="edgeStyle=orthogonalEdgeStyle;fontSize=11;" edge="1" source="3" target="4" parent="1">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+
+    <!-- Arrows: System to Data Stores -->
+    <mxCell id="13" value="Read / Write" style="edgeStyle=orthogonalEdgeStyle;fontSize=11;" edge="1" source="4" target="5" parent="1">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+
+    <mxCell id="14" value="Read / Write" style="edgeStyle=orthogonalEdgeStyle;fontSize=11;" edge="1" source="4" target="6" parent="1">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+
+    <mxCell id="15" value="Read / Write" style="edgeStyle=orthogonalEdgeStyle;fontSize=11;" edge="1" source="4" target="7" parent="1">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+
+    <mxCell id="16" value="Read / Write" style="edgeStyle=orthogonalEdgeStyle;fontSize=11;" edge="1" source="4" target="8" parent="1">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+
+  </root>
+</mxGraphModel>
+
+aa XML code ne draw.io online tool ma use karr
+How to use:
+
+Go to draw.io
+Click Extras → Edit Diagram
+Paste the XML below → Click OK

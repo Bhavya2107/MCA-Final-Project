@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      body { margin: 0; padding: 0; font-family: Arial, sans-serif; background: #f4f7fb; }
+      .email-wrapper { width: 100%; background: #f4f7fb; padding: 20px 0; }
+      .email-container { max-width: 600px; margin: 0 auto; background: #ffffff; border-radius: 16px; overflow: hidden; }
+      .email-header { padding: 30px 25px; text-align: center; background: #0f172a; color: #ffffff; }
+      .email-header h1 { margin: 0; font-size: 24px; letter-spacing: 0.5px; }
+      .email-body { padding: 25px; color: #22303f; }
+      .email-body h2 { font-size: 20px; margin-bottom: 16px; }
+      .request-summary { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 18px; margin: 20px 0; }
+      .request-summary p { margin: 0 0 10px; font-size: 0.95rem; }
+      .request-summary strong { color: #0f172a; }
+      .footer { padding: 20px 25px 30px; text-align: center; font-size: 0.9rem; color: #6b7280; }
+      .tag { display: inline-block; padding: 8px 14px; border-radius: 999px; background: #e0f2fe; color: #0369a1; font-size: 0.9rem; font-weight: 700; margin-bottom: 20px; }
+      @media (max-width: 480px) {
+        .email-header { padding: 24px 18px; }
+        .email-body { padding: 20px; }
+        .email-header h1 { font-size: 20px; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="email-wrapper">
+      <div class="email-container">
+        <div class="email-header">
+          <span class="tag">Laptop Request</span>
+          <h1>New Request Received</h1>
+        </div>
+        <div class="email-body">
+          <h2>Hello Team,</h2>
+          <p>A new laptop request has been submitted through the website. Below are the full details.</p>
+          <div class="request-summary">
+            <p><strong>Name:</strong> {{ request.name }}</p>
+            <p><strong>Email:</strong> {{ request.email }}</p>
+            <p><strong>Mobile Number:</strong> {{ request.mobile_number|default:'Not provided' }}</p>
+            <p><strong>Laptop Category:</strong> {{ request.laptop_type }}</p>
+            <p><strong>Laptop Model / Requirements:</strong> {{ request.laptop_name }}</p>
+            <p><strong>Submitted at:</strong> {{ request.created_at }}</p>
+          </div>
+          <p>Please follow up with the customer and update the request status in the admin panel when completed.</p>
+        </div>
+        <div class="footer">
+          {{ site_name }}<br />Laptop Request Notification
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
