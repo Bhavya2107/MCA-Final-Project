@@ -4,126 +4,518 @@
 {% block title %}Verify OTP - COMPUTER & CCTV HUB{% endblock %}
 
 {% block content %}
-<div class="container-sm py-5">
-    <div class="row justify-content-center">
-        <div class="col-md-6 col-lg-5">
-            <div class="card border-info border-2 shadow-lg rounded-3">
-                <div class="card-body p-5">
-                    <div class="text-center mb-4">
-                        <img src="{% static 'images/logo.png' %}" alt="Logo" style="height: 60px; width: auto; margin-bottom: 10px;">
-                        <h2 class="card-title mt-3 text-dark">Verify Your Account</h2>
-                        <p class="text-secondary small">We sent a verification code to your registered<br><strong>email and phone number</strong></p>
-                    </div>
-
-                    {% if messages %}
-                        {% for message in messages %}
-                            <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
-                                <i class="fas fa-info-circle"></i> {{ message }}
-                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                            </div>
-                        {% endfor %}
-                    {% endif %}
-
-                    <form method="post" novalidate>
-                        {% csrf_token %}
-
-                        <!-- OTP Code Field -->
-                        <div class="mb-4">
-                            <label for="{{ form.otp_code.id_for_label }}" class="form-label fw-600 mb-3">
-                                <i class="fas fa-key me-2"></i>Verification Code
-                            </label>
-                            {% if form.otp_code.errors %}
-                                {{ form.otp_code }}
-                                <div class="invalid-feedback d-block mt-2">
-                                    {% for error in form.otp_code.errors %}
-                                        <span class="text-danger"><i class="fas fa-exclamation-circle"></i> {{ error }}</span><br>
-                                    {% endfor %}
-                                </div>
-                            {% else %}
-                                {{ form.otp_code }}
-                            {% endif %}
-                            <small class="text-secondary d-block mt-2">
-                                <i class="fas fa-clock me-1"></i>Code expires in 15 minutes
-                            </small>
-                        </div>
-
-                        <!-- Non-field errors -->
-                        {% if form.non_field_errors %}
-                            <div class="alert alert-danger" role="alert">
-                                {% for error in form.non_field_errors %}
-                                    <i class="fas fa-exclamation-triangle"></i> {{ error }}<br>
-                                {% endfor %}
-                            </div>
-                        {% endif %}
-
-                        <!-- Submit Button -->
-                        <button type="submit" class="btn btn-info btn-lg w-100 fw-600 mt-4">
-                            <i class="fas fa-check-circle me-2"></i>Verify Code
-                        </button>
-                    </form>
-
-                    <hr class="my-4">
-
-                    <!-- Help Text -->
-                    <div class="alert alert-info alert-sm py-2" role="alert">
-                        <small>
-                            <i class="fas fa-info-circle me-2"></i>
-                            <strong>Didn't receive the code?</strong> Check your email or SMS messages. Code expires in 15 minutes.
-                        </small>
-                    </div>
-
-                    <!-- Footer -->
-                    <div class="text-center">
-                        <p class="text-secondary small mb-0">
-                            <a href="{% url 'accounts:register' %}" class="text-info fw-600 text-decoration-none">
-                                <i class="fas fa-arrow-left me-1"></i>Back to Register
-                            </a>
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 
 <style>
-    .card {
-        backdrop-filter: blur(10px);
-        transition: all 0.3s ease;
-    }
-    .card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 15px 40px rgba(6, 182, 212, 0.15) !important;
-    }
-    .form-control, .form-control:focus {
-        border-color: #06b6d4;
-        font-size: 2rem;
-        letter-spacing: 0.5rem;
-    }
-    .form-control:focus {
-        box-shadow: 0 0 0 0.2rem rgba(6, 182, 212, 0.25);
-    }
-    .btn-info {
-        background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%);
-        border: none;
-        transition: all 0.3s ease;
-    }
-    .btn-info:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 10px 25px rgba(6, 182, 212, 0.3);
-    }
+  @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap');
+
+  :root {
+    --cyan-50: #ecfeff;
+    --cyan-100: #cffafe;
+    --cyan-200: #a5f3fc;
+    --cyan-300: #67e8f9;
+    --cyan-400: #22d3ee;
+    --cyan-500: #06b6d4;
+    --cyan-600: #0891b2;
+    --cyan-700: #0e7490;
+    --cyan-800: #155e75;
+    --cyan-900: #164e63;
+    --dark-bg: #0a0f1e;
+    --dark-card: #0d1426;
+    --dark-surface: #111827;
+  }
+
+  .otp-page-wrapper {
+    min-height: 100vh;
+    background: var(--dark-bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 1rem;
+    position: relative;
+    overflow: hidden;
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  /* Animated background grid */
+  .otp-page-wrapper::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(6,182,212,0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(6,182,212,0.06) 1px, transparent 1px);
+    background-size: 50px 50px;
+    animation: gridDrift 20s linear infinite;
+  }
+
+  @keyframes gridDrift {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(50px); }
+  }
+
+  /* Glowing orbs */
+  .orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.3;
+    pointer-events: none;
+    animation: orbFloat 8s ease-in-out infinite;
+  }
+  .orb-1 {
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, #06b6d4, transparent);
+    top: -100px; left: -100px;
+    animation-delay: 0s;
+  }
+  .orb-2 {
+    width: 300px; height: 300px;
+    background: radial-gradient(circle, #0891b2, transparent);
+    bottom: -80px; right: -80px;
+    animation-delay: 3s;
+  }
+  .orb-3 {
+    width: 200px; height: 200px;
+    background: radial-gradient(circle, #22d3ee, transparent);
+    top: 50%; left: 60%;
+    animation-delay: 6s;
+  }
+
+  @keyframes orbFloat {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(20px, -20px) scale(1.05); }
+  }
+
+  .otp-card {
+    position: relative;
+    z-index: 10;
+    width: 100%;
+    max-width: 460px;
+    background: rgba(13, 20, 38, 0.85);
+    border: 1px solid rgba(6, 182, 212, 0.2);
+    border-radius: 24px;
+    padding: 2.5rem 2.25rem;
+    backdrop-filter: blur(20px);
+    box-shadow:
+      0 0 0 1px rgba(6,182,212,0.1),
+      0 40px 80px rgba(0,0,0,0.5),
+      inset 0 1px 0 rgba(255,255,255,0.05);
+    animation: cardEntrance 0.6s cubic-bezier(0.34,1.56,0.64,1) both;
+  }
+
+  @keyframes cardEntrance {
+    from { opacity: 0; transform: translateY(30px) scale(0.95); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
+  }
+
+  /* Top glow strip */
+  .card-glow-strip {
+    position: absolute;
+    top: 0; left: 10%; right: 10%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #06b6d4, #22d3ee, transparent);
+    border-radius: 50%;
+    box-shadow: 0 0 20px 2px rgba(6,182,212,0.4);
+  }
+
+  /* Logo area */
+  .otp-logo-wrap {
+    text-align: center;
+    margin-bottom: 1.75rem;
+  }
+
+  .logo-icon-ring {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 72px; height: 72px;
+    border-radius: 20px;
+    background: linear-gradient(135deg, rgba(6,182,212,0.15), rgba(8,145,178,0.08));
+    border: 1px solid rgba(6,182,212,0.3);
+    margin-bottom: 1rem;
+    position: relative;
+    animation: iconPulse 3s ease-in-out infinite;
+  }
+
+  @keyframes iconPulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(6,182,212,0.2); }
+    50% { box-shadow: 0 0 0 10px rgba(6,182,212,0); }
+  }
+
+  .logo-icon-ring img {
+    height: 42px; width: auto;
+  }
+
+  .otp-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.65rem;
+    font-weight: 700;
+    color: #f0f9ff;
+    margin: 0 0 0.4rem;
+    letter-spacing: -0.02em;
+  }
+
+  .otp-subtitle {
+    color: rgba(167,232,242,0.6);
+    font-size: 0.875rem;
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  .otp-subtitle strong {
+    color: rgba(34,211,238,0.85);
+    font-weight: 500;
+  }
+
+  /* Django messages */
+  .msg-alert {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 0.75rem 1rem;
+    border-radius: 12px;
+    font-size: 0.85rem;
+    margin-bottom: 1.25rem;
+    animation: alertIn 0.3s ease;
+  }
+  @keyframes alertIn { from { opacity: 0; transform: translateX(-6px); } to { opacity: 1; transform: none; } }
+  .msg-alert-success { background: rgba(16,185,129,0.12); border: 1px solid rgba(16,185,129,0.25); color: #6ee7b7; }
+  .msg-alert-error, .msg-alert-danger { background: rgba(239,68,68,0.1); border: 1px solid rgba(239,68,68,0.25); color: #fca5a5; }
+  .msg-alert-warning { background: rgba(245,158,11,0.1); border: 1px solid rgba(245,158,11,0.25); color: #fcd34d; }
+  .msg-alert-info { background: rgba(6,182,212,0.1); border: 1px solid rgba(6,182,212,0.25); color: #67e8f9; }
+  .msg-close {
+    margin-left: auto;
+    background: none;
+    border: none;
+    color: inherit;
+    opacity: 0.6;
+    cursor: pointer;
+    font-size: 1rem;
+    padding: 0;
+    line-height: 1;
+    flex-shrink: 0;
+  }
+  .msg-close:hover { opacity: 1; }
+
+  /* OTP field section */
+  .field-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: rgba(6,182,212,0.8);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 0.75rem;
+  }
+
+  .field-label i { font-size: 0.9rem; }
+
+  /* Style the Django form input */
+  .otp-card .form-control,
+  .otp-card input[type="text"],
+  .otp-card input[type="number"] {
+    width: 100%;
+    background: rgba(6, 182, 212, 0.05) !important;
+    border: 1.5px solid rgba(6, 182, 212, 0.25) !important;
+    border-radius: 14px !important;
+    color: #e0f9ff !important;
+    font-family: 'Syne', sans-serif !important;
+    font-size: 2rem !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.6rem !important;
+    text-align: center !important;
+    padding: 1rem !important;
+    transition: all 0.3s ease !important;
+    box-sizing: border-box;
+    outline: none !important;
+    box-shadow: none !important;
+  }
+
+  .otp-card .form-control:focus,
+  .otp-card input[type="text"]:focus,
+  .otp-card input[type="number"]:focus {
+    border-color: rgba(6, 182, 212, 0.7) !important;
+    background: rgba(6, 182, 212, 0.1) !important;
+    box-shadow: 0 0 0 3px rgba(6,182,212,0.15), 0 0 20px rgba(6,182,212,0.1) !important;
+  }
+
+  .otp-card .form-control::placeholder,
+  .otp-card input::placeholder {
+    color: rgba(103,232,249,0.25) !important;
+    letter-spacing: 0.3rem !important;
+  }
+
+  .field-error {
+    margin-top: 0.6rem;
+    font-size: 0.8rem;
+    color: #fca5a5;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .timer-hint {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 0.65rem;
+    font-size: 0.78rem;
+    color: rgba(103,232,249,0.45);
+  }
+
+  /* Non-field errors */
+  .non-field-error {
+    background: rgba(239,68,68,0.1);
+    border: 1px solid rgba(239,68,68,0.25);
+    border-radius: 12px;
+    padding: 0.75rem 1rem;
+    color: #fca5a5;
+    font-size: 0.85rem;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  /* Submit button */
+  .otp-submit-btn {
+    width: 100%;
+    margin-top: 1.5rem;
+    padding: 0.9rem;
+    border: none;
+    border-radius: 14px;
+    font-family: 'Syne', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(135deg, #06b6d4 0%, #0891b2 60%, #0e7490 100%);
+    color: #fff;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 20px rgba(6,182,212,0.35);
+  }
+
+  .otp-submit-btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.15), transparent);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .otp-submit-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(6,182,212,0.5);
+  }
+  .otp-submit-btn:hover::before { opacity: 1; }
+  .otp-submit-btn:active { transform: translateY(0) scale(0.98); }
+
+  .btn-inner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Divider */
+  .otp-divider {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 1.5rem 0 1.25rem;
+  }
+  .otp-divider::before, .otp-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: rgba(6,182,212,0.12);
+  }
+  .otp-divider span {
+    font-size: 0.7rem;
+    color: rgba(103,232,249,0.3);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  /* Info box */
+  .otp-info-box {
+    background: rgba(6,182,212,0.07);
+    border: 1px solid rgba(6,182,212,0.15);
+    border-left: 3px solid rgba(6,182,212,0.5);
+    border-radius: 12px;
+    padding: 0.75rem 1rem;
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    margin-bottom: 1.25rem;
+  }
+  .otp-info-box i { color: #22d3ee; font-size: 1rem; flex-shrink: 0; margin-top: 1px; }
+  .otp-info-box p {
+    font-size: 0.8rem;
+    color: rgba(103,232,249,0.65);
+    margin: 0;
+    line-height: 1.5;
+  }
+  .otp-info-box strong { color: rgba(34,211,238,0.85); font-weight: 500; }
+
+  /* Back link */
+  .back-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    font-size: 0.82rem;
+    color: rgba(6,182,212,0.65);
+    text-decoration: none;
+    transition: color 0.2s;
+    font-weight: 500;
+  }
+  .back-link:hover { color: #22d3ee; }
+
+  /* Security badges */
+  .security-badges {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 1.5rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid rgba(6,182,212,0.08);
+  }
+  .badge-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.72rem;
+    color: rgba(103,232,249,0.3);
+  }
+  .badge-item i { font-size: 0.8rem; color: rgba(6,182,212,0.4); }
 </style>
 
+<div class="otp-page-wrapper">
+  <!-- Background elements -->
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+
+  <div class="otp-card">
+    <div class="card-glow-strip"></div>
+
+    <!-- Logo & Header -->
+    <div class="otp-logo-wrap">
+      <div class="logo-icon-ring">
+        <img src="{% static 'images/logo.svg' %}" alt="Logo">
+      </div>
+      <h2 class="otp-title">Verify Your Account</h2>
+      <p class="otp-subtitle">We sent a verification code to your<br><strong>email & phone number</strong></p>
+    </div>
+
+    <!-- Django Messages -->
+    {% if messages %}
+      {% for message in messages %}
+        <div class="msg-alert msg-alert-{{ message.tags }}" role="alert">
+          <i class="fas fa-info-circle" style="margin-top:2px;flex-shrink:0;"></i>
+          <span>{{ message }}</span>
+          <button class="msg-close" onclick="this.parentElement.remove()" aria-label="Close">&times;</button>
+        </div>
+      {% endfor %}
+    {% endif %}
+
+    <form method="post" novalidate>
+      {% csrf_token %}
+
+      <!-- OTP Field -->
+      <div style="margin-bottom: 0.5rem;">
+        <div class="field-label">
+          <i class="fas fa-key"></i> Verification Code
+        </div>
+
+        {% if form.otp_code.errors %}
+          {{ form.otp_code }}
+          {% for error in form.otp_code.errors %}
+            <div class="field-error">
+              <i class="fas fa-exclamation-circle"></i> {{ error }}
+            </div>
+          {% endfor %}
+        {% else %}
+          {{ form.otp_code }}
+        {% endif %}
+
+        <div class="timer-hint">
+          <i class="fas fa-clock"></i> Code expires in 15 minutes
+        </div>
+      </div>
+
+      <!-- Non-field errors -->
+      {% if form.non_field_errors %}
+        {% for error in form.non_field_errors %}
+          <div class="non-field-error">
+            <i class="fas fa-exclamation-triangle"></i> {{ error }}
+          </div>
+        {% endfor %}
+      {% endif %}
+
+      <!-- Submit -->
+      <button type="submit" class="otp-submit-btn">
+        <div class="btn-inner">
+          <i class="fas fa-shield-alt"></i> Verify Code
+        </div>
+      </button>
+    </form>
+
+    <div class="otp-divider"><span>need help?</span></div>
+
+    <!-- Info box -->
+    <div class="otp-info-box">
+      <i class="fas fa-lightbulb"></i>
+      <p><strong>Didn't receive the code?</strong> Check your spam/junk folder or wait a moment — SMS can take up to 2 minutes to arrive.</p>
+    </div>
+
+    <!-- Back link -->
+    <div class="text-center">
+      <a href="{% url 'accounts:register' %}" class="back-link">
+        <i class="fas fa-arrow-left"></i> Back to Register
+      </a>
+    </div>
+
+    <!-- Security badges -->
+    <div class="security-badges">
+      <div class="badge-item"><i class="fas fa-lock"></i> SSL Secured</div>
+      <div class="badge-item"><i class="fas fa-user-shield"></i> Encrypted</div>
+      <div class="badge-item"><i class="fas fa-check-circle"></i> 2FA Verified</div>
+    </div>
+  </div>
+</div>
+
 <script>
-    // Auto-close all alerts after 5 seconds
-    document.addEventListener('DOMContentLoaded', function() {
-        const alerts = document.querySelectorAll('.alert');
-        alerts.forEach(function(alert) {
-            setTimeout(function() {
-                const bsAlert = new bootstrap.Alert(alert);
-                bsAlert.close();
-            }, 5000); // 5000 milliseconds = 5 seconds
-        });
+  document.addEventListener('DOMContentLoaded', function () {
+    // Auto-close messages after 5s
+    document.querySelectorAll('.msg-alert').forEach(function(el) {
+      setTimeout(function() {
+        el.style.transition = 'opacity 0.4s, transform 0.4s';
+        el.style.opacity = '0';
+        el.style.transform = 'translateX(-10px)';
+        setTimeout(function() { el.remove(); }, 400);
+      }, 5000);
     });
+
+    // Auto-focus OTP input
+    const otpInput = document.querySelector('.otp-card input[type="text"], .otp-card input[type="number"], .otp-card .form-control');
+    if (otpInput) {
+      otpInput.setAttribute('placeholder', '······');
+      otpInput.setAttribute('maxlength', '6');
+      otpInput.setAttribute('inputmode', 'numeric');
+      otpInput.setAttribute('autocomplete', 'one-time-code');
+      setTimeout(function() { otpInput.focus(); }, 400);
+    }
+  });
 </script>
+
 {% endblock %}

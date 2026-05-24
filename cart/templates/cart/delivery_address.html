@@ -1,248 +1,784 @@
 {% extends 'base.html' %}
 {% block title %}Delivery Address - COMPUTER & CCTV HUB{% endblock %}
 {% block content %}
-<div class="container-lg py-5">
-  <div class="row mb-5">
-    <div class="col-lg-8 mx-auto">
-      <!-- Progress Steps -->
-      <div class="row mb-5">
-        <div class="col-12">
-          <div class="d-flex justify-content-between align-items-center">
-            <div class="text-center flex-grow-1">
-              <div class="rounded-circle bg-info text-white d-inline-flex align-items-center justify-content-center mb-2" style="width: 40px; height: 40px; font-weight: bold;">✓</div>
-              <div class="small text-info">Review Cart</div>
-            </div>
-            <div class="flex-grow-1 border-top border-info my-2"></div>
-            <div class="text-center flex-grow-1">
-              <div class="rounded-circle bg-info text-white d-inline-flex align-items-center justify-content-center mb-2" style="width: 40px; height: 40px; font-weight: bold;">2</div>
-              <div class="small text-info fw-bold">Delivery Address</div>
-            </div>
-            <div class="flex-grow-1 border-top border-secondary my-2"></div>
-            <div class="text-center flex-grow-1">
-              <div class="rounded-circle bg-secondary text-white d-inline-flex align-items-center justify-content-center mb-2" style="width: 40px; height: 40px; font-weight: bold;">3</div>
-              <div class="small text-muted">Confirmation</div>
-            </div>
-          </div>
-        </div>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap');
+
+:root {
+  --primary:       #050c18;
+  --primary-soft:  #0a1628;
+  --card-bg:       #0d1f35;
+  --accent:        #06b6d4;
+  --accent-dark:   #0891b2;
+  --accent-glow:   rgba(6,182,212,0.15);
+  --accent-border: rgba(6,182,212,0.2);
+  --text-primary:  #f0f9ff;
+  --text-secondary:#94a3b8;
+  --text-muted:    #64748b;
+  --red:           #f87171;
+  --green:         #34d399;
+  --amber:         #fbbf24;
+  --r:             16px;
+  --r-sm:          10px;
+}
+
+.da-page { font-family: 'DM Sans', sans-serif; color: var(--text-primary); }
+
+/* ── HERO ───────────────────────────────────── */
+.da-hero {
+  position: relative;
+  padding: 2.75rem 0 2.25rem;
+  margin-bottom: 2rem;
+  overflow: hidden;
+}
+.da-hero::before {
+  content: '';
+  position: absolute;
+  width: 420px; height: 420px;
+  background: radial-gradient(circle, rgba(6,182,212,.12), transparent 65%);
+  top: -180px; left: -80px;
+  border-radius: 50%; pointer-events: none;
+}
+.da-hero-grid {
+  position: absolute; inset: 0;
+  background-image: radial-gradient(rgba(6,182,212,.1) 1px, transparent 1px);
+  background-size: 30px 30px;
+  pointer-events: none;
+}
+.da-hero-inner { position: relative; z-index: 1; text-align: center; }
+
+.ct-eyebrow {
+  display: inline-flex; align-items: center; gap: .5rem;
+  font-size: .7rem; font-weight: 700;
+  letter-spacing: .14em; text-transform: uppercase;
+  color: var(--accent); margin-bottom: .75rem;
+  animation: fade-up .5s .1s both;
+}
+.eyebrow-pulse {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: var(--accent);
+  animation: ep 2s ease-in-out infinite;
+}
+@keyframes ep {
+  0%   { box-shadow: 0 0 0 0 rgba(6,182,212,.6); }
+  70%  { box-shadow: 0 0 0 8px rgba(6,182,212,0); }
+  100% { box-shadow: 0 0 0 0 rgba(6,182,212,0); }
+}
+.da-title {
+  font-family: 'Sora', sans-serif;
+  font-size: clamp(1.9rem, 5vw, 3rem);
+  font-weight: 800; color: var(--text-primary);
+  letter-spacing: -.03em; line-height: 1.1; margin-bottom: .5rem;
+  animation: fade-up .5s .18s both;
+}
+.da-title .cyan { color: var(--accent); }
+.da-sub {
+  color: var(--text-secondary); font-size: .92rem; font-weight: 300;
+  animation: fade-up .5s .26s both;
+}
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── STEPPER ─────────────────────────────────── */
+.stepper {
+  display: flex; align-items: center;
+  max-width: 480px; margin: 0 auto 2.5rem;
+  animation: fade-up .5s .32s both;
+}
+.step { display: flex; flex-direction: column; align-items: center; gap: .4rem; flex: 1; }
+.step-circle {
+  width: 42px; height: 42px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Sora', sans-serif; font-size: .88rem; font-weight: 700;
+}
+.step-circle.done {
+  background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+  color: white; box-shadow: 0 4px 14px rgba(6,182,212,.35);
+}
+.step-circle.active {
+  background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+  color: white;
+  box-shadow: 0 0 0 4px rgba(6,182,212,.2), 0 4px 14px rgba(6,182,212,.35);
+}
+.step-circle.pending {
+  background: var(--card-bg);
+  border: 1.5px solid rgba(6,182,212,.2);
+  color: var(--text-muted);
+}
+.step-label { font-size: .72rem; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; color: var(--text-muted); }
+.step-label.active { color: var(--accent); }
+.step-line { flex: 1; height: 2px; margin: 0 .5rem; margin-bottom: 1.2rem; border-radius: 2px; }
+.step-line.done { background: linear-gradient(90deg, var(--accent), var(--accent-dark)); }
+.step-line.pending { background: rgba(6,182,212,.12); }
+
+/* ── FREE DELIVERY BANNER ────────────────────── */
+.free-banner {
+  display: flex; align-items: flex-start; gap: .7rem;
+  background: rgba(52,211,153,.08);
+  border: 1px solid rgba(52,211,153,.22);
+  border-left: 4px solid var(--green);
+  border-radius: 0 var(--r-sm) var(--r-sm) 0;
+  padding: .9rem 1rem;
+  margin-bottom: 1.5rem;
+  font-size: .84rem; color: var(--text-secondary);
+  animation: fade-up .5s .38s both;
+}
+.free-banner svg { color: var(--green); flex-shrink: 0; margin-top: 1px; }
+.free-banner strong { color: var(--green); }
+
+/* ── MAIN CARD ───────────────────────────────── */
+.da-card {
+  background: var(--card-bg);
+  border: 1px solid var(--accent-border);
+  border-radius: var(--r);
+  box-shadow: 0 4px 28px rgba(0,0,0,.4);
+  overflow: hidden;
+  position: relative;
+  animation: fade-up .5s .1s both;
+}
+.da-card::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: linear-gradient(90deg, transparent, var(--accent), var(--accent-dark), transparent);
+}
+
+/* ── SECTIONS ────────────────────────────────── */
+.da-section {
+  padding: 1.75rem 2rem;
+  border-bottom: 1px solid rgba(6,182,212,.08);
+}
+.da-section:last-child { border-bottom: none; }
+
+.section-head {
+  display: flex; align-items: center; gap: .65rem;
+  margin-bottom: 1.4rem;
+}
+.section-num {
+  background: var(--accent-glow);
+  border: 1px solid var(--accent-border);
+  color: var(--accent);
+  font-size: .65rem; font-weight: 700;
+  padding: .12rem .42rem; border-radius: 5px;
+  font-family: 'Sora', sans-serif;
+}
+.section-title {
+  font-family: 'Sora', sans-serif;
+  font-size: 1rem; font-weight: 700;
+  color: var(--text-primary); letter-spacing: -.01em;
+  display: inline-flex; align-items: center; gap: .5rem;
+}
+.section-title svg { color: var(--accent); }
+
+/* ── FORM FIELDS ─────────────────────────────── */
+.field-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.field-grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; }
+.field-grid-1 { display: grid; grid-template-columns: 1fr; gap: 1rem; }
+
+.da-field { display: flex; flex-direction: column; gap: .3rem; }
+.da-field label {
+  font-size: .78rem; font-weight: 500;
+  color: var(--text-secondary); letter-spacing: .02em;
+}
+.req { color: var(--accent); }
+
+.da-input-wrap { position: relative; }
+.fi {
+  position: absolute; left: 12px; top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-muted); pointer-events: none;
+  transition: color .2s;
+}
+.da-input-wrap:focus-within .fi { color: var(--accent); }
+
+.da-input-wrap input {
+  width: 100%;
+  background: var(--primary-soft);
+  border: 1.5px solid rgba(6,182,212,.18);
+  border-radius: var(--r-sm);
+  padding: .75rem .85rem .75rem 2.6rem;
+  font-family: 'DM Sans', sans-serif;
+  font-size: .92rem; color: var(--text-primary);
+  outline: none;
+  transition: border-color .2s, background .2s, box-shadow .2s;
+}
+.da-input-wrap input::placeholder { color: var(--text-muted); }
+.da-input-wrap input:focus {
+  border-color: var(--accent);
+  background: var(--card-bg);
+  box-shadow: 0 0 0 3px rgba(6,182,212,.1);
+}
+.da-input-wrap input.is-invalid {
+  border-color: rgba(248,113,113,.5) !important;
+  background: rgba(248,113,113,.04) !important;
+}
+.field-err {
+  font-size: .77rem; color: var(--red); padding-left: .2rem;
+  display: flex; align-items: center; gap: .3rem;
+}
+
+/* ── ITEMS TABLE ─────────────────────────────── */
+.items-box {
+  background: var(--primary-soft);
+  border: 1px solid rgba(6,182,212,.12);
+  border-radius: var(--r-sm);
+  overflow: hidden;
+  margin-bottom: 1rem;
+}
+.item-row {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: .85rem 1.1rem;
+  border-bottom: 1px solid rgba(6,182,212,.07);
+  gap: 1rem;
+}
+.item-row:last-child { border-bottom: none; }
+.item-name { font-size: .9rem; font-weight: 500; color: var(--text-primary); }
+.item-meta { font-size: .77rem; color: var(--text-muted); margin-top: .15rem; }
+.item-price {
+  font-family: 'Sora', sans-serif;
+  font-size: .95rem; font-weight: 600; color: var(--accent);
+  white-space: nowrap;
+}
+
+/* ── SUMMARY BOX ─────────────────────────────── */
+.summary-box {
+  background: var(--primary-soft);
+  border: 1px solid rgba(6,182,212,.12);
+  border-radius: var(--r-sm);
+  overflow: hidden;
+}
+.summary-row {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: .8rem 1.1rem;
+  border-bottom: 1px solid rgba(6,182,212,.07);
+  font-size: .9rem; position: relative;
+}
+.summary-row:last-child { border-bottom: none; }
+.s-label { color: var(--text-secondary); }
+.s-value { color: var(--text-primary); font-weight: 500; }
+.s-value.free  { color: var(--green); font-weight: 600; }
+.s-value.paid  { color: var(--red);   font-weight: 600; }
+.s-hint {
+  font-size: .75rem; color: var(--green);
+  display: none;
+  position: absolute; right: 1.1rem; bottom: .2rem;
+}
+.s-hint.show { display: block; }
+
+.summary-total {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 1rem 1.1rem;
+  background: rgba(6,182,212,.06);
+  border-top: 1px solid rgba(6,182,212,.15);
+}
+.s-total-label {
+  font-family: 'Sora', sans-serif;
+  font-size: 1rem; font-weight: 700; color: var(--text-primary);
+}
+.s-total-value {
+  font-family: 'Sora', sans-serif;
+  font-size: 1.5rem; font-weight: 800; color: var(--accent);
+  letter-spacing: -.03em;
+  transition: all .3s;
+}
+
+/* ── COD BLOCK ───────────────────────────────── */
+.cod-block {
+  display: flex; align-items: center; gap: 1rem;
+  background: rgba(6,182,212,.07);
+  border: 1.5px solid var(--accent);
+  border-radius: var(--r-sm);
+  padding: 1.1rem 1.25rem;
+  box-shadow: 0 0 0 3px rgba(6,182,212,.1);
+}
+.cod-icon {
+  width: 52px; height: 52px; border-radius: 12px; flex-shrink: 0;
+  background: rgba(6,182,212,.15);
+  border: 1px solid var(--accent-border);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--accent);
+}
+.cod-body { flex: 1; }
+.cod-title { font-weight: 700; font-size: .97rem; color: var(--text-primary); margin-bottom: .2rem; font-family: 'Sora', sans-serif; }
+.cod-sub   { font-size: .8rem; color: var(--text-secondary); line-height: 1.5; }
+.cod-badge {
+  display: inline-flex; align-items: center; gap: .35rem; flex-shrink: 0;
+  background: rgba(52,211,153,.1);
+  border: 1px solid rgba(52,211,153,.25);
+  color: var(--green);
+  font-size: .75rem; font-weight: 700;
+  padding: .35rem .75rem; border-radius: 20px;
+  letter-spacing: .04em;
+}
+
+/* ── ACTION BUTTONS ──────────────────────────── */
+.da-actions {
+  display: flex; gap: .85rem; flex-wrap: wrap;
+  padding: 1.75rem 2rem 2rem;
+}
+.back-btn {
+  display: inline-flex; align-items: center; gap: .5rem;
+  flex: 1; min-width: 140px;
+  background: rgba(6,182,212,.07);
+  border: 1px solid var(--accent-border);
+  border-radius: var(--r-sm);
+  color: var(--accent); padding: .85rem 1.25rem;
+  font-family: 'DM Sans', sans-serif;
+  font-size: .9rem; font-weight: 600;
+  text-decoration: none; justify-content: center;
+  transition: background .2s, border-color .2s, transform .2s;
+}
+.back-btn:hover {
+  background: rgba(6,182,212,.16);
+  border-color: var(--accent);
+  color: #67e8f9; transform: translateX(-3px);
+}
+.confirm-btn {
+  display: inline-flex; align-items: center; gap: .55rem;
+  flex: 2; min-width: 200px;
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
+  border: none; border-radius: var(--r-sm);
+  color: white; padding: .85rem 1.5rem;
+  font-family: 'Sora', sans-serif;
+  font-size: .95rem; font-weight: 700;
+  justify-content: center; cursor: pointer;
+  transition: transform .25s, box-shadow .25s;
+  box-shadow: 0 6px 22px rgba(6,182,212,.28), inset 0 1px 0 rgba(255,255,255,.12);
+  position: relative; overflow: hidden;
+}
+.confirm-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 32px rgba(6,182,212,.42);
+  color: white;
+}
+.confirm-btn svg:last-child { transition: transform .3s; }
+.confirm-btn:hover svg:last-child { transform: translateX(3px); }
+.btn-shimmer {
+  position: absolute; top: 0; left: -100%; width: 55%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,.16), transparent);
+  transform: skewX(-18deg);
+}
+.confirm-btn:hover .btn-shimmer { left: 160%; transition: left .5s ease; }
+
+/* ── Responsive ────────────────────────────── */
+@media (max-width: 768px) {
+  .field-grid-2,
+  .field-grid-3 { grid-template-columns: 1fr; }
+  .da-section   { padding: 1.4rem 1.1rem; }
+  .da-actions   { padding: 1.4rem 1.1rem 1.6rem; flex-direction: column; }
+  .back-btn, .confirm-btn { flex: unset; width: 100%; }
+  .free-banner  { margin: 0 0 1.2rem; }
+  .cod-badge    { display: none; }
+}
+</style>
+
+<div class="da-page">
+
+  <!-- ── HERO ── -->
+  <div class="da-hero">
+    <div class="da-hero-grid"></div>
+    <div class="da-hero-inner">
+      <div class="ct-eyebrow">
+        <span class="eyebrow-pulse"></span>
+        Step 2 of 3
       </div>
-
-      <div class="card border-0 shadow-lg">
-        <div class="card-body p-5">
-          <div class="text-center mb-5">
-            <i class="fas fa-map-marker-alt text-info mb-3" style="font-size: 3rem;"></i>
-            <h2 class="fw-bold mb-2">Delivery Address</h2>
-            <p class="text-muted lead">Please provide your delivery address</p>
-          </div>
-
-          <!-- Alert for Ahmedabad free delivery -->
-          <div class="alert alert-success alert-dismissible fade show" role="alert">
-            <i class="fas fa-gift me-2"></i>
-            <strong>Great News!</strong> Delivery is <strong>FREE</strong> in Ahmedabad only. For other cities, delivery charge is ₹100.
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-          </div>
-
-          <form method="post" id="delivery-form" novalidate>
-            {% csrf_token %}
-
-            <!-- Delivery Information Section -->
-            <div class="mb-5 pb-4 border-bottom">
-              <h5 class="fw-bold mb-4">
-                <i class="fas fa-info-circle text-info me-2"></i>Contact Information
-              </h5>
-              <div class="row g-3">
-                <div class="col-md-6">
-                  <label class="form-label fw-500">Full Name *</label>
-                  {% if form.delivery_full_name.errors %}
-                    <input type="text" class="form-control form-control-lg is-invalid" name="delivery_full_name" value="{{ form.delivery_full_name.value }}">
-                    <div class="invalid-feedback d-block">{{ form.delivery_full_name.errors|first }}</div>
-                  {% else %}
-                    <input type="text" class="form-control form-control-lg" name="delivery_full_name" value="{{ form.delivery_full_name.value }}" placeholder="Enter your full name" required>
-                  {% endif %}
-                </div>
-                <div class="col-md-6">
-                  <label class="form-label fw-500">Phone Number *</label>
-                  {% if form.delivery_phone.errors %}
-                    <input type="tel" class="form-control form-control-lg is-invalid" name="delivery_phone" value="{{ form.delivery_phone.value }}">
-                    <div class="invalid-feedback d-block">{{ form.delivery_phone.errors|first }}</div>
-                  {% else %}
-                    <input type="tel" class="form-control form-control-lg" name="delivery_phone" value="{{ form.delivery_phone.value }}" placeholder="10-digit mobile number" required>
-                  {% endif %}
-                </div>
-                <div class="col-12">
-                  <label class="form-label fw-500">Email Address *</label>
-                  {% if form.delivery_email.errors %}
-                    <input type="email" class="form-control form-control-lg is-invalid" name="delivery_email" value="{{ form.delivery_email.value }}">
-                    <div class="invalid-feedback d-block">{{ form.delivery_email.errors|first }}</div>
-                  {% else %}
-                    <input type="email" class="form-control form-control-lg" name="delivery_email" value="{{ form.delivery_email.value }}" placeholder="Enter your email" required>
-                  {% endif %}
-                </div>
-              </div>
-            </div>
-
-            <!-- Delivery Address Section -->
-            <div class="mb-5 pb-4 border-bottom">
-              <h5 class="fw-bold mb-4">
-                <i class="fas fa-map-marker-alt text-info me-2"></i>Delivery Address
-              </h5>
-              <div class="row g-3">
-                <div class="col-12">
-                  <label class="form-label fw-500">Street Address *</label>
-                  {% if form.delivery_street_address.errors %}
-                    <input type="text" class="form-control form-control-lg is-invalid" name="delivery_street_address" value="{{ form.delivery_street_address.value }}">
-                    <div class="invalid-feedback d-block">{{ form.delivery_street_address.errors|first }}</div>
-                  {% else %}
-                    <input type="text" class="form-control form-control-lg" name="delivery_street_address" value="{{ form.delivery_street_address.value }}" placeholder="Street address" required>
-                  {% endif %}
-                </div>
-                <div class="col-12">
-                  <label class="form-label fw-500">Apartment, Suite, etc. (Optional)</label>
-                  <input type="text" class="form-control form-control-lg" name="delivery_apartment" value="{{ form.delivery_apartment.value }}" placeholder="Apartment, suite, etc.">
-                </div>
-                <div class="col-md-6">
-                  <label class="form-label fw-500">City *</label>
-                  {% if form.delivery_city.errors %}
-                    <input type="text" class="form-control form-control-lg is-invalid" name="delivery_city" value="{{ form.delivery_city.value }}">
-                    <div class="invalid-feedback d-block">{{ form.delivery_city.errors|first }}</div>
-                  {% else %}
-                    <input type="text" class="form-control form-control-lg" id="city-input" name="delivery_city" value="{{ form.delivery_city.value }}" placeholder="City" required>
-                  {% endif %}
-                </div>
-                <div class="col-md-3">
-                  <label class="form-label fw-500">State *</label>
-                  {% if form.delivery_state.errors %}
-                    <input type="text" class="form-control form-control-lg is-invalid" name="delivery_state" value="{{ form.delivery_state.value }}">
-                    <div class="invalid-feedback d-block">{{ form.delivery_state.errors|first }}</div>
-                  {% else %}
-                    <input type="text" class="form-control form-control-lg" name="delivery_state" value="{{ form.delivery_state.value }}" placeholder="State" required>
-                  {% endif %}
-                </div>
-                <div class="col-md-3">
-                  <label class="form-label fw-500">Postal Code *</label>
-                  {% if form.delivery_postal_code.errors %}
-                    <input type="text" class="form-control form-control-lg is-invalid" name="delivery_postal_code" value="{{ form.delivery_postal_code.value }}">
-                    <div class="invalid-feedback d-block">{{ form.delivery_postal_code.errors|first }}</div>
-                  {% else %}
-                    <input type="text" class="form-control form-control-lg" name="delivery_postal_code" value="{{ form.delivery_postal_code.value }}" placeholder="PIN Code" required>
-                  {% endif %}
-                </div>
-              </div>
-            </div>
-
-            <!-- Order Summary -->
-            <div class="mb-5">
-              <h5 class="fw-bold mb-4">
-                <i class="fas fa-receipt text-info me-2"></i>Order Summary
-              </h5>
-              
-              <!-- Cart Items -->
-              <div class="bg-light p-4 rounded-3 mb-4">
-                <div class="table-responsive">
-                  <table class="table table-sm mb-0">
-                    <tbody>
-                      {% for item in items %}
-                      <tr>
-                        <td class="ps-0">
-                          <div class="fw-500">{{ item.product_name }}</div>
-                          <small class="text-muted">₹{{ item.price|floatformat:2 }} × {{ item.quantity }}</small>
-                        </td>
-                        <td class="text-end pe-0">
-                          <span class="fw-500">₹{{ item.get_subtotal|floatformat:2 }}</span>
-                        </td>
-                      </tr>
-                      {% endfor %}
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-
-              <!-- Price Breakdown -->
-              <div class="bg-light p-4 rounded-3">
-                <div class="d-flex justify-content-between mb-3 pb-3 border-bottom">
-                  <span>Subtotal</span>
-                  <span class="fw-500">₹{{ subtotal|floatformat:2 }}</span>
-                </div>
-                <div class="d-flex justify-content-between mb-3 pb-3 border-bottom">
-                  <span>Tax (18% GST)</span>
-                  <span class="fw-500">₹{{ tax|floatformat:2 }}</span>
-                </div>
-                <div class="d-flex justify-content-between mb-4 pb-3 border-bottom">
-                  <span>Delivery Charges</span>
-                  <span class="fw-500 delivery-charges-display text-danger">₹100</span>
-                  <small class="text-success ahmedabad-hint" style="display: none; position: absolute; right: 1rem;">Free in Ahmedabad!</small>
-                </div>
-                <div class="d-flex justify-content-between align-items-center">
-                  <span class="fw-bold fs-5">Total Amount</span>
-                  <span class="fw-bold text-info fs-4 total-amount-display">₹{{ subtotal|add:tax|floatformat:2 }}</span>
-                </div>
-              </div>
-            </div>
-
-            <!-- Payment Method -->
-            <div class="mb-5 pb-4 border-bottom">
-              <h5 class="fw-bold mb-4">
-                <i class="fas fa-wallet text-info me-2"></i>Payment Method
-              </h5>
-              <div class="alert alert-info">
-                <strong><i class="fas fa-money-bill-wave me-2"></i>Cash on Delivery (COD)</strong><br>
-                Pay directly to the delivery partner when your order arrives.
-              </div>
-            </div>
-
-            <!-- Action Buttons -->
-            <div class="d-flex gap-3 flex-wrap">
-              <a href="{% url 'cart:checkout' %}" class="btn btn-outline-secondary btn-lg flex-grow-1">
-                <i class="fas fa-arrow-left me-2"></i>Back to Checkout
-              </a>
-              <button type="submit" class="btn btn-primary btn-lg flex-grow-1">
-                <i class="fas fa-check-circle me-2"></i>Confirm Order
-              </button>
-            </div>
-          </form>
-        </div>
-      </div>
+      <h1 class="da-title">Delivery <span class="cyan">Address</span></h1>
+      <p class="da-sub">Tell us where to deliver your order</p>
     </div>
   </div>
-</div>
+
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
+
+      <!-- ── STEPPER ── -->
+      <div class="stepper">
+        <div class="step">
+          <div class="step-circle done">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+              <path d="M4 9l3.5 3.5L14 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <span class="step-label">Cart</span>
+        </div>
+        <div class="step-line done"></div>
+        <div class="step">
+          <div class="step-circle active">2</div>
+          <span class="step-label active">Address</span>
+        </div>
+        <div class="step-line pending"></div>
+        <div class="step">
+          <div class="step-circle pending">3</div>
+          <span class="step-label">Confirm</span>
+        </div>
+      </div>
+
+      <!-- ── FREE DELIVERY NOTICE ── -->
+      <div class="free-banner">
+        <svg width="17" height="17" viewBox="0 0 17 17" fill="none">
+          <path d="M8.5 1.5a7 7 0 100 14 7 7 0 000-14zm0 3v4l2.5 2.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span>
+          <strong>FREE Delivery in Ahmedabad!</strong>
+          Enter "Ahmedabad" as your city and delivery charges drop to ₹0. For all other cities, a flat ₹100 delivery charge applies.
+        </span>
+      </div>
+
+      <!-- ── MAIN CARD ── -->
+      <div class="da-card">
+        <form method="post" id="delivery-form" novalidate>
+          {% csrf_token %}
+
+          <!-- 1. Contact Info -->
+          <div class="da-section">
+            <div class="section-head">
+              <span class="section-num">01</span>
+              <span class="section-title">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                  <circle cx="8" cy="5.5" r="3" stroke="currentColor" stroke-width="1.4"/>
+                  <path d="M2 14c0-3.3 2.7-6 6-6s6 2.7 6 6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+                </svg>
+                Contact Information
+              </span>
+            </div>
+
+            <div class="field-grid-2" style="margin-bottom:1rem;">
+              <div class="da-field">
+                <label>Full Name <span class="req">*</span></label>
+                <div class="da-input-wrap">
+                  <svg class="fi" width="15" height="15" viewBox="0 0 15 15" fill="none">
+                    <circle cx="7.5" cy="5" r="2.8" stroke="currentColor" stroke-width="1.3"/>
+                    <path d="M2 13c0-3 2.46-5.5 5.5-5.5S13 10 13 13" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+                  </svg>
+                  <input type="text" name="delivery_full_name"
+                         value="{{ form.delivery_full_name.value|default:'' }}"
+                         placeholder="Enter your full name"
+                         class="{% if form.delivery_full_name.errors %}is-invalid{% endif %}"
+                         required>
+                </div>
+                {% if form.delivery_full_name.errors %}
+                  <span class="field-err">
+                    <svg width="11" height="11" viewBox="0 0 11 11" fill="none"><circle cx="5.5" cy="5.5" r="5" stroke="currentColor" stroke-width="1.2"/><path d="M5.5 3.5v2.5M5.5 7.5v.2" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+                    {{ form.delivery_full_name.errors|first }}
+                  </span>
+                {% endif %}
+              </div>
+
+              <div class="da-field">
+                <label>Phone Number <span class="req">*</span></label>
+                <div class="da-input-wrap">
+                  <svg class="fi" width="15" height="15" viewBox="0 0 15 15" fill="none">
+                    <path d="M4 6.8C4.8 8.4 6.1 9.7 7.8 10.5L9.1 9.2C9.3 9 9.6 8.9 9.9 9.1C10.7 9.4 11.5 9.5 12.4 9.5C12.9 9.5 13.2 9.8 13.2 10.3V12.4C13.2 12.9 12.9 13.2 12.4 13.2C6.3 13.2 1.4 8.3 1.4 2.2C1.4 1.7 1.7 1.4 2.2 1.4H4.4C4.9 1.4 5.2 1.7 5.2 2.2C5.2 3.2 5.3 4.1 5.6 4.9C5.7 5.1 5.6 5.4 5.4 5.6L4 6.8Z" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+                  </svg>
+                  <input type="tel" name="delivery_phone"
+                         value="{{ form.delivery_phone.value|default:'' }}"
+                         placeholder="10-digit mobile number"
+                         class="{% if form.delivery_phone.errors %}is-invalid{% endif %}"
+                         required>
+                </div>
+                {% if form.delivery_phone.errors %}
+                  <span class="field-err">
+                    <svg width="11" height="11" viewBox="0 0 11 11" fill="none"><circle cx="5.5" cy="5.5" r="5" stroke="currentColor" stroke-width="1.2"/><path d="M5.5 3.5v2.5M5.5 7.5v.2" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+                    {{ form.delivery_phone.errors|first }}
+                  </span>
+                {% endif %}
+              </div>
+            </div>
+
+            <div class="field-grid-1">
+              <div class="da-field">
+                <label>Email Address <span class="req">*</span></label>
+                <div class="da-input-wrap">
+                  <svg class="fi" width="15" height="15" viewBox="0 0 15 15" fill="none">
+                    <rect x="1" y="3" width="13" height="9" rx="1.5" stroke="currentColor" stroke-width="1.3"/>
+                    <path d="M1 5l6.5 4.5L14 5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+                  </svg>
+                  <input type="email" name="delivery_email"
+                         value="{{ form.delivery_email.value|default:'' }}"
+                         placeholder="you@example.com"
+                         class="{% if form.delivery_email.errors %}is-invalid{% endif %}"
+                         required>
+                </div>
+                {% if form.delivery_email.errors %}
+                  <span class="field-err">
+                    <svg width="11" height="11" viewBox="0 0 11 11" fill="none"><circle cx="5.5" cy="5.5" r="5" stroke="currentColor" stroke-width="1.2"/><path d="M5.5 3.5v2.5M5.5 7.5v.2" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+                    {{ form.delivery_email.errors|first }}
+                  </span>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+
+          <!-- 2. Delivery Address -->
+          <div class="da-section">
+            <div class="section-head">
+              <span class="section-num">02</span>
+              <span class="section-title">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                  <path d="M8 1C5.24 1 3 3.24 3 6c0 4 5 9 5 9s5-5 5-9c0-2.76-2.24-5-5-5zm0 6.5a1.5 1.5 0 110-3 1.5 1.5 0 010 3z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/>
+                </svg>
+                Delivery Address
+              </span>
+            </div>
+
+            <div class="field-grid-1" style="margin-bottom:1rem;">
+              <div class="da-field">
+                <label>Street Address <span class="req">*</span></label>
+                <div class="da-input-wrap">
+                  <svg class="fi" width="15" height="15" viewBox="0 0 15 15" fill="none">
+                    <path d="M2 12l3-8h5l3 8" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M4.5 8h6" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+                  </svg>
+                  <input type="text" name="delivery_street_address"
+                         value="{{ form.delivery_street_address.value|default:'' }}"
+                         placeholder="Flat / House No., Street, Locality"
+                         class="{% if form.delivery_street_address.errors %}is-invalid{% endif %}"
+                         required>
+                </div>
+                {% if form.delivery_street_address.errors %}
+                  <span class="field-err">
+                    <svg width="11" height="11" viewBox="0 0 11 11" fill="none"><circle cx="5.5" cy="5.5" r="5" stroke="currentColor" stroke-width="1.2"/><path d="M5.5 3.5v2.5M5.5 7.5v.2" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+                    {{ form.delivery_street_address.errors|first }}
+                  </span>
+                {% endif %}
+              </div>
+            </div>
+
+            <div class="field-grid-1" style="margin-bottom:1rem;">
+              <div class="da-field">
+                <label>Apartment, Suite, etc. <span style="color:var(--text-muted);font-weight:400;">(Optional)</span></label>
+                <div class="da-input-wrap">
+                  <svg class="fi" width="15" height="15" viewBox="0 0 15 15" fill="none">
+                    <rect x="2" y="2" width="11" height="11" rx="1.5" stroke="currentColor" stroke-width="1.3"/>
+                    <path d="M5 6h5M5 9h3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+                  </svg>
+                  <input type="text" name="delivery_apartment"
+                         value="{{ form.delivery_apartment.value|default:'' }}"
+                         placeholder="Apartment, suite, floor, etc.">
+                </div>
+              </div>
+            </div>
+
+            <div class="field-grid-3">
+              <div class="da-field">
+                <label>City <span class="req">*</span></label>
+                <div class="da-input-wrap">
+                  <svg class="fi" width="15" height="15" viewBox="0 0 15 15" fill="none">
+                    <rect x="2" y="5" width="11" height="8" rx="1" stroke="currentColor" stroke-width="1.3"/>
+                    <path d="M5 5V4a2 2 0 014 0v1" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+                  </svg>
+                  <input type="text" name="delivery_city" id="city-input"
+                         value="{{ form.delivery_city.value|default:'' }}"
+                         placeholder="Ahmedabad"
+                         class="{% if form.delivery_city.errors %}is-invalid{% endif %}"
+                         required>
+                </div>
+                {% if form.delivery_city.errors %}
+                  <span class="field-err">
+                    <svg width="11" height="11" viewBox="0 0 11 11" fill="none"><circle cx="5.5" cy="5.5" r="5" stroke="currentColor" stroke-width="1.2"/><path d="M5.5 3.5v2.5M5.5 7.5v.2" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+                    {{ form.delivery_city.errors|first }}
+                  </span>
+                {% endif %}
+              </div>
+
+              <div class="da-field">
+                <label>State <span class="req">*</span></label>
+                <div class="da-input-wrap">
+                  <svg class="fi" width="15" height="15" viewBox="0 0 15 15" fill="none">
+                    <path d="M2 11V4l5-2 4 2 2-1v8l-2 1-4-2-5 2z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/>
+                  </svg>
+                  <input type="text" name="delivery_state"
+                         value="{{ form.delivery_state.value|default:'' }}"
+                         placeholder="Gujarat"
+                         class="{% if form.delivery_state.errors %}is-invalid{% endif %}"
+                         required>
+                </div>
+                {% if form.delivery_state.errors %}
+                  <span class="field-err">
+                    <svg width="11" height="11" viewBox="0 0 11 11" fill="none"><circle cx="5.5" cy="5.5" r="5" stroke="currentColor" stroke-width="1.2"/><path d="M5.5 3.5v2.5M5.5 7.5v.2" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+                    {{ form.delivery_state.errors|first }}
+                  </span>
+                {% endif %}
+              </div>
+
+              <div class="da-field">
+                <label>PIN Code <span class="req">*</span></label>
+                <div class="da-input-wrap">
+                  <svg class="fi" width="15" height="15" viewBox="0 0 15 15" fill="none">
+                    <rect x="1" y="1" width="13" height="13" rx="2" stroke="currentColor" stroke-width="1.3"/>
+                    <path d="M5 7.5h5M7.5 5v5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+                  </svg>
+                  <input type="text" name="delivery_postal_code"
+                         value="{{ form.delivery_postal_code.value|default:'' }}"
+                         placeholder="380001"
+                         class="{% if form.delivery_postal_code.errors %}is-invalid{% endif %}"
+                         required>
+                </div>
+                {% if form.delivery_postal_code.errors %}
+                  <span class="field-err">
+                    <svg width="11" height="11" viewBox="0 0 11 11" fill="none"><circle cx="5.5" cy="5.5" r="5" stroke="currentColor" stroke-width="1.2"/><path d="M5.5 3.5v2.5M5.5 7.5v.2" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+                    {{ form.delivery_postal_code.errors|first }}
+                  </span>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+
+          <!-- 3. Order Summary -->
+          <div class="da-section">
+            <div class="section-head">
+              <span class="section-num">03</span>
+              <span class="section-title">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                  <path d="M4 2h8a1 1 0 011 1v10a1 1 0 01-1 1H4a1 1 0 01-1-1V3a1 1 0 011-1z" stroke="currentColor" stroke-width="1.4"/>
+                  <path d="M5 6h6M5 9h4M5 12h2" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+                </svg>
+                Order Summary
+              </span>
+            </div>
+
+            <!-- Cart items -->
+            <div class="items-box">
+              {% for item in items %}
+                <div class="item-row">
+                  <div>
+                    <div class="item-name">{{ item.product_name }}</div>
+                    <div class="item-meta">₹{{ item.price|floatformat:2 }} × {{ item.quantity }}</div>
+                  </div>
+                  <div class="item-price">₹{{ item.get_subtotal|floatformat:2 }}</div>
+                </div>
+              {% endfor %}
+            </div>
+
+            <!-- Price breakdown -->
+            <div class="summary-box">
+              <div class="summary-row">
+                <span class="s-label">Subtotal</span>
+                <span class="s-value">₹{{ subtotal|floatformat:2 }}</span>
+              </div>
+              <div class="summary-row">
+                <span class="s-label">Tax (18% GST)</span>
+                <span class="s-value">₹{{ tax|floatformat:2 }}</span>
+              </div>
+              <div class="summary-row">
+                <span class="s-label">Delivery Charges</span>
+                <span class="s-value paid delivery-charges-display">₹100.00</span>
+                <span class="s-hint ahmedabad-hint">✓ Free in Ahmedabad!</span>
+              </div>
+              <div class="summary-total">
+                <span class="s-total-label">Total Amount</span>
+                <span class="s-total-value total-amount-display">₹{{ subtotal|add:tax|floatformat:2 }}</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 4. Payment Method -->
+          <div class="da-section">
+            <div class="section-head">
+              <span class="section-num">04</span>
+              <span class="section-title">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                  <rect x="1" y="4" width="14" height="9" rx="2" stroke="currentColor" stroke-width="1.4"/>
+                  <path d="M1 8h14" stroke="currentColor" stroke-width="1.4"/>
+                  <rect x="3" y="10" width="2.5" height="1.2" rx=".4" fill="currentColor"/>
+                </svg>
+                Payment Method
+              </span>
+            </div>
+
+            <div class="cod-block">
+              <div class="cod-icon">
+                <svg width="26" height="26" viewBox="0 0 26 26" fill="none">
+                  <rect x="2" y="6" width="22" height="14" rx="3" stroke="currentColor" stroke-width="1.6"/>
+                  <circle cx="13" cy="13" r="3.5" stroke="currentColor" stroke-width="1.5"/>
+                  <circle cx="13" cy="13" r="1.2" fill="currentColor"/>
+                  <path d="M6 10v.01M20 10v.01M6 16v.01M20 16v.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+              </div>
+              <div class="cod-body">
+                <div class="cod-title">Cash on Delivery</div>
+                <div class="cod-sub">Pay with cash when your order arrives at your doorstep</div>
+              </div>
+              <div class="cod-badge">
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                  <circle cx="7" cy="7" r="6" stroke="currentColor" stroke-width="1.3"/>
+                  <path d="M4 7l2 2 4-4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                Selected
+              </div>
+            </div>
+          </div>
+
+          <!-- CTA -->
+          <div class="da-actions">
+            <a href="{% url 'cart:checkout' %}" class="back-btn">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path d="M10 3L5 8l5 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              Back to Checkout
+            </a>
+            <button type="submit" class="confirm-btn">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.5"/>
+                <path d="M5 8l2 2 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              Confirm Order
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              <span class="btn-shimmer"></span>
+            </button>
+          </div>
+
+        </form>
+      </div><!-- /da-card -->
+
+    </div>
+  </div>
+</div><!-- /da-page -->
 
 <script>
-  // Update delivery charges based on city
-  document.getElementById('city-input').addEventListener('change', function() {
-    const city = this.value.toLowerCase().trim();
-    const deliveryCharges = document.querySelector('.delivery-charges-display');
-    const ahmedabadHint = document.querySelector('.ahmedabad-hint');
-    const subtotal = parseFloat('{{ subtotal|floatformat:2 }}');
-    const tax = parseFloat('{{ tax|floatformat:2 }}');
-    const totalDisplay = document.querySelector('.total-amount-display');
-    
+document.addEventListener('DOMContentLoaded', function () {
+
+  var cityInput       = document.getElementById('city-input');
+  var deliveryDisplay = document.querySelector('.delivery-charges-display');
+  var ahmedabadHint   = document.querySelector('.ahmedabad-hint');
+  var totalDisplay    = document.querySelector('.total-amount-display');
+  var subtotal        = parseFloat('{{ subtotal|floatformat:2 }}');
+  var tax             = parseFloat('{{ tax|floatformat:2 }}');
+
+  function updateDelivery() {
+    var city = cityInput.value.toLowerCase().trim();
     if (city === 'ahmedabad') {
-      deliveryCharges.textContent = '₹0.00';
-      deliveryCharges.classList.remove('text-danger');
-      deliveryCharges.classList.add('text-success');
-      ahmedabadHint.style.display = 'block';
+      deliveryDisplay.textContent = '₹0.00';
+      deliveryDisplay.classList.remove('paid');
+      deliveryDisplay.classList.add('free');
+      ahmedabadHint.classList.add('show');
       totalDisplay.textContent = '₹' + (subtotal + tax).toFixed(2);
     } else {
-      deliveryCharges.textContent = '₹100.00';
-      deliveryCharges.classList.remove('text-success');
-      deliveryCharges.classList.add('text-danger');
-      ahmedabadHint.style.display = 'none';
+      deliveryDisplay.textContent = '₹100.00';
+      deliveryDisplay.classList.remove('free');
+      deliveryDisplay.classList.add('paid');
+      ahmedabadHint.classList.remove('show');
       totalDisplay.textContent = '₹' + (subtotal + tax + 100).toFixed(2);
     }
-  });
+  }
+
+  // Run on load in case value is pre-filled
+  updateDelivery();
+  cityInput.addEventListener('input', updateDelivery);
 
   // Form validation
-  document.getElementById('delivery-form').addEventListener('submit', function(e) {
+  document.getElementById('delivery-form').addEventListener('submit', function (e) {
     if (!this.checkValidity()) {
       e.preventDefault();
       e.stopPropagation();
     }
     this.classList.add('was-validated');
   });
+
+});
 </script>
 
-<style>
-  .ahmedabad-hint {
-    font-size: 0.85rem;
-  }
-</style>
 {% endblock %}

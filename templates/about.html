@@ -1,211 +1,550 @@
 {% extends 'base.html' %}
-{% block title %}About Us - Laptop Shop{% endblock %}
+{% block title %}About Us - COMPUTER & CCTV HUB{% endblock %}
 {% block content %}
-<div class="container-lg py-5">
-  <!-- Hero Section -->
-  <div class="row mb-5">
-    <div class="col-lg-8 mx-auto">
-      <div class="text-center mb-5">
-        <h1 class="display-4 fw-bold mb-3">About Laptop Shop</h1>
-        <p class="lead text-muted">Your trusted destination for premium laptops and accessories</p>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap');
+
+:root {
+  --primary:       #050c18;
+  --primary-soft:  #0a1628;
+  --card-bg:       #0d1f35;
+  --accent:        #06b6d4;
+  --accent-dark:   #0891b2;
+  --accent-glow:   rgba(6,182,212,0.15);
+  --accent-border: rgba(6,182,212,0.2);
+  --text-primary:  #f0f9ff;
+  --text-secondary:#94a3b8;
+  --text-muted:    #64748b;
+  --green:         #34d399;
+  --amber:         #fbbf24;
+  --r:             16px;
+  --r-sm:          10px;
+}
+
+.ab-page { font-family: 'DM Sans', sans-serif; color: var(--text-primary); }
+
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── HERO ───────────────────────────────────── */
+.ab-hero {
+  position: relative;
+  text-align: center;
+  padding: 3.5rem 1rem 3rem;
+  margin-bottom: 2.5rem;
+  overflow: hidden;
+}
+.ab-hero::before {
+  content: '';
+  position: absolute;
+  width: 520px; height: 520px;
+  background: radial-gradient(circle, rgba(6,182,212,.13), transparent 65%);
+  top: -200px; left: 50%; transform: translateX(-50%);
+  border-radius: 50%; pointer-events: none;
+}
+.ab-hero::after {
+  content: '';
+  position: absolute;
+  width: 280px; height: 280px;
+  background: radial-gradient(circle, rgba(6,182,212,.07), transparent 70%);
+  bottom: -60px; right: 8%;
+  border-radius: 50%; pointer-events: none;
+}
+.ab-hero-grid {
+  position: absolute; inset: 0;
+  background-image: radial-gradient(rgba(6,182,212,.1) 1px, transparent 1px);
+  background-size: 30px 30px;
+  pointer-events: none;
+}
+.ab-hero-inner { position: relative; z-index: 1; }
+
+.ct-eyebrow {
+  display: inline-flex; align-items: center; gap: .5rem;
+  font-size: .7rem; font-weight: 700;
+  letter-spacing: .14em; text-transform: uppercase;
+  color: var(--accent); margin-bottom: .85rem;
+  animation: fade-up .5s .1s both;
+}
+.eyebrow-pulse {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: var(--accent);
+  animation: ep 2s ease-in-out infinite;
+}
+@keyframes ep {
+  0%  { box-shadow: 0 0 0 0 rgba(6,182,212,.6); }
+  70% { box-shadow: 0 0 0 8px rgba(6,182,212,0); }
+  100%{ box-shadow: 0 0 0 0 rgba(6,182,212,0); }
+}
+
+.ab-title {
+  font-family: 'Sora', sans-serif;
+  font-size: clamp(2.2rem, 6vw, 3.8rem);
+  font-weight: 800; color: var(--text-primary);
+  letter-spacing: -.03em; line-height: 1.1; margin-bottom: 1rem;
+  animation: fade-up .5s .18s both;
+}
+.ab-title .cyan { color: var(--accent); }
+.ab-sub {
+  color: var(--text-secondary); font-size: 1rem; font-weight: 300;
+  max-width: 520px; margin: 0 auto;
+  line-height: 1.7;
+  animation: fade-up .5s .26s both;
+}
+
+/* ── CARD BASE ───────────────────────────────── */
+.ab-card {
+  background: var(--card-bg);
+  border: 1px solid var(--accent-border);
+  border-radius: var(--r);
+  box-shadow: 0 4px 24px rgba(0,0,0,.35);
+  overflow: hidden;
+  position: relative;
+  margin-bottom: 1.5rem;
+}
+.ab-card::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: linear-gradient(90deg, transparent, var(--accent), var(--accent-dark), transparent);
+}
+.ab-card-body { padding: 2rem; }
+
+.section-label {
+  display: flex; align-items: center; gap: .6rem;
+  font-size: .68rem; font-weight: 700;
+  letter-spacing: .1em; text-transform: uppercase;
+  color: var(--text-muted); margin-bottom: .6rem;
+}
+.section-num {
+  background: var(--accent-glow);
+  border: 1px solid var(--accent-border);
+  color: var(--accent);
+  font-size: .65rem; font-weight: 700;
+  padding: .12rem .42rem; border-radius: 5px;
+  font-family: 'Sora', sans-serif;
+}
+.card-heading {
+  font-family: 'Sora', sans-serif;
+  font-size: 1.4rem; font-weight: 700;
+  color: var(--text-primary); letter-spacing: -.02em;
+  margin-bottom: 1.1rem;
+}
+.card-heading .cyan { color: var(--accent); }
+
+.ab-text {
+  color: var(--text-secondary); font-size: .93rem;
+  line-height: 1.8; font-weight: 300;
+  margin-bottom: .9rem;
+}
+.ab-text:last-child { margin-bottom: 0; }
+
+/* ── MISSION / VISION / VALUES CARDS ─────────── */
+.mvv-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+  margin-bottom: 1.5rem;
+}
+.mvv-card {
+  background: var(--card-bg);
+  border: 1px solid var(--accent-border);
+  border-radius: var(--r);
+  padding: 1.75rem 1.5rem;
+  text-align: center;
+  box-shadow: 0 4px 20px rgba(0,0,0,.3);
+  transition: transform .25s, box-shadow .25s, border-color .25s;
+  animation: fade-up .5s var(--delay,.1s) both;
+  position: relative; overflow: hidden;
+}
+.mvv-card::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: linear-gradient(90deg, transparent, var(--accent), var(--accent-dark), transparent);
+}
+.mvv-card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(6,182,212,.45);
+  box-shadow: 0 14px 40px rgba(0,0,0,.4), 0 0 0 1px rgba(6,182,212,.1);
+}
+
+.mvv-icon {
+  width: 64px; height: 64px;
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
+  border-radius: 16px;
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 1.25rem;
+  color: white;
+  box-shadow: 0 8px 24px rgba(6,182,212,.3);
+  transition: transform .25s;
+}
+.mvv-card:hover .mvv-icon { transform: scale(1.08) rotate(-3deg); }
+
+.mvv-title {
+  font-family: 'Sora', sans-serif;
+  font-size: .97rem; font-weight: 700;
+  color: var(--text-primary); margin-bottom: .6rem;
+}
+.mvv-text { font-size: .84rem; color: var(--text-secondary); line-height: 1.65; font-weight: 300; }
+
+/* ── WHY CHOOSE US ───────────────────────────── */
+.why-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+
+.why-item {
+  display: flex; align-items: flex-start; gap: .85rem;
+  background: var(--primary-soft);
+  border: 1px solid rgba(6,182,212,.1);
+  border-radius: var(--r-sm);
+  padding: 1rem 1.1rem;
+  transition: border-color .2s, background .2s, transform .2s;
+}
+.why-item:hover {
+  border-color: rgba(6,182,212,.3);
+  background: rgba(6,182,212,.05);
+  transform: translateX(3px);
+}
+.why-icon {
+  width: 36px; height: 36px; border-radius: 9px; flex-shrink: 0;
+  background: rgba(52,211,153,.1);
+  border: 1px solid rgba(52,211,153,.22);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--green);
+}
+.why-title { font-weight: 600; font-size: .9rem; color: var(--text-primary); margin-bottom: .2rem; }
+.why-sub   { font-size: .78rem; color: var(--text-muted); line-height: 1.5; }
+
+/* ── STATS ───────────────────────────────────── */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+.stat-card {
+  background: var(--card-bg);
+  border: 1px solid var(--accent-border);
+  border-radius: var(--r);
+  padding: 1.75rem 1rem;
+  text-align: center;
+  box-shadow: 0 4px 20px rgba(0,0,0,.3);
+  transition: transform .25s, box-shadow .25s, border-color .25s;
+  animation: fade-up .5s var(--delay,.1s) both;
+  position: relative; overflow: hidden;
+}
+.stat-card::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: linear-gradient(90deg, transparent, var(--c, var(--accent)), transparent);
+}
+.stat-card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(6,182,212,.4);
+  box-shadow: 0 12px 34px rgba(0,0,0,.4);
+}
+.stat-number {
+  font-family: 'Sora', sans-serif;
+  font-size: 2.2rem; font-weight: 800;
+  letter-spacing: -.04em;
+  margin-bottom: .3rem;
+  line-height: 1;
+}
+.stat-label { font-size: .8rem; color: var(--text-muted); font-weight: 400; text-transform: uppercase; letter-spacing: .08em; }
+
+/* ── CTA ─────────────────────────────────────── */
+.cta-card {
+  background: var(--card-bg);
+  border: 1px solid var(--accent-border);
+  border-radius: var(--r);
+  padding: 3rem 2rem;
+  text-align: center;
+  position: relative; overflow: hidden;
+  box-shadow: 0 4px 24px rgba(0,0,0,.35);
+  animation: fade-up .5s .3s both;
+}
+.cta-card::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: linear-gradient(90deg, transparent, var(--accent), var(--accent-dark), transparent);
+}
+.cta-card::after {
+  content: '';
+  position: absolute;
+  width: 340px; height: 340px;
+  background: radial-gradient(circle, rgba(6,182,212,.09), transparent 70%);
+  bottom: -120px; right: -80px; border-radius: 50%;
+  pointer-events: none;
+}
+
+.cta-title {
+  font-family: 'Sora', sans-serif;
+  font-size: 1.6rem; font-weight: 800;
+  color: var(--text-primary); letter-spacing: -.025em;
+  margin-bottom: .65rem;
+}
+.cta-title .cyan { color: var(--accent); }
+.cta-sub { color: var(--text-secondary); font-size: .93rem; font-weight: 300; line-height: 1.7; margin-bottom: 2rem; }
+
+.cta-actions { display: flex; gap: .85rem; justify-content: center; flex-wrap: wrap; position: relative; z-index: 1; }
+
+.cta-btn-primary {
+  display: inline-flex; align-items: center; gap: .5rem;
+  background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+  border: none; border-radius: var(--r-sm);
+  color: white; padding: .85rem 1.75rem;
+  font-family: 'Sora', sans-serif;
+  font-size: .92rem; font-weight: 700;
+  text-decoration: none;
+  transition: transform .25s, box-shadow .25s;
+  box-shadow: 0 6px 20px rgba(6,182,212,.28);
+  position: relative; overflow: hidden;
+}
+.cta-btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(6,182,212,.42);
+  color: white;
+}
+.cta-btn-outline {
+  display: inline-flex; align-items: center; gap: .5rem;
+  background: rgba(6,182,212,.08);
+  border: 1px solid var(--accent-border);
+  border-radius: var(--r-sm);
+  color: var(--accent); padding: .85rem 1.75rem;
+  font-family: 'Sora', sans-serif;
+  font-size: .92rem; font-weight: 700;
+  text-decoration: none;
+  transition: background .2s, border-color .2s, transform .2s;
+}
+.cta-btn-outline:hover {
+  background: rgba(6,182,212,.18);
+  border-color: var(--accent);
+  color: #67e8f9; transform: translateY(-2px);
+}
+.btn-shimmer {
+  position: absolute; top: 0; left: -100%; width: 55%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,.16), transparent);
+  transform: skewX(-18deg);
+}
+.cta-btn-primary:hover .btn-shimmer { left: 160%; transition: left .5s ease; }
+
+/* ── Responsive ─────────────────────────────── */
+@media (max-width: 900px) {
+  .mvv-grid   { grid-template-columns: 1fr; }
+  .stats-grid { grid-template-columns: 1fr 1fr; }
+  .why-grid   { grid-template-columns: 1fr; }
+}
+@media (max-width: 576px) {
+  .stats-grid  { grid-template-columns: 1fr 1fr; }
+  .ab-card-body { padding: 1.4rem 1.1rem; }
+  .cta-card    { padding: 2rem 1.25rem; }
+  .cta-actions { flex-direction: column; align-items: center; }
+}
+</style>
+
+<div class="ab-page">
+
+  <!-- ── HERO ── -->
+  <div class="ab-hero">
+    <div class="ab-hero-grid"></div>
+    <div class="ab-hero-inner">
+      <div class="ct-eyebrow">
+        <span class="eyebrow-pulse"></span>
+        Who we are
       </div>
+      <h1 class="ab-title">About <span class="cyan">COMPUTER</span><br>&amp; CCTV HUB</h1>
+      <p class="ab-sub">Your trusted destination for premium laptops, CCTV systems, and accessories in Ahmedabad.</p>
     </div>
   </div>
 
-  <!-- About Section -->
-  <div class="row mb-5">
-    <div class="col-lg-8 mx-auto">
-      <div class="card border-0 shadow-sm">
-        <div class="card-body">
-          <h5 class="card-title fw-bold text-info mb-3 fs-4">Our Story</h5>
-          <p class="card-text lh-lg">
-            Founded in 2024, Laptop Shop started with a simple mission: to provide customers with access to quality laptops
-            at competitive prices. What began as a small venture has grown into a trusted platform serving thousands of customers
-            across India.
-          </p>
-          <p class="card-text lh-lg">
-            We believe that everyone deserves access to reliable computing devices without breaking the bank. Whether you're looking
-            for the latest flagship laptop or a budget-friendly option, we've got you covered.
-          </p>
-        </div>
+  <!-- ── OUR STORY ── -->
+  <div class="ab-card" style="animation: fade-up .5s .08s both;">
+    <div class="ab-card-body">
+      <div class="section-label">
+        <span class="section-num">01</span> Our Story
       </div>
+      <h2 class="card-heading">Built on <span class="cyan">trust</span>, driven by technology</h2>
+      <p class="ab-text">
+        Founded in 2024, COMPUTER &amp; CCTV HUB started with a simple mission: to provide customers with access to quality laptops and security systems at competitive prices. What began as a small venture has grown into a trusted platform serving thousands of customers across Ahmedabad and beyond.
+      </p>
+      <p class="ab-text">
+        We believe that everyone deserves access to reliable computing devices and security solutions without breaking the bank. Whether you're looking for the latest flagship laptop, a budget-friendly refurbished device, or a complete CCTV setup — we've got you covered.
+      </p>
     </div>
   </div>
 
-  <!-- Mission, Vision, Values -->
-  <div class="row g-4 mb-5">
-    <div class="col-md-6 col-lg-4">
-      <div class="card border-0 shadow-sm h-100" style="border-radius: 14px; overflow: hidden; transition: all 0.3s ease; animation: fadeInUp 0.5s ease-out;">
-        <div class="card-body text-center p-4">
-          <div style="width: 70px; height: 70px; background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; color: white;">
-            <i class="fas fa-crosshairs" style="font-size: 2rem;"></i>
+  <!-- ── MISSION / VISION / VALUES ── -->
+  <div class="mvv-grid">
+    <div class="mvv-card" style="--delay:.1s">
+      <div class="mvv-icon">
+        <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+          <circle cx="14" cy="14" r="5" stroke="white" stroke-width="1.8"/>
+          <circle cx="14" cy="14" r="12" stroke="white" stroke-width="1.5" stroke-dasharray="3 3"/>
+          <path d="M14 2v4M14 22v4M2 14h4M22 14h4" stroke="white" stroke-width="1.8" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="mvv-title">Our Mission</div>
+      <p class="mvv-text">To democratize access to quality technology by offering the best selection of laptops and CCTV systems at competitive prices with exceptional customer service.</p>
+    </div>
+
+    <div class="mvv-card" style="--delay:.16s">
+      <div class="mvv-icon">
+        <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+          <circle cx="14" cy="14" r="5" stroke="white" stroke-width="1.8"/>
+          <path d="M4 14c0-5.52 4.48-10 10-10s10 4.48 10 10" stroke="white" stroke-width="1.8" stroke-linecap="round"/>
+          <path d="M4 14c0 5.52 4.48 10 10 10" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-dasharray="2 3"/>
+          <path d="M22 16l2-2-2-2" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <div class="mvv-title">Our Vision</div>
+      <p class="mvv-text">To become India's most trusted and customer-centric technology marketplace, known for quality, reliability, and exceptional after-sales support.</p>
+    </div>
+
+    <div class="mvv-card" style="--delay:.22s">
+      <div class="mvv-icon">
+        <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+          <path d="M14 4C9 4 5 8 5 13c0 2.5 1 4.8 2.6 6.4L14 26l6.4-6.6C21.9 17.8 23 15.5 23 13c0-5-4-9-9-9z" stroke="white" stroke-width="1.8" stroke-linejoin="round"/>
+          <path d="M10 13l3 3 5-6" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <div class="mvv-title">Our Values</div>
+      <p class="mvv-text">Integrity, transparency, and customer satisfaction are at the core of everything we do. We're committed to ethical practices and continuous improvement.</p>
+    </div>
+  </div>
+
+  <!-- ── WHY CHOOSE US ── -->
+  <div class="ab-card" style="animation: fade-up .5s .2s both;">
+    <div class="ab-card-body">
+      <div class="section-label">
+        <span class="section-num">02</span> Why Choose Us
+      </div>
+      <h2 class="card-heading">What makes us <span class="cyan">different</span></h2>
+      <div class="why-grid">
+
+        <div class="why-item">
+          <div class="why-icon">
+            <svg width="17" height="17" viewBox="0 0 17 17" fill="none">
+              <rect x="1" y="3" width="15" height="11" rx="2" stroke="currentColor" stroke-width="1.4"/>
+              <path d="M4 7h9M4 10h6" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+            </svg>
           </div>
-          <h5 class="card-title fw-bold mb-3" style="color: #0f172a;">Our Mission</h5>
-          <p class="card-text text-secondary" style="line-height: 1.6;">
-            To democratize access to quality technology by offering the best selection of laptops at competitive prices with exceptional customer service.
-          </p>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-6 col-lg-4">
-      <div class="card border-0 shadow-sm h-100" style="border-radius: 14px; overflow: hidden; transition: all 0.3s ease; animation: fadeInUp 0.5s ease-out 0.1s both;">
-        <div class="card-body text-center p-4">
-          <div style="width: 70px; height: 70px; background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; color: white;">
-            <i class="fas fa-binoculars" style="font-size: 2rem;"></i>
+          <div>
+            <div class="why-title">Wide Selection</div>
+            <p class="why-sub">Hundreds of new and refurbished laptops plus CCTV systems from top brands.</p>
           </div>
-          <h5 class="card-title fw-bold mb-3" style="color: #0f172a;">Our Vision</h5>
-          <p class="card-text text-secondary" style="line-height: 1.6;">
-            To become India's most trusted and customer-centric laptop marketplace, known for quality, reliability, and exceptional support.
-          </p>
         </div>
-      </div>
-    </div>
-    <div class="col-md-6 col-lg-4">
-      <div class="card border-0 shadow-sm h-100" style="border-radius: 14px; overflow: hidden; transition: all 0.3s ease; animation: fadeInUp 0.5s ease-out 0.2s both;">
-        <div class="card-body text-center p-4">
-          <div style="width: 70px; height: 70px; background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; color: white;">
-            <i class="fas fa-handshake" style="font-size: 2rem;"></i>
+
+        <div class="why-item">
+          <div class="why-icon">
+            <svg width="17" height="17" viewBox="0 0 17 17" fill="none">
+              <circle cx="8.5" cy="8.5" r="7" stroke="currentColor" stroke-width="1.4"/>
+              <path d="M8.5 5v3.5l2.5 2.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
           </div>
-          <h5 class="card-title fw-bold mb-3" style="color: #0f172a;">Our Values</h5>
-          <p class="card-text text-secondary" style="line-height: 1.6;">
-            Integrity, transparency, and customer satisfaction are at the core of everything we do. We're committed to ethical practices and continuous improvement.
-          </p>
+          <div>
+            <div class="why-title">Competitive Pricing</div>
+            <p class="why-sub">Best prices guaranteed with transparent pricing and zero hidden charges.</p>
+          </div>
         </div>
+
+        <div class="why-item">
+          <div class="why-icon">
+            <svg width="17" height="17" viewBox="0 0 17 17" fill="none">
+              <path d="M8.5 2L10.5 6.2L15 6.9L11.75 10.1L12.5 14.6L8.5 12.5L4.5 14.6L5.25 10.1L2 6.9L6.5 6.2L8.5 2Z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div>
+            <div class="why-title">Quality Assurance</div>
+            <p class="why-sub">All products are thoroughly tested and verified before delivery to you.</p>
+          </div>
+        </div>
+
+        <div class="why-item">
+          <div class="why-icon">
+            <svg width="17" height="17" viewBox="0 0 17 17" fill="none">
+              <circle cx="8.5" cy="6" r="3.5" stroke="currentColor" stroke-width="1.4"/>
+              <path d="M2 15c0-3.6 2.91-6.5 6.5-6.5S15 11.4 15 15" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div>
+            <div class="why-title">Expert Support</div>
+            <p class="why-sub">Our knowledgeable team is always ready to help you make the right choice.</p>
+          </div>
+        </div>
+
+        <div class="why-item">
+          <div class="why-icon">
+            <svg width="17" height="17" viewBox="0 0 17 17" fill="none">
+              <path d="M2 10V7l4-4h5l4 4v3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+              <rect x="2" y="10" width="13" height="5" rx="1" stroke="currentColor" stroke-width="1.4"/>
+              <circle cx="6" cy="16" r="1" stroke="currentColor" stroke-width="1.2"/>
+              <circle cx="11" cy="16" r="1" stroke="currentColor" stroke-width="1.2"/>
+            </svg>
+          </div>
+          <div>
+            <div class="why-title">Fast Shipping</div>
+            <p class="why-sub">Quick and reliable delivery across Ahmedabad — FREE for local orders!</p>
+          </div>
+        </div>
+
+        <div class="why-item">
+          <div class="why-icon">
+            <svg width="17" height="17" viewBox="0 0 17 17" fill="none">
+              <path d="M3 8.5L6.5 12 14 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div>
+            <div class="why-title">Easy Returns</div>
+            <p class="why-sub">Hassle-free returns within 7 days if you're not completely satisfied.</p>
+          </div>
+        </div>
+
       </div>
     </div>
   </div>
 
-  <!-- Why Choose Us -->
-  <div class="row mb-5">
-    <div class="col-lg-8 mx-auto">
-      <div class="card border-0 shadow-sm">
-        <div class="card-body">
-          <h5 class="card-title fw-bold text-info mb-4 fs-4">Why Choose Laptop Shop?</h5>
-          <div class="row g-3">
-            <div class="col-md-6">
-              <div class="d-flex gap-3">
-                <div class="flex-shrink-0">
-                  <i class="fas fa-check-circle text-success fs-5"></i>
-                </div>
-                <div class="flex-grow-1">
-                  <h6 class="fw-bold mb-2">Wide Selection</h6>
-                  <p class="text-muted small mb-0">Choose from hundreds of new and refurbished laptops from top brands.</p>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-6">
-              <div class="d-flex gap-3">
-                <div class="flex-shrink-0">
-                  <i class="fas fa-check-circle text-success fs-5"></i>
-                </div>
-                <div class="flex-grow-1">
-                  <h6 class="fw-bold mb-2">Competitive Pricing</h6>
-                  <p class="text-muted small mb-0">Best prices guaranteed with transparent pricing and no hidden charges.</p>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-6">
-              <div class="d-flex gap-3">
-                <div class="flex-shrink-0">
-                  <i class="fas fa-check-circle text-success fs-5"></i>
-                </div>
-                <div class="flex-grow-1">
-                  <h6 class="fw-bold mb-2">Quality Assurance</h6>
-                  <p class="text-muted small mb-0">All products are thoroughly tested and verified before delivery.</p>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-6">
-              <div class="d-flex gap-3">
-                <div class="flex-shrink-0">
-                  <i class="fas fa-check-circle text-success fs-5"></i>
-                </div>
-                <div class="flex-grow-1">
-                  <h6 class="fw-bold mb-2">Expert Support</h6>
-                  <p class="text-muted small mb-0">Our knowledgeable team is here to help you make the right choice.</p>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-6">
-              <div class="d-flex gap-3">
-                <div class="flex-shrink-0">
-                  <i class="fas fa-check-circle text-success fs-5"></i>
-                </div>
-                <div class="flex-grow-1">
-                  <h6 class="fw-bold mb-2">Fast Shipping</h6>
-                  <p class="text-muted small mb-0">Quick and reliable delivery across India with tracking.</p>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-6">
-              <div class="d-flex gap-3">
-                <div class="flex-shrink-0">
-                  <i class="fas fa-check-circle text-success fs-5"></i>
-                </div>
-                <div class="flex-grow-1">
-                  <h6 class="fw-bold mb-2">Easy Returns</h6>
-                  <p class="text-muted small mb-0">Hassle-free returns within 7 days if you're not satisfied.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+  <!-- ── STATS ── -->
+  <div class="stats-grid">
+    <div class="stat-card" style="--delay:.08s; --c: var(--accent);">
+      <div class="stat-number" style="color:var(--accent);">500+</div>
+      <div class="stat-label">Products</div>
+    </div>
+    <div class="stat-card" style="--delay:.13s; --c: var(--green);">
+      <div class="stat-number" style="color:var(--green);">10K+</div>
+      <div class="stat-label">Customers</div>
+    </div>
+    <div class="stat-card" style="--delay:.18s; --c: var(--amber);">
+      <div class="stat-number" style="color:var(--amber);">99%</div>
+      <div class="stat-label">Satisfaction</div>
+    </div>
+    <div class="stat-card" style="--delay:.23s; --c: #a78bfa;">
+      <div class="stat-number" style="color:#a78bfa;">24/7</div>
+      <div class="stat-label">Support</div>
     </div>
   </div>
 
-  <!-- Stats Section -->
-  <div class="row g-4 mb-5">
-    <div class="col-md-3 col-sm-6">
-      <div class="text-center p-4 rounded-3 bg-info bg-opacity-10">
-        <h3 class="fw-bold text-info mb-2">500+</h3>
-        <p class="text-muted mb-0">Products</p>
-      </div>
-    </div>
-    <div class="col-md-3 col-sm-6">
-      <div class="text-center p-4 rounded-3 bg-success bg-opacity-10">
-        <h3 class="fw-bold text-success mb-2">10K+</h3>
-        <p class="text-muted mb-0">Customers</p>
-      </div>
-    </div>
-    <div class="col-md-3 col-sm-6">
-      <div class="text-center p-4 rounded-3 bg-warning bg-opacity-10">
-        <h3 class="fw-bold text-warning mb-2">99%</h3>
-        <p class="text-muted mb-0">Satisfaction</p>
-      </div>
-    </div>
-    <div class="col-md-3 col-sm-6">
-      <div class="text-center p-4 rounded-3 bg-danger bg-opacity-10">
-        <h3 class="fw-bold text-danger mb-2">24/7</h3>
-        <p class="text-muted mb-0">Support</p>
-      </div>
+  <!-- ── CTA ── -->
+  <div class="cta-card">
+    <h2 class="cta-title">Ready to find your <span class="cyan">perfect laptop?</span></h2>
+    <p class="cta-sub">Submit an inquiry for a new laptop or browse our refurbished collection — our team is here to help you find the right device at the right price.</p>
+    <div class="cta-actions">
+      <a href="{% url 'new_laptops:request_laptop' %}" class="cta-btn-primary">
+        <svg width="17" height="17" viewBox="0 0 17 17" fill="none">
+          <rect x="1" y="3" width="15" height="10" rx="2" stroke="currentColor" stroke-width="1.5"/>
+          <path d="M5 13l1 2h5l1-2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+        Request a Laptop
+        <span class="btn-shimmer"></span>
+      </a>
+      <a href="{% url 'home' %}" class="cta-btn-outline">
+        <svg width="17" height="17" viewBox="0 0 17 17" fill="none">
+          <path d="M2 8.5L8.5 2 15 8.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M4 8.5v7h3.5v-3h2v3H13v-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        Back to Home
+      </a>
     </div>
   </div>
 
-  <!-- CTA Section -->
-  <div class="row">
-    <div class="col-lg-8 mx-auto text-center">
-      <div class="card border-0 shadow-lg bg-info bg-opacity-10">
-        <div class="card-body py-5">
-          <h4 class="fw-bold mb-3">Ready to Find Your Perfect Laptop?</h4>
-          <p class="text-muted mb-4">Submit inquiries for new laptops and connect with our team to find your ideal device.</p>
-          <div class="d-flex gap-3 justify-content-center flex-wrap">
-            <a href="{% url 'new_laptops:request_laptop' %}" class="btn btn-primary btn-lg">
-              <i class="fas fa-star-half-alt me-2"></i>Request New Laptop
-            </a>
-            <a href="{% url 'home' %}" class="btn btn-outline-info btn-lg">
-              <i class="fas fa-home me-2"></i>Back to Home
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+</div><!-- /ab-page -->
 
-  <div class="text-center mt-5">
-    <a href="{% url 'home' %}" class="btn btn-secondary">
-      <i class="fas fa-arrow-left me-2"></i>Back to Home
-    </a>
-  </div>
-</div>
 {% endblock %}

@@ -143,6 +143,18 @@ MEDIA_ROOT = BASE_DIR / 'media'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+# Email Configuration
+# For Gmail: Use App Password (not your regular password)
+# Enable 2-Factor Authentication and generate App Password at:
+# https://myaccount.google.com/signinoptions/two-step-verification
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'your-email@gmail.com'  # Replace with your email
+EMAIL_HOST_PASSWORD = 'your-app-password'  # Replace with your app password
+DEFAULT_FROM_EMAIL = 'your-email@gmail.com'  # Replace with your email
+
 # Twilio SMS Configuration
 # Set these environment variables for SMS functionality:
 # TWILIO_ACCOUNT_SID - Your Twilio account SID
@@ -155,24 +167,25 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # export TWILIO_PHONE_NUMBER='+1234567890'
 
 # Email Configuration
-# Default to console backend for development. To enable actual email sending:
-# 1. Set EMAIL_HOST_USER environment variable (your email)
-# 2. Set EMAIL_HOST_PASSWORD environment variable (your app password)
-# See OTP_EMAIL_SETUP.md for detailed instructions
-if os.environ.get('EMAIL_HOST_USER'):
-    # Production mode - use SMTP
-    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-else:
-    # Development mode - use SMTP with Gmail (emails will actually be sent)
-    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# Development mode - Print OTP to console (not sending actual emails)
+# To enable actual email sending:
+# 1. Get a NEW Gmail App Password from: https://myaccount.google.com/apppasswords
+# 2. Set EMAIL_HOST_USER environment variable (your email)
+# 3. Set EMAIL_HOST_PASSWORD environment variable (your NEW app password)
+# 4. Uncomment the SMTP backend below
 
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER', '2402107017@shreyarthuni.ac.in')
-EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD', 'ynaauwxxmgopfhjn')
-DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL', '2402107017@shreyarthuni.ac.in')
-NEW_LAPTOP_REQUEST_NOTIFICATION_EMAIL = os.environ.get('NEW_LAPTOP_REQUEST_NOTIFICATION_EMAIL', EMAIL_HOST_USER)
+# CONSOLE EMAIL BACKEND - Shows OTP in terminal for development
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+# ---- UNCOMMENT BELOW TO USE ACTUAL EMAIL SENDING ----
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_HOST = 'smtp.gmail.com'
+# EMAIL_PORT = 587
+# EMAIL_USE_TLS = True
+# EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER', '2402107017@shreyarthuni.ac.in')
+# EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD', 'zwysmcjjjffuliwc')
+DEFAULT_FROM_EMAIL = '2402107017@shreyarthuni.ac.in'
+NEW_LAPTOP_REQUEST_NOTIFICATION_EMAIL = os.environ.get('NEW_LAPTOP_REQUEST_NOTIFICATION_EMAIL', '2402107017@shreyarthuni.ac.in')
 
 # OTP Configuration
 OTP_EXPIRY_MINUTES = 15
@@ -189,6 +202,8 @@ CSRF_TRUSTED_ORIGINS = ['http://127.0.0.1:8000', 'http://localhost:8000']
 CSRF_COOKIE_SECURE = False
 SESSION_COOKIE_SECURE = False
 CSRF_COOKIE_HTTPONLY = False
+CSRF_COOKIE_SAMESITE = 'Lax'
+SESSION_COOKIE_SAMESITE = 'Lax'
 
 # Additional security hardening (safe defaults)
 SECURE_BROWSER_XSS_FILTER = True

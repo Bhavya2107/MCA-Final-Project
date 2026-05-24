@@ -1,281 +1,792 @@
 {% extends 'base.html' %}
 {% block title %}Contact Us - COMPUTER & CCTV HUB{% endblock %}
 {% block content %}
-<div class="container-lg py-5">
-  <div class="row mb-5">
-    <div class="col-lg-8 mx-auto text-center">
-      <h1 class="display-4 fw-bold mb-3">Get In Touch</h1>
-      <p class="lead text-muted">Have questions? We'd love to hear from you. Send us a message and we'll respond as soon as possible.</p>
-    </div>
-  </div>
-
-  <div class="row g-4 mb-5">
-    <!-- Contact Information Cards -->
-    <div class="col-md-4">
-      <div class="card border-0 shadow-sm h-100">
-        <div class="card-body text-center">
-          <div class="rounded-circle bg-info bg-opacity-10 d-inline-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">
-            <i class="fas fa-phone text-info fs-4"></i>
-          </div>
-          <h5 class="fw-bold mb-3">Phone</h5>
-          {% if info %}
-            <a href="tel:{{ info.phone }}" class="text-decoration-none text-dark fw-500">
-              {{ info.phone }}
-            </a>
-          {% else %}
-            <p class="text-muted">Coming soon</p>
-          {% endif %}
-          <p class="text-muted small mt-2">Mon - Fri, 9:00 AM - 6:00 PM IST</p>
-        </div>
-      </div>
-    </div>
-
-    <div class="col-md-4">
-      <div class="card border-0 shadow-sm h-100">
-        <div class="card-body text-center">
-          <div class="rounded-circle bg-info bg-opacity-10 d-inline-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">
-            <i class="fas fa-envelope text-info fs-4"></i>
-          </div>
-          <h5 class="fw-bold mb-3">Email</h5>
-          {% if info %}
-            <a href="mailto:{{ info.email }}" class="text-decoration-none text-dark fw-500">
-              {{ info.email }}
-            </a>
-          {% else %}
-            <p class="text-muted">support@laptopshop.com</p>
-          {% endif %}
-          <p class="text-muted small mt-2">We'll respond within 24 hours</p>
-        </div>
-      </div>
-    </div>
-
-    <div class="col-md-4">
-      <div class="card border-0 shadow-sm h-100">
-        <div class="card-body text-center">
-          <div class="rounded-circle bg-info bg-opacity-10 d-inline-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">
-            <i class="fas fa-map-marker-alt text-info fs-4"></i>
-          </div>
-          <h5 class="fw-bold mb-3">Address</h5>
-          {% if info %}
-            <p class="text-dark fw-500" style="line-height: 1.6;">
-              {{ info.address|linebreaks }}
-            </p>
-          {% else %}
-            <p class="text-muted">Tech Plaza<br>Innovation Street<br>Metro City, Country</p>
-          {% endif %}
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="row g-4">
-    <!-- Contact Form -->
-    <div class="col-lg-6">
-      <div class="card border-0 shadow-sm">
-        <div class="card-body p-5">
-          <h4 class="fw-bold mb-4">Send us a Message</h4>
-          <form method="post" novalidate>
-            {% csrf_token %}
-            <div class="mb-4">
-              <label class="form-label fw-500">Full Name *</label>
-              {{ form.name }}
-              {% if form.name.errors %}
-                <div class="alert alert-danger mt-2 mb-0">{{ form.name.errors }}</div>
-              {% endif %}
-            </div>
-
-            <div class="mb-4">
-              <label class="form-label fw-500">Email Address *</label>
-              {{ form.email }}
-              {% if form.email.errors %}
-                <div class="alert alert-danger mt-2 mb-0">{{ form.email.errors }}</div>
-              {% endif %}
-            </div>
-
-            <div class="mb-4">
-              <label class="form-label fw-500">Phone Number</label>
-              {{ form.phone }}
-              {% if form.phone.errors %}
-                <div class="alert alert-danger mt-2 mb-0">{{ form.phone.errors }}</div>
-              {% endif %}
-            </div>
-
-            <div class="mb-4">
-              <label class="form-label fw-500">Message *</label>
-              {{ form.message }}
-              {% if form.message.errors %}
-                <div class="alert alert-danger mt-2 mb-0">{{ form.message.errors }}</div>
-              {% endif %}
-            </div>
-
-            {# hidden product field (prefilled from product pages) #}
-            {{ form.product }}
-            {% if form.product.value %}
-              <div class="mb-3">
-                <label class="form-label fw-500">Product of interest</label>
-                <input type="text" class="form-control form-control-lg" value="{{ form.product.value }}" readonly>
-              </div>
-            {% endif %}
-
-            <button type="submit" class="btn btn-primary btn-lg w-100 fw-bold">
-              <i class="fas fa-paper-plane me-2"></i>Send Message
-            </button>
-          </form>
-        </div>
-      </div>
-    </div>
-
-    <!-- Map/Additional Info -->
-    <div class="col-lg-6">
-      <div class="card border-0 shadow-sm h-100">
-        <div class="card-body p-5">
-          <h4 class="fw-bold mb-4">Business Hours</h4>
-          <div class="mb-5">
-            <div class="d-flex justify-content-between mb-3 pb-3 border-bottom">
-              <span class="text-muted">Monday - Friday</span>
-              <span class="fw-500">9:00 AM - 6:00 PM</span>
-            </div>
-            <div class="d-flex justify-content-between mb-3 pb-3 border-bottom">
-              <span class="text-muted">Saturday</span>
-              <span class="fw-500">10:00 AM - 4:00 PM</span>
-            </div>
-            <div class="d-flex justify-content-between">
-              <span class="text-muted">Sunday</span>
-              <span class="fw-500">Closed</span>
-            </div>
-          </div>
-
-          <h5 class="fw-bold mb-4 pt-3 border-top">Follow Us</h5>
-          <div class="d-flex gap-3">
-            <a href="#" class="btn btn-sm btn-outline-info" title="Facebook">
-              <i class="fab fa-facebook-f"></i>
-            </a>
-            <a href="#" class="btn btn-sm btn-outline-info" title="Twitter">
-              <i class="fab fa-twitter"></i>
-            </a>
-            <a href="#" class="btn btn-sm btn-outline-info" title="LinkedIn">
-              <i class="fab fa-linkedin-in"></i>
-            </a>
-            <a href="#" class="btn btn-sm btn-outline-info" title="Instagram">
-              <i class="fab fa-instagram"></i>
-            </a>
-          </div>
-
-          {% if info and info.map_embed %}
-            <div class="mt-5">
-              <h5 class="fw-bold mb-3">Location</h5>
-              <div class="rounded-3 overflow-hidden" style="height: 300px;">
-                {{ info.map_embed|safe }}
-              </div>
-            </div>
-          {% endif %}
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="row mt-5">
-    <div class="col-lg-8 mx-auto text-center">
-      <div class="alert alert-success alert-dismissible fade show" role="alert">
-        <i class="fas fa-check-circle me-2"></i>
-        <strong>Thank you for your interest!</strong> We typically respond to all inquiries within 24 hours.
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-      </div>
-    </div>
-  </div>
-</div>
 
 <style>
-  /* Style inputs rendered by JS fallback */
-  form input, form textarea {
-    display: block;
-    width: 100%;
-  }
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap');
 
-  /* Contact page typography and email layout fixes */
-  .contact-info-card .card-body {
-    font-size: 0.95rem;
-    line-height: 1.6;
-  }
+/* ── Variables (matching base.html) ── */
+:root {
+  --primary:       #050c18;
+  --primary-soft:  #0a1628;
+  --card-bg:       #0d1f35;
+  --card-bg2:      #0f2440;
+  --accent:        #06b6d4;
+  --accent-dark:   #0891b2;
+  --accent-glow:   rgba(6,182,212,0.18);
+  --accent-border: rgba(6,182,212,0.2);
+  --text-primary:  #f0f9ff;
+  --text-secondary:#94a3b8;
+  --text-muted:    #64748b;
+  --red:           #f87171;
+  --green:         #34d399;
+  --r:             16px;
+  --r-sm:          10px;
+}
 
-  .contact-info-card h5 {
-    font-size: 1.1rem;
-  }
+/* ── Page root ── */
+.ct-page {
+  font-family: 'DM Sans', sans-serif;
+  color: var(--text-primary);
+  padding-bottom: 1rem;
+}
 
-  .contact-info-card a,
-  .contact-info-card p {
-    font-size: 0.95rem;
-    word-break: break-word;
-    overflow-wrap: anywhere;
-    white-space: normal;
-  }
+/* ─────────────────────────────────────────
+   HERO STRIP
+───────────────────────────────────────── */
+.ct-hero {
+  position: relative;
+  text-align: center;
+  padding: 3.5rem 1rem 3rem;
+  overflow: hidden;
+  margin-bottom: 2.5rem;
+}
 
-  .contact-info-card a[href^="mailto"] {
-    display: inline-block;
-    max-width: 100%;
-  }
+/* Background glows */
+.ct-hero::before,
+.ct-hero::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+}
+.ct-hero::before {
+  width: 520px; height: 520px;
+  background: radial-gradient(circle, rgba(6,182,212,.14), transparent 65%);
+  top: -180px; left: 50%; transform: translateX(-50%);
+}
+.ct-hero::after {
+  width: 300px; height: 300px;
+  background: radial-gradient(circle, rgba(6,182,212,.07), transparent 70%);
+  bottom: -80px; right: 5%;
+}
 
-  .contact-info-card .small {
-    font-size: 0.85rem;
-  }
+/* Dot grid */
+.ct-hero-grid {
+  position: absolute; inset: 0;
+  background-image:
+    radial-gradient(rgba(6,182,212,.12) 1px, transparent 1px);
+  background-size: 32px 32px;
+  pointer-events: none;
+}
 
-  @media (max-width: 991px) {
-    h1.display-4 {
-      font-size: 2.6rem;
-    }
+.ct-hero-inner { position: relative; z-index: 1; }
 
-    .card-body h4 {
-      font-size: 1.4rem;
-    }
+.ct-eyebrow {
+  display: inline-flex; align-items: center; gap: .5rem;
+  font-size: .72rem; font-weight: 700;
+  letter-spacing: .14em; text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 1rem;
+  animation: fade-up .5s .1s both;
+}
+.eyebrow-pulse {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 0 0 rgba(6,182,212,.6);
+  animation: pulse 2s ease-in-out infinite;
+}
+@keyframes pulse {
+  0%   { box-shadow: 0 0 0 0 rgba(6,182,212,.6); }
+  70%  { box-shadow: 0 0 0 8px rgba(6,182,212,0); }
+  100% { box-shadow: 0 0 0 0 rgba(6,182,212,0); }
+}
 
-    .contact-info-card h5 {
-      font-size: 1rem;
-    }
+.ct-hero-title {
+  font-family: 'Sora', sans-serif;
+  font-size: clamp(2.2rem, 6vw, 3.8rem);
+  font-weight: 800;
+  color: var(--text-primary);
+  letter-spacing: -.03em;
+  line-height: 1.1;
+  margin-bottom: 1rem;
+  animation: fade-up .5s .18s both;
+}
+.ct-hero-title .cyan { color: var(--accent); }
 
-    .contact-info-card a,
-    .contact-info-card p,
-    .form-control,
-    .form-control-lg,
-    label.form-label {
-      font-size: 0.95rem;
-    }
-  }
+.ct-hero-sub {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  max-width: 500px;
+  margin: 0 auto;
+  line-height: 1.7;
+  font-weight: 300;
+  animation: fade-up .5s .26s both;
+}
 
-  @media (max-width: 575px) {
-    h1.display-4 {
-      font-size: 2.2rem;
-    }
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
 
-    .contact-info-card .card-body,
-    .form-control,
-    .form-control-lg,
-    label.form-label {
-      font-size: 0.9rem;
-    }
-  }
+/* ─────────────────────────────────────────
+   INFO CARDS ROW
+───────────────────────────────────────── */
+.ct-info-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.info-card {
+  background: var(--card-bg);
+  border: 1px solid var(--accent-border);
+  border-radius: var(--r);
+  padding: 1.5rem 1.25rem;
+  display: flex; align-items: flex-start; gap: 1rem;
+  transition: transform .25s, box-shadow .25s, border-color .25s;
+  animation: fade-up .5s var(--delay,.1s) both;
+  box-shadow: 0 4px 20px rgba(0,0,0,.3);
+}
+.info-card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(6,182,212,.45);
+  box-shadow: 0 12px 36px rgba(0,0,0,.4), 0 0 0 1px rgba(6,182,212,.12);
+}
+
+.info-icon {
+  width: 46px; height: 46px; flex-shrink: 0;
+  background: var(--accent-glow);
+  border: 1px solid var(--accent-border);
+  border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--accent);
+  transition: background .25s;
+}
+.info-card:hover .info-icon {
+  background: rgba(6,182,212,.28);
+}
+
+.info-body h3 {
+  font-size: .68rem; font-weight: 700;
+  letter-spacing: .1em; text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: .35rem;
+}
+.info-val {
+  display: block;
+  font-size: .93rem; font-weight: 500;
+  color: var(--text-primary);
+  text-decoration: none;
+  line-height: 1.45;
+  word-break: break-word;
+  transition: color .2s;
+}
+a.info-val:hover { color: var(--accent); }
+.info-body p {
+  font-size: .78rem;
+  color: var(--text-muted);
+  margin-top: .3rem;
+}
+
+/* ─────────────────────────────────────────
+   MAIN TWO-COL LAYOUT
+───────────────────────────────────────── */
+.ct-two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  align-items: start;
+}
+
+/* ─────────────────────────────────────────
+   FORM PANEL
+───────────────────────────────────────── */
+.ct-form-panel {
+  background: var(--card-bg);
+  border: 1px solid var(--accent-border);
+  border-radius: var(--r);
+  padding: 2rem 1.75rem;
+  box-shadow: 0 4px 24px rgba(0,0,0,.35);
+  animation: fade-up .5s .06s both;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Top accent line */
+.ct-form-panel::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; height: 3px;
+  background: linear-gradient(90deg, transparent, var(--accent), var(--accent-dark), transparent);
+}
+
+.section-label {
+  display: flex; align-items: center; gap: .6rem;
+  font-size: .68rem; font-weight: 700;
+  letter-spacing: .1em; text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: .65rem;
+}
+.section-num {
+  background: var(--accent-glow);
+  border: 1px solid var(--accent-border);
+  color: var(--accent);
+  font-size: .65rem; font-weight: 700;
+  padding: .12rem .42rem;
+  border-radius: 5px;
+}
+
+.panel-heading {
+  font-family: 'Sora', sans-serif;
+  font-size: 1.65rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -.025em;
+  line-height: 1.15;
+  margin-bottom: 1.5rem;
+}
+.panel-heading .cyan { color: var(--accent); }
+
+/* Form fields */
+.ct-form { display: flex; flex-direction: column; gap: 1rem; }
+
+.ct-field-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.ct-field { display: flex; flex-direction: column; gap: .3rem; }
+
+.ct-field label {
+  font-size: .78rem; font-weight: 500;
+  color: var(--text-secondary);
+  letter-spacing: .02em;
+}
+.req { color: var(--accent); }
+
+.ct-input-wrap { position: relative; }
+
+.fi {
+  position: absolute;
+  left: 12px; top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-muted);
+  pointer-events: none;
+  transition: color .2s;
+}
+
+/* Django-rendered inputs */
+.ct-form input,
+.ct-form textarea {
+  width: 100% !important;
+  background: var(--primary-soft) !important;
+  border: 1.5px solid rgba(6,182,212,.2) !important;
+  border-radius: var(--r-sm) !important;
+  padding: .75rem .85rem .75rem 2.6rem !important;
+  font-family: 'DM Sans', sans-serif !important;
+  font-size: .92rem !important;
+  color: var(--text-primary) !important;
+  outline: none !important;
+  transition: border-color .2s, background .2s, box-shadow .2s !important;
+  -webkit-appearance: none;
+  box-sizing: border-box;
+}
+.ct-form textarea {
+  padding-left: .85rem !important;
+  resize: vertical;
+  min-height: 120px;
+}
+.ct-form input::placeholder,
+.ct-form textarea::placeholder { color: var(--text-muted) !important; }
+.ct-form input:focus,
+.ct-form textarea:focus {
+  border-color: var(--accent) !important;
+  background: var(--card-bg) !important;
+  box-shadow: 0 0 0 3px rgba(6,182,212,.1) !important;
+}
+.ct-input-wrap:focus-within .fi { color: var(--accent); }
+
+.ct-form input[readonly] {
+  color: var(--text-muted) !important;
+  cursor: default;
+}
+
+.ct-field-err {
+  font-size: .77rem;
+  color: var(--red);
+  padding-left: .2rem;
+}
+
+/* Submit button */
+.ct-btn {
+  position: relative;
+  display: flex; align-items: center; justify-content: center; gap: .6rem;
+  width: 100%;
+  padding: .9rem 1.5rem;
+  margin-top: .25rem;
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
+  border: none; border-radius: var(--r-sm);
+  color: white;
+  font-family: 'Sora', sans-serif;
+  font-size: .95rem; font-weight: 600;
+  cursor: pointer;
+  overflow: hidden;
+  transition: transform .25s, box-shadow .25s;
+  box-shadow: 0 6px 22px rgba(6,182,212,.28), inset 0 1px 0 rgba(255,255,255,.12);
+}
+.ct-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 32px rgba(6,182,212,.42), inset 0 1px 0 rgba(255,255,255,.15);
+}
+.ct-btn:active { transform: translateY(0); }
+.ct-btn svg { transition: transform .3s; }
+.ct-btn:hover svg { transform: translateX(3px); }
+
+/* shimmer */
+.ct-btn-shimmer {
+  position: absolute;
+  top: 0; left: -100%; width: 55%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,.18), transparent);
+  transform: skewX(-18deg);
+}
+.ct-btn:hover .ct-btn-shimmer { left: 160%; transition: left .5s ease; }
+
+/* ─────────────────────────────────────────
+   SIDE PANEL (hours + social + map)
+───────────────────────────────────────── */
+.ct-side { display: flex; flex-direction: column; gap: 1.25rem; }
+
+.side-card {
+  background: var(--card-bg);
+  border: 1px solid var(--accent-border);
+  border-radius: var(--r);
+  padding: 1.5rem 1.5rem;
+  box-shadow: 0 4px 20px rgba(0,0,0,.3);
+  animation: fade-up .5s var(--delay,.12s) both;
+  transition: transform .25s, box-shadow .25s, border-color .25s;
+}
+.side-card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(6,182,212,.4);
+  box-shadow: 0 10px 32px rgba(0,0,0,.4);
+}
+
+/* Hours */
+.hours-list { margin-top: .85rem; display: flex; flex-direction: column; }
+.hours-row {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: .65rem 0;
+  border-bottom: 1px solid rgba(6,182,212,.08);
+}
+.hours-row:last-child { border-bottom: none; }
+.hours-day { font-size: .88rem; color: var(--text-secondary); }
+.hours-time {
+  display: flex; align-items: center; gap: .45rem;
+  font-size: .88rem; font-weight: 500; color: var(--text-primary);
+}
+.hours-time.closed { color: var(--text-muted); font-weight: 400; }
+.hdot {
+  width: 7px; height: 7px; border-radius: 50%;
+}
+.hdot-open    { background: var(--green);      box-shadow: 0 0 0 2px rgba(52,211,153,.2); }
+.hdot-limited { background: #fbbf24;            box-shadow: 0 0 0 2px rgba(251,191,36,.2); }
+.hdot-closed  { background: var(--text-muted); }
+
+/* Social */
+.social-row { display: flex; gap: .6rem; flex-wrap: wrap; margin-top: .85rem; }
+.social-btn {
+  width: 40px; height: 40px; border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--accent-glow);
+  border: 1px solid var(--accent-border);
+  color: #67e8f9; text-decoration: none;
+  transition: background .2s, transform .2s, box-shadow .2s;
+}
+.social-btn:hover {
+  background: var(--accent);
+  color: white;
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(6,182,212,.3);
+}
+
+/* Map */
+.map-wrap {
+  margin-top: .85rem;
+  border-radius: 10px;
+  overflow: hidden;
+  height: 210px;
+  border: 1px solid var(--accent-border);
+}
+.map-wrap iframe { width: 100%; height: 100%; border: 0; display: block; }
+
+.map-placeholder {
+  margin-top: .85rem;
+  height: 160px;
+  background: var(--primary-soft);
+  border-radius: 10px;
+  border: 1.5px dashed rgba(6,182,212,.2);
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: .6rem; color: var(--text-muted); font-size: .84rem;
+}
+
+/* ─────────────────────────────────────────
+   ALERTS (form errors / success toast)
+───────────────────────────────────────── */
+.ct-alert {
+  display: flex; align-items: flex-start; gap: .65rem;
+  padding: .8rem 1rem;
+  border-radius: var(--r-sm);
+  margin-bottom: .75rem;
+  font-size: .84rem;
+  animation: fade-up .35s both;
+}
+.ct-alert--success {
+  background: rgba(52,211,153,.08);
+  border: 1px solid rgba(52,211,153,.22);
+  color: var(--text-primary);
+}
+.ct-alert--danger {
+  background: rgba(248,113,113,.08);
+  border: 1px solid rgba(248,113,113,.22);
+  color: var(--red);
+}
+.alert-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; margin-top: 3px; }
+.ct-alert--success .alert-dot { background: var(--green); }
+.ct-alert--danger  .alert-dot { background: var(--red); }
+
+/* Toast (fixed) */
+.ct-toast-zone {
+  position: fixed;
+  bottom: 2rem; right: 2rem;
+  z-index: 9999;
+}
+.ct-toast {
+  display: flex; align-items: flex-start; gap: .75rem;
+  background: var(--card-bg);
+  border: 1px solid rgba(52,211,153,.3);
+  border-left: 4px solid var(--green);
+  border-radius: var(--r);
+  padding: 1rem 1.25rem;
+  box-shadow: 0 12px 40px rgba(0,0,0,.5);
+  min-width: 260px; max-width: 320px;
+  color: var(--text-primary);
+  animation: toast-in .4s cubic-bezier(.22,1,.36,1) both;
+}
+@keyframes toast-in {
+  from { opacity: 0; transform: translateX(16px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+.ct-toast svg { color: var(--green); flex-shrink: 0; margin-top: 1px; }
+.ct-toast strong { font-size: .92rem; display: block; margin-bottom: .15rem; }
+.ct-toast p { font-size: .8rem; color: var(--text-secondary); margin: 0; }
+.toast-close {
+  background: none; border: none; cursor: pointer;
+  color: var(--text-muted); font-size: 1.1rem; padding: 0;
+  margin-left: auto; flex-shrink: 0; transition: color .2s;
+}
+.toast-close:hover { color: var(--text-primary); }
+
+/* ─────────────────────────────────────────
+   RESPONSIVE
+───────────────────────────────────────── */
+@media (max-width: 900px) {
+  .ct-info-row { grid-template-columns: 1fr; }
+  .ct-two-col  { grid-template-columns: 1fr; }
+  .ct-field-row { grid-template-columns: 1fr; }
+}
+@media (max-width: 576px) {
+  .ct-form-panel { padding: 1.5rem 1.1rem; }
+  .side-card     { padding: 1.25rem 1rem; }
+}
 </style>
 
+<div class="ct-page">
+
+  <!-- ── HERO ── -->
+  <div class="ct-hero">
+    <div class="ct-hero-grid"></div>
+    <div class="ct-hero-inner">
+      <div class="ct-eyebrow">
+        <span class="eyebrow-pulse"></span>
+        We're here to help
+      </div>
+      <h1 class="ct-hero-title">Get In <span class="cyan">Touch</span></h1>
+      <p class="ct-hero-sub">Questions about laptops, CCTV, or repairs? Drop us a line — we respond within 24 hours.</p>
+    </div>
+  </div>
+
+  <!-- ── INFO CARDS ── -->
+  <div class="ct-info-row">
+
+    <div class="info-card" style="--delay:.05s">
+      <div class="info-icon">
+        <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+          <path d="M5.6 9.8C6.8 12.2 8.8 14.1 11.2 15.4L13.2 13.4C13.5 13.1 13.9 13 14.3 13.2C15.5 13.6 16.8 13.8 18.2 13.8C18.9 13.8 19.4 14.3 19.4 15V18.2C19.4 18.9 18.9 19.4 18.2 19.4C9.1 19.4 1.8 12.1 1.8 3C1.8 2.3 2.3 1.8 3 1.8H6.2C6.9 1.8 7.4 2.3 7.4 3C7.4 4.4 7.6 5.7 8 6.9C8.1 7.3 8 7.7 7.8 8L5.6 9.8Z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <div class="info-body">
+        <h3>Phone</h3>
+        {% if info %}
+          <a href="tel:{{ info.phone }}" class="info-val">{{ info.phone }}</a>
+        {% else %}
+          <span class="info-val" style="color:var(--text-muted)">Coming soon</span>
+        {% endif %}
+        <p>Mon – Fri, 9 AM – 6 PM IST</p>
+      </div>
+    </div>
+
+    <div class="info-card" style="--delay:.1s">
+      <div class="info-icon">
+        <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+          <rect x="1" y="3" width="20" height="16" rx="2" stroke="currentColor" stroke-width="1.6"/>
+          <path d="M1 7l10 7 10-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="info-body">
+        <h3>Email</h3>
+        {% if info %}
+          <a href="mailto:{{ info.email }}" class="info-val">{{ info.email }}</a>
+        {% else %}
+          <a href="mailto:support@laptopshop.com" class="info-val">support@laptopshop.com</a>
+        {% endif %}
+        <p>We reply within 24 hours</p>
+      </div>
+    </div>
+
+    <div class="info-card" style="--delay:.15s">
+      <div class="info-icon">
+        <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+          <path d="M11 2C7.13 2 4 5.13 4 9c0 5.25 7 11 7 11s7-5.75 7-11c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 110-5 2.5 2.5 0 010 5z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <div class="info-body">
+        <h3>Address</h3>
+        {% if info %}
+          <span class="info-val">{{ info.address }}</span>
+        {% else %}
+          <span class="info-val">Tech Plaza, Innovation Street<br>Ahmedabad, Gujarat</span>
+        {% endif %}
+        <p>Visit us in-store</p>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ── MAIN TWO-COL ── -->
+  <div class="ct-two-col">
+
+    <!-- FORM PANEL -->
+    <div class="ct-form-panel">
+      <div class="section-label">
+        <span class="section-num">01</span> Send a message
+      </div>
+      <h2 class="panel-heading">Tell us what<br>you <span class="cyan">need</span></h2>
+
+      <form method="post" novalidate class="ct-form">
+        {% csrf_token %}
+
+        <!-- Name -->
+        <div class="ct-field">
+          <label>Full Name <span class="req">*</span></label>
+          <div class="ct-input-wrap">
+            <svg class="fi" width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <circle cx="8" cy="5" r="3" stroke="currentColor" stroke-width="1.4"/>
+              <path d="M2 13.5c0-3.3 2.7-6 6-6s6 2.7 6 6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+            </svg>
+            {{ form.name }}
+          </div>
+          {% if form.name.errors %}
+            <span class="ct-field-err">{{ form.name.errors|join:", " }}</span>
+          {% endif %}
+        </div>
+
+        <!-- Email + Phone -->
+        <div class="ct-field-row">
+          <div class="ct-field">
+            <label>Email <span class="req">*</span></label>
+            <div class="ct-input-wrap">
+              <svg class="fi" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <rect x="1" y="3" width="14" height="10" rx="1.5" stroke="currentColor" stroke-width="1.4"/>
+                <path d="M1 5l7 5 7-5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+              </svg>
+              {{ form.email }}
+            </div>
+            {% if form.email.errors %}
+              <span class="ct-field-err">{{ form.email.errors|join:", " }}</span>
+            {% endif %}
+          </div>
+          <div class="ct-field">
+            <label>Phone</label>
+            <div class="ct-input-wrap">
+              <svg class="fi" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path d="M4.4 7.2C5.2 8.8 6.5 10.1 8.2 10.9L9.5 9.6C9.7 9.4 10 9.3 10.3 9.5C11.1 9.8 11.9 9.9 12.8 9.9C13.3 9.9 13.6 10.2 13.6 10.7V12.8C13.6 13.3 13.3 13.6 12.8 13.6C6.7 13.6 1.8 8.7 1.8 2.6C1.8 2.1 2.1 1.8 2.6 1.8H4.8C5.3 1.8 5.6 2.1 5.6 2.6C5.6 3.6 5.7 4.5 6 5.3C6.1 5.5 6 5.8 5.8 6L4.4 7.2Z" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+              </svg>
+              {{ form.phone }}
+            </div>
+            {% if form.phone.errors %}
+              <span class="ct-field-err">{{ form.phone.errors|join:", " }}</span>
+            {% endif %}
+          </div>
+        </div>
+
+        <!-- Message -->
+        <div class="ct-field">
+          <label>Message <span class="req">*</span></label>
+          <div class="ct-input-wrap">
+            {{ form.message }}
+          </div>
+          {% if form.message.errors %}
+            <span class="ct-field-err">{{ form.message.errors|join:", " }}</span>
+          {% endif %}
+        </div>
+
+        <!-- Product field (hidden by default, shown when pre-filled) -->
+        {% if product_value %}
+          <div class="ct-field">
+            <label>Product of interest</label>
+            <div class="ct-input-wrap">
+              <input type="text" value="{{ product_value }}" readonly>
+            </div>
+          </div>
+        {% else %}
+          {{ form.product }}
+        {% endif %}
+
+        <!-- Non-field errors -->
+        {% if form.non_field_errors %}
+          <div class="ct-alert ct-alert--danger">
+            <span class="alert-dot"></span>
+            <span>{{ form.non_field_errors|join:", " }}</span>
+          </div>
+        {% endif %}
+
+        <button type="submit" class="ct-btn">
+          <span>Send Message</span>
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+            <path d="M2 9h14M10 4l6 5-6 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <span class="ct-btn-shimmer"></span>
+        </button>
+      </form>
+    </div>
+
+    <!-- SIDE PANEL -->
+    <div class="ct-side">
+
+      <!-- Hours -->
+      <div class="side-card" style="--delay:.08s">
+        <div class="section-label">
+          <span class="section-num">02</span> Business hours
+        </div>
+        <div class="hours-list">
+          <div class="hours-row">
+            <span class="hours-day">Monday – Friday</span>
+            <span class="hours-time"><span class="hdot hdot-open"></span> 9:00 AM – 6:00 PM</span>
+          </div>
+          <div class="hours-row">
+            <span class="hours-day">Saturday</span>
+            <span class="hours-time"><span class="hdot hdot-limited"></span> 10:00 AM – 4:00 PM</span>
+          </div>
+          <div class="hours-row">
+            <span class="hours-day">Sunday</span>
+            <span class="hours-time closed"><span class="hdot hdot-closed"></span> Closed</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Social -->
+      <div class="side-card" style="--delay:.13s">
+        <div class="section-label">
+          <span class="section-num">03</span> Follow us
+        </div>
+        <div class="social-row">
+          <a href="#" class="social-btn" title="Facebook" aria-label="Facebook">
+            <i class="fab fa-facebook-f"></i>
+          </a>
+          <a href="#" class="social-btn" title="Twitter" aria-label="Twitter">
+            <i class="fab fa-twitter"></i>
+          </a>
+          <a href="#" class="social-btn" title="Instagram" aria-label="Instagram">
+            <i class="fab fa-instagram"></i>
+          </a>
+          <a href="#" class="social-btn" title="LinkedIn" aria-label="LinkedIn">
+            <i class="fab fa-linkedin-in"></i>
+          </a>
+        </div>
+      </div>
+
+      <!-- Map -->
+      <div class="side-card" style="--delay:.18s">
+        <div class="section-label">
+          <span class="section-num">04</span> Our location
+        </div>
+        {% if info and info.map_embed %}
+          <div class="map-wrap">{{ info.map_embed|safe }}</div>
+        {% else %}
+          <div class="map-wrap">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3671.993894839706!2d72.56772547509188!3d23.023996379172747!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x395e85a6f3f7252d%3A0xb82555f3986ab59!2sSHREYARTH%20UNIVERSITY!5e0!3m2!1sen!2sin!4v1777443141891!5m2!1sen!2sin"
+              allowfullscreen=""
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+              title="Our Location - SHREYANTH UNIVERSITY">
+            </iframe>
+          </div>
+        {% endif %}
+      </div>
+
+    </div>
+  </div><!-- /ct-two-col -->
+
+</div><!-- /ct-page -->
+
+<!-- ── SUCCESS TOAST ── -->
+{% if messages %}
+  <div class="ct-toast-zone">
+    {% for message in messages %}
+      <div class="ct-toast" data-auto-close role="alert">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+          <circle cx="10" cy="10" r="9" stroke="currentColor" stroke-width="1.5"/>
+          <path d="M6 10.5l3 3 5-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <div>
+          <strong>{{ message.tags|title }}</strong>
+          <p>{{ message }}</p>
+        </div>
+        <button class="toast-close" aria-label="Close">&times;</button>
+      </div>
+    {% endfor %}
+  </div>
+{% endif %}
+
 <script>
-  // Auto-close all alerts after 5 seconds
-  document.addEventListener('DOMContentLoaded', function() {
-    const alerts = document.querySelectorAll('.alert');
-    alerts.forEach(function(alert) {
-      setTimeout(function() {
-        const bsAlert = new bootstrap.Alert(alert);
-        bsAlert.close();
-      }, 5000); // 5000 milliseconds = 5 seconds
-    });
+document.addEventListener('DOMContentLoaded', function () {
+
+  /* Strip stray classes Django adds, let our CSS do the work */
+  document.querySelectorAll('.ct-form input, .ct-form textarea').forEach(function(el) {
+    if (!el.readOnly) {
+      el.className = '';
+    }
   });
 
-  // Reapply Bootstrap classes to form elements
-  document.addEventListener('DOMContentLoaded', function() {
-    const form = document.querySelector('form');
-    const inputs = form.querySelectorAll('input, textarea');
-    inputs.forEach(input => {
-      if (!input.classList.contains('form-control')) {
-        input.classList.add('form-control', 'form-control-lg');
-      }
-    });
+  /* Toasts: auto-close after 5s */
+  document.querySelectorAll('[data-auto-close]').forEach(function(el) {
+    var t = setTimeout(function () { dismiss(el); }, 5000);
+    var btn = el.querySelector('.toast-close');
+    if (btn) btn.addEventListener('click', function () { clearTimeout(t); dismiss(el); });
   });
+
+  function dismiss(el) {
+    el.style.transition = 'opacity .3s, transform .3s';
+    el.style.opacity = '0';
+    el.style.transform = 'translateX(12px)';
+    setTimeout(function () { el.remove(); }, 320);
+  }
+
+  /* Submit loading state */
+  var form = document.querySelector('.ct-form');
+  var btn  = document.querySelector('.ct-btn');
+  if (form && btn) {
+    form.addEventListener('submit', function () {
+      btn.querySelector('span:first-child').textContent = 'Sending…';
+      btn.disabled = true;
+      btn.style.opacity = '.75';
+    });
+  }
+});
 </script>
+
 {% endblock %}

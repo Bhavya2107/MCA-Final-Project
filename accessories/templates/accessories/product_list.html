@@ -1,461 +1,754 @@
 {% extends 'base.html' %}
 {% block title %}Accessories{% if category %} - {{ category.name }}{% endif %}{% endblock %}
 {% block content %}
+
 <style>
-  .filters-dropdown {
+  /* ── Page Hero Header ── */
+  .pl-hero {
+    background: linear-gradient(135deg, #0f172a 0%, #134e5e 100%);
+    border-radius: 20px;
+    border: 1px solid rgba(6,182,212,0.18);
+    padding: 36px 36px 32px;
+    margin-bottom: 28px;
     position: relative;
-    display: inline-block;
-    margin-bottom: 20px;
+    overflow: hidden;
+    animation: fadeUp 0.5s cubic-bezier(0.4,0,0.2,1) both;
   }
-  
-  .dropdown-menu-custom {
-    display: none;
+  .pl-hero::before {
+    content: '';
     position: absolute;
-    background-color: #f8f9fa;
-    min-width: 350px;
-    box-shadow: 0 8px 16px rgba(0,0,0,0.1);
-    border: 1px solid #dee2e6;
-    border-radius: 8px;
-    z-index: 1;
-    max-height: 600px;
-    overflow-y: auto;
-    top: 100%;
-    right: 0;
+    top: -60px; right: -60px;
+    width: 180px; height: 180px;
+    background: rgba(6,182,212,0.07);
+    border-radius: 50%;
+    pointer-events: none;
   }
-  
-  .dropdown-menu-custom.show {
-    display: block;
+  .pl-hero::after {
+    content: '';
+    position: absolute;
+    bottom: -80px; left: -80px;
+    width: 220px; height: 220px;
+    background: rgba(6,182,212,0.05);
+    border-radius: 50%;
+    pointer-events: none;
   }
-  
-  .dropdown-content {
-    padding: 15px;
-  }
-  
-  .filter-section {
-    margin-bottom: 20px;
-    padding-bottom: 15px;
-    border-bottom: 1px solid #dee2e6;
-  }
-  
-  .filter-section:last-child {
-    border-bottom: none;
-    margin-bottom: 0;
-    padding-bottom: 0;
-  }
-  
-  .filter-title {
-    font-weight: 600;
-    font-size: 15px;
+  .pl-hero-inner { position: relative; z-index: 2; }
+
+  .pl-breadcrumb {
+    font-size: 0.78rem;
+    color: rgba(255,255,255,0.4);
+    display: flex;
+    align-items: center;
+    gap: 6px;
     margin-bottom: 12px;
-    color: #333;
   }
-  
-  .filter-group {
+  .pl-breadcrumb a { color: #06b6d4; text-decoration: none; transition: color 0.2s; }
+  .pl-breadcrumb a:hover { color: #67e8f9; }
+  .pl-breadcrumb .sep { opacity: 0.4; font-size: 0.7rem; }
+
+  .pl-hero-title {
+    font-size: 1.9rem;
+    font-weight: 800;
+    color: #e2e8f0;
+    margin: 0 0 6px;
+    line-height: 1.2;
+  }
+  .pl-hero-title span { color: #67e8f9; }
+  .pl-hero-sub {
+    font-size: 0.88rem;
+    color: rgba(255,255,255,0.5);
+    margin: 0;
+  }
+  .pl-count-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(6,182,212,0.12);
+    border: 1px solid rgba(6,182,212,0.28);
+    color: #67e8f9;
+    font-size: 0.78rem;
+    font-weight: 700;
+    padding: 4px 14px;
+    border-radius: 20px;
+    letter-spacing: 0.5px;
+  }
+
+  @keyframes fadeUp {
+    from { opacity:0; transform:translateY(20px); }
+    to   { opacity:1; transform:translateY(0); }
+  }
+
+  /* ── Toolbar ── */
+  .pl-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+    animation: fadeUp 0.55s 0.08s cubic-bezier(0.4,0,0.2,1) both;
+  }
+
+  /* Category pill tabs */
+  .cat-pills {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .cat-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 7px 16px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    border: 1.5px solid rgba(6,182,212,0.25);
+    background: rgba(6,182,212,0.06);
+    color: rgba(255,255,255,0.65);
+    transition: all 0.25s ease;
+  }
+  .cat-pill:hover, .cat-pill.active {
+    background: rgba(6,182,212,0.18);
+    border-color: #06b6d4;
+    color: #67e8f9;
+    transform: translateY(-2px);
+  }
+  .cat-pill.active {
+    background: linear-gradient(135deg, rgba(6,182,212,0.28) 0%, rgba(8,145,178,0.2) 100%);
+    box-shadow: 0 4px 14px rgba(6,182,212,0.18);
+  }
+
+  /* Right toolbar controls */
+  .pl-toolbar-right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  /* Sort select */
+  .sort-wrap {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+  .sort-wrap i {
+    position: absolute;
+    left: 12px;
+    color: #06b6d4;
+    font-size: 0.8rem;
+    pointer-events: none;
+  }
+  .sort-sel {
+    background: rgba(15,23,42,0.85);
+    border: 1.5px solid rgba(6,182,212,0.28);
+    color: #e2e8f0;
+    border-radius: 12px;
+    padding: 9px 14px 9px 34px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    outline: none;
+    transition: all 0.25s ease;
+    min-width: 180px;
+    appearance: none;
+    -webkit-appearance: none;
+  }
+  .sort-sel:hover, .sort-sel:focus {
+    border-color: #06b6d4;
+    box-shadow: 0 0 0 3px rgba(6,182,212,0.12);
+  }
+  .sort-sel option { background: #0f172a; color: #e2e8f0; }
+
+  /* Filter button */
+  .filter-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%);
+    border: none;
+    color: white;
+    font-weight: 700;
+    font-size: 0.85rem;
+    padding: 9px 18px;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 6px 18px rgba(6,182,212,0.25);
+    position: relative;
+  }
+  .filter-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 28px rgba(6,182,212,0.38);
+  }
+  .filter-btn .filter-dot {
+    position: absolute;
+    top: -4px; right: -4px;
+    width: 10px; height: 10px;
+    background: #f43f5e;
+    border-radius: 50%;
+    border: 2px solid #0f172a;
+    display: none;
+  }
+  .filter-btn.has-filters .filter-dot { display: block; }
+
+  /* ── Filter Drawer ── */
+  .filter-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.55);
+    z-index: 1040;
+    backdrop-filter: blur(4px);
+    animation: overlayIn 0.25s ease;
+  }
+  .filter-overlay.show { display: block; }
+  @keyframes overlayIn { from{opacity:0} to{opacity:1} }
+
+  .filter-drawer {
+    position: fixed;
+    top: 0; right: -420px;
+    width: min(400px, 92vw);
+    height: 100vh;
+    background: linear-gradient(160deg, #0f172a 0%, #0d2d3a 100%);
+    border-left: 1px solid rgba(6,182,212,0.2);
+    z-index: 1050;
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    transition: right 0.35s cubic-bezier(0.4,0,0.2,1);
+    box-shadow: -20px 0 60px rgba(0,0,0,0.5);
   }
-  
-  .filter-item {
+  .filter-drawer.open { right: 0; }
+
+  .drawer-head {
+    padding: 24px 24px 18px;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-shrink: 0;
+  }
+  .drawer-title {
+    font-size: 1.05rem;
+    font-weight: 800;
+    color: #e2e8f0;
     display: flex;
     align-items: center;
     gap: 8px;
   }
-  
-  .filter-item input[type="checkbox"],
-  .filter-item input[type="radio"] {
+  .drawer-title i { color: #06b6d4; }
+  .drawer-close {
+    width: 34px; height: 34px;
+    border-radius: 10px;
+    border: 1px solid rgba(255,255,255,0.12);
+    background: rgba(255,255,255,0.05);
+    color: rgba(255,255,255,0.65);
     cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.2s ease;
+    font-size: 0.9rem;
   }
-  
-  .filter-item label {
+  .drawer-close:hover { background: rgba(244,63,94,0.15); border-color: rgba(244,63,94,0.4); color: #f43f5e; }
+
+  .drawer-body {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px 24px;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(6,182,212,0.3) transparent;
+  }
+  .drawer-body::-webkit-scrollbar { width: 4px; }
+  .drawer-body::-webkit-scrollbar-track { background: transparent; }
+  .drawer-body::-webkit-scrollbar-thumb { background: rgba(6,182,212,0.3); border-radius: 4px; }
+
+  .drawer-foot {
+    padding: 18px 24px;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    display: flex;
+    gap: 10px;
+    flex-shrink: 0;
+  }
+  .drawer-foot .btn-apply {
+    flex: 1;
+    background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%);
+    border: none;
+    color: white;
+    font-weight: 700;
+    padding: 12px;
+    border-radius: 12px;
     cursor: pointer;
-    margin-bottom: 0;
-    font-size: 13px;
+    font-size: 0.9rem;
+    transition: all 0.25s ease;
+    box-shadow: 0 6px 18px rgba(6,182,212,0.25);
+  }
+  .drawer-foot .btn-apply:hover { transform: translateY(-2px); box-shadow: 0 10px 28px rgba(6,182,212,0.38); }
+  .drawer-foot .btn-clear-all {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.12);
+    color: rgba(255,255,255,0.65);
+    font-weight: 600;
+    padding: 12px 18px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    text-decoration: none;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.25s ease;
+  }
+  .drawer-foot .btn-clear-all:hover { background: rgba(255,255,255,0.1); color: white; }
+
+  /* Filter sections inside drawer */
+  .fsec {
+    margin-bottom: 24px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+  }
+  .fsec:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+
+  .fsec-title {
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    color: #06b6d4;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+  }
+
+  /* Radio / checkbox items */
+  .fitem {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 9px 12px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background 0.2s;
+    margin-bottom: 4px;
+  }
+  .fitem:hover { background: rgba(6,182,212,0.08); }
+  .fitem input[type="radio"],
+  .fitem input[type="checkbox"] {
+    accent-color: #06b6d4;
+    width: 15px; height: 15px;
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+  .fitem label {
+    cursor: pointer;
+    font-size: 0.88rem;
+    color: rgba(255,255,255,0.78);
+    margin: 0;
     user-select: none;
+    flex: 1;
   }
-  
-  .price-range-slider {
-    margin: 15px 0;
-    position: relative;
-  }
-  
-  .price-range-labels {
+
+  /* Price slider */
+  .price-disp {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 12px;
-    font-size: 12px;
-    font-weight: 500;
-    color: #666;
+    align-items: center;
+    margin-bottom: 14px;
   }
-  
-  .price-range-slider input[type="range"] {
-    width: 100%;
-    height: 8px;
-    border-radius: 5px;
-    background: #e9ecef;
-    outline: none;
-    -webkit-appearance: none;
-    margin: 5px 0;
-    padding: 0;
+  .price-disp .pd-val {
+    background: rgba(6,182,212,0.12);
+    border: 1px solid rgba(6,182,212,0.25);
+    color: #67e8f9;
+    font-size: 0.82rem;
+    font-weight: 700;
+    padding: 4px 12px;
+    border-radius: 8px;
   }
-  
-  .price-range-slider input[type="range"]::-webkit-slider-thumb {
+  .price-disp .pd-sep { color: rgba(255,255,255,0.3); font-size: 0.8rem; }
+
+  .range-wrap {
+    position: relative;
+    margin: 8px 0 14px;
+  }
+  .range-wrap input[type="range"] {
     -webkit-appearance: none;
     appearance: none;
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    background: #0d6efd;
-    cursor: pointer;
-    border: 2px solid white;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
-    transition: all 0.2s ease;
-  }
-  
-  .price-range-slider input[type="range"]::-webkit-slider-thumb:hover {
-    background: #0b5ed7;
-    transform: scale(1.1);
-    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
-  }
-  
-  .price-range-slider input[type="range"]::-moz-range-thumb {
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    background: #0d6efd;
-    cursor: pointer;
-    border: 2px solid white;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
-    transition: all 0.2s ease;
-  }
-  
-  .price-range-slider input[type="range"]::-moz-range-thumb:hover {
-    background: #0b5ed7;
-    transform: scale(1.1);
-    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
-  }
-  
-  .price-range-slider input[type="range"]::-webkit-slider-runnable-track {
-    background: linear-gradient(to right, #0d6efd 0%, #0d6efd var(--value), #e9ecef var(--value), #e9ecef 100%);
-    border-radius: 5px;
-    height: 8px;
-  }
-  
-  .price-range-slider input[type="range"]::-moz-range-track {
-    background: transparent;
-    border: none;
-  }
-  
-  .price-inputs {
-    display: flex;
-    gap: 8px;
-    margin-top: 10px;
-    align-items: center;
-  }
-  
-  .price-inputs input {
-    width: 60px;
-    padding: 6px 8px;
-    font-size: 12px;
-    border: 1px solid #dee2e6;
-    border-radius: 4px;
-  }
-  
-  .price-inputs span {
-    font-size: 12px;
-    color: #666;
-  }
-  
-  .dropdown-buttons {
-    display: flex;
-    gap: 10px;
-    padding-top: 15px;
-    border-top: 1px solid #dee2e6;
-  }
-  
-  .dropdown-buttons button {
-    flex: 1;
-    padding: 8px 12px;
-    font-size: 13px;
-  }
-  
-  .btn-apply {
-    background-color: #0d6efd;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-weight: 500;
-  }
-  
-  .btn-apply:hover {
-    background-color: #0b5ed7;
-  }
-  
-  .btn-clear {
-    background-color: #6c757d;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-weight: 500;
-  }
-  
-  .btn-clear:hover {
-    background-color: #5c636a;
-  }
-  
-  .dropdown-button {
-    background-color: #0d6efd;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-weight: 500;
-    font-size: 14px;
-  }
-  
-  .dropdown-button:hover {
-    background-color: #0b5ed7;
-  }
-  
-  .sort-select {
     width: 100%;
-    padding: 6px 8px;
-    font-size: 13px;
-    border: 1px solid #dee2e6;
-    border-radius: 4px;
-    background-color: white;
-  }
-  
-  .products-grid {
-    margin-top: 30px;
-  }
-  
-  .header-wrapper {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 30px;
-  }
-
-  /* Dropdown Animation Styles */
-  .sort-select {
-    padding: 0.75rem 1rem;
-    font-size: 0.95rem;
-    border: 2px solid #e9ecef;
-    border-radius: 8px;
-    background: white;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    font-weight: 500;
-    cursor: pointer;
-    min-width: 200px;
-    transform: translateY(0);
-    position: relative;
-  }
-
-  .sort-select:hover {
-    border-color: #06b6d4;
-    transform: translateY(-1px);
-    box-shadow: 0 2px 8px rgba(6, 182, 212, 0.1);
-  }
-
-  .sort-select:focus {
-    border-color: #06b6d4;
-    box-shadow: 0 0 0 3px rgba(6, 182, 212, 0.1), 0 4px 12px rgba(6, 182, 212, 0.15);
+    height: 5px;
+    border-radius: 5px;
+    background: rgba(6,182,212,0.2);
     outline: none;
-    transform: translateY(-2px);
-    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+    margin: 8px 0;
+    display: block;
+    cursor: pointer;
+  }
+  .range-wrap input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 20px; height: 20px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%);
+    border: 2px solid #0f172a;
+    box-shadow: 0 2px 8px rgba(6,182,212,0.45);
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .range-wrap input[type="range"]::-webkit-slider-thumb:hover {
+    transform: scale(1.2);
+    box-shadow: 0 4px 16px rgba(6,182,212,0.6);
+  }
+  .range-wrap input[type="range"]::-moz-range-thumb {
+    width: 20px; height: 20px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%);
+    border: 2px solid #0f172a;
+    cursor: pointer;
   }
 
-  .sort-select option {
-    padding: 0.5rem;
-    background: white;
-    transition: background-color 0.2s ease;
+  .price-inputs-row {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 8px;
+    align-items: center;
+    margin-top: 10px;
+  }
+  .price-inputs-row input {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(6,182,212,0.25);
+    border-radius: 8px;
+    color: #e2e8f0;
+    font-size: 0.82rem;
+    font-weight: 600;
+    padding: 7px 10px;
+    outline: none;
+    width: 100%;
+    transition: border-color 0.2s;
+  }
+  .price-inputs-row input:focus { border-color: #06b6d4; }
+  .price-inputs-row .pi-sep { color: rgba(255,255,255,0.3); text-align: center; font-size: 0.8rem; }
+
+  /* Sort inside drawer */
+  .drawer-sort-sel {
+    width: 100%;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(6,182,212,0.25);
+    border-radius: 10px;
+    color: #e2e8f0;
+    font-size: 0.88rem;
+    font-weight: 600;
+    padding: 10px 14px;
+    outline: none;
+    cursor: pointer;
+    transition: border-color 0.2s;
+    appearance: none;
+    -webkit-appearance: none;
+  }
+  .drawer-sort-sel:focus { border-color: #06b6d4; }
+  .drawer-sort-sel option { background: #0f172a; }
+
+  /* ── Active Filters Strip ── */
+  .active-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 20px;
+    animation: fadeUp 0.5s 0.1s both;
+  }
+  .af-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(6,182,212,0.12);
+    border: 1px solid rgba(6,182,212,0.3);
+    color: #67e8f9;
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 4px 12px;
+    border-radius: 20px;
+  }
+  .af-chip i { font-size: 0.65rem; opacity: 0.7; }
+
+  /* ── Empty state ── */
+  .empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    background: linear-gradient(135deg, #0f172a 0%, #134e5e 100%);
+    border-radius: 20px;
+    border: 1px solid rgba(6,182,212,0.15);
+  }
+  .empty-state i { font-size: 3rem; color: rgba(6,182,212,0.35); margin-bottom: 16px; display: block; }
+  .empty-state h5 { color: #e2e8f0; font-weight: 700; margin-bottom: 8px; }
+  .empty-state p { color: rgba(255,255,255,0.5); font-size: 0.88rem; margin-bottom: 20px; }
+  .empty-state a {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%);
+    color: white;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 0.88rem;
+    padding: 10px 22px;
+    border-radius: 12px;
+    transition: all 0.25s ease;
+    box-shadow: 0 6px 18px rgba(6,182,212,0.25);
+  }
+  .empty-state a:hover { transform: translateY(-2px); box-shadow: 0 10px 28px rgba(6,182,212,0.38); color: white; }
+
+  /* ── Product grid animation ── */
+  .products-grid .col-6,
+  .products-grid .col-md-4,
+  .products-grid .col-lg-3 {
+    animation: fadeUp 0.5s cubic-bezier(0.4,0,0.2,1) both;
+  }
+  {% for i in "123456789012" %}
+  .products-grid > div:nth-child({{ forloop.counter }}) { animation-delay: {{ forloop.counter0 }}0ms; }
+  {% endfor %}
+
+  /* dark-mode compat */
+  body:not(.dark-mode) .pl-hero,
+  body:not(.dark-mode) .filter-drawer,
+  body:not(.dark-mode) .empty-state {
+    background: linear-gradient(135deg, #0f172a 0%, #134e5e 100%);
   }
 
-  .sort-select option:hover {
-    background: #f8f9fa;
+  @media (max-width: 640px) {
+    .pl-hero { padding: 24px 20px; }
+    .pl-hero-title { font-size: 1.4rem; }
+    .pl-toolbar { flex-direction: column; align-items: stretch; }
+    .pl-toolbar-right { flex-direction: row; }
+    .cat-pills { display: none; } /* hidden on mobile, use drawer cats */
   }
 </style>
 
-<div class="container-fluid">
-  <div class="header-wrapper">
-    <h2 class="mb-0">Accessories{% if category %} - {{ category.name }}{% endif %}</h2>
-    
-    <!-- Filter Dropdown -->
-    <div class="filters-dropdown">
-      <button class="dropdown-button" onclick="toggleDropdown()">
-        ⚙️ Filters
-      </button>
-    
-    <div id="filterDropdown" class="dropdown-menu-custom">
-      <div class="dropdown-content">
-        <form method="get" id="filterForm">
-          
-          <!-- Category Filter -->
-          <div class="filter-section">
-            <div class="filter-title">📁 Categories</div>
-            <div class="filter-group">
-              <div class="filter-item">
-                <input type="radio" id="cat_all" name="category" value="">
-                <label for="cat_all">All Categories</label>
-              </div>
-              {% for cat in categories %}
-                <div class="filter-item">
-                  <input type="radio" id="cat_{{ cat.id }}" name="category" value="{{ cat.slug }}" {% if category and category.id == cat.id %}checked{% endif %}>
-                  <label for="cat_{{ cat.id }}">{{ cat.name }}</label>
-                </div>
-              {% endfor %}
-            </div>
-          </div>
-
-          <!-- Price Range Filter -->
-          <div class="filter-section">
-            <div class="filter-title">💰 Price Range</div>
-            
-            <div class="price-range-labels">
-              <span>Lowest</span>
-              <span>Highest</span>
-            </div>
-            
-            <div class="price-range-slider">
-              <input type="range" id="priceMin" name="price_min_slider" min="{{ min_price }}" max="{{ max_price }}" value="{{ selected_price_min }}" class="form-range">
-              <input type="range" id="priceMax" name="price_max_slider" min="{{ min_price }}" max="{{ max_price }}" value="{{ selected_price_max }}" class="form-range">
-            </div>
-            
-            <div class="price-inputs">
-              <input type="number" id="minPrice" placeholder="Min" min="{{ min_price }}" max="{{ max_price }}" value="{{ selected_price_min }}">
-              <span>-</span>
-              <input type="number" id="maxPrice" placeholder="Max" min="{{ min_price }}" max="{{ max_price }}" value="{{ selected_price_max }}">
-            </div>
-            <small class="text-muted d-block mt-2">Selected: ${{ selected_price_min }} - ${{ selected_price_max }}</small>
-            <input type="hidden" name="price_min" id="priceMinHidden" value="{{ selected_price_min }}">
-            <input type="hidden" name="price_max" id="priceMaxHidden" value="{{ selected_price_max }}">
-          </div>
-
-          <!-- Sort Filter -->
-          <div class="filter-section">
-            <div class="filter-title">🔀 Sort By</div>
-            <select name="sort_by" class="sort-select">
-              <option value="-created_at" {% if sort_by == '-created_at' %}selected{% endif %}>Newest</option>
-              <option value="price" {% if sort_by == 'price' %}selected{% endif %}>Price: Low to High</option>
-              <option value="-price" {% if sort_by == '-price' %}selected{% endif %}>Price: High to Low</option>
-              <option value="name" {% if sort_by == 'name' %}selected{% endif %}>Name: A to Z</option>
-            </select>
-          </div>
-
-          <!-- Recently Added Filter -->
-          <div class="filter-section">
-            <div class="filter-title">✨ Availability</div>
-            <div class="filter-group">
-              <div class="filter-item">
-                <input type="checkbox" id="recent" name="show_recent" value="on" {% if show_recent %}checked{% endif %}>
-                <label for="recent">Recently Added (Last 7 days)</label>
-              </div>
-            </div>
-          </div>
-
-          <!-- Buttons -->
-          <div class="dropdown-buttons">
-            <button type="submit" class="btn-apply">Apply Filters</button>
-            <a href="{% url 'accessories:product_list' %}" class="btn-clear" style="text-decoration: none; display: flex; align-items: center; justify-content: center;">Clear</a>
-          </div>
-        </form>
+<!-- Hero Header -->
+<div class="pl-hero">
+  <div class="pl-hero-inner">
+    <nav class="pl-breadcrumb">
+      <a href="{% url 'home' %}"><i class="fas fa-home"></i> Home</a>
+      <span class="sep"><i class="fas fa-chevron-right"></i></span>
+      <span style="color:rgba(255,255,255,0.65);">Accessories{% if category %} / {{ category.name }}{% endif %}</span>
+    </nav>
+    <div class="d-flex align-items-center justify-content-between gap-3 flex-wrap">
+      <div>
+        <h1 class="pl-hero-title">
+          {% if category %}
+            <span>{{ category.name }}</span>
+          {% else %}
+            All <span>Accessories</span>
+          {% endif %}
+        </h1>
+        <p class="pl-hero-sub">Browse our curated collection of premium accessories</p>
       </div>
-    </div>
+      <span class="pl-count-badge">
+        <i class="fas fa-box-open"></i> {{ products|length }} Product{{ products|length|pluralize }}
+      </span>
     </div>
   </div>
+</div>
 
-  <!-- Products Grid -->
-  <div class="row g-3 products-grid">
-    {% for product in products %}
-      <div class="col-6 col-md-4 col-lg-3">
-        {% include 'includes/product_card.html' with product=product app_label='accessories' %}
+<!-- Toolbar -->
+<div class="pl-toolbar">
+  <!-- Category pills (desktop) -->
+  <div class="cat-pills">
+    <a href="{% url 'accessories:product_list' %}"
+       class="cat-pill {% if not category %}active{% endif %}">
+      <i class="fas fa-th-large"></i> All
+    </a>
+    {% for cat in categories %}
+    <a href="?category={{ cat.slug }}{% if sort_by %}&sort_by={{ sort_by }}{% endif %}"
+       class="cat-pill {% if category and category.id == cat.id %}active{% endif %}">
+      {{ cat.name }}
+    </a>
+    {% endfor %}
+  </div>
+
+  <!-- Right: sort + filter -->
+  <div class="pl-toolbar-right">
+    <form method="get" id="sortForm" style="margin:0;">
+      {% if category %}<input type="hidden" name="category" value="{{ category.slug }}">{% endif %}
+      {% if selected_price_min %}<input type="hidden" name="price_min" value="{{ selected_price_min }}">{% endif %}
+      {% if selected_price_max %}<input type="hidden" name="price_max" value="{{ selected_price_max }}">{% endif %}
+      {% if show_recent %}<input type="hidden" name="show_recent" value="on">{% endif %}
+      <div class="sort-wrap">
+        <i class="fas fa-sort-amount-down"></i>
+        <select name="sort_by" class="sort-sel" onchange="this.form.submit()">
+          <option value="-created_at" {% if sort_by == '-created_at' %}selected{% endif %}>Newest First</option>
+          <option value="price"       {% if sort_by == 'price' %}selected{% endif %}>Price: Low → High</option>
+          <option value="-price"      {% if sort_by == '-price' %}selected{% endif %}>Price: High → Low</option>
+          <option value="name"        {% if sort_by == 'name' %}selected{% endif %}>Name A → Z</option>
+        </select>
       </div>
-    {% empty %}
-      <div class="col-12">
-        <div class="alert alert-info">
-          <strong>No products found</strong><br>
-          Try adjusting your filters or <a href="{% url 'accessories:product_list' %}">clear filters</a> to see all products.
+    </form>
+
+    <button class="filter-btn {% if category or selected_price_min or show_recent %}has-filters{% endif %}"
+            onclick="openDrawer()">
+      <span class="filter-dot"></span>
+      <i class="fas fa-sliders-h"></i> Filters
+    </button>
+  </div>
+</div>
+
+<!-- Active filter chips -->
+{% if category or show_recent %}
+<div class="active-filters">
+  {% if category %}
+    <span class="af-chip"><i class="fas fa-folder"></i> {{ category.name }}</span>
+  {% endif %}
+  {% if show_recent %}
+    <span class="af-chip"><i class="fas fa-clock"></i> Recently Added</span>
+  {% endif %}
+  {% if selected_price_min or selected_price_max %}
+    <span class="af-chip"><i class="fas fa-tag"></i> ₹{{ selected_price_min }} – ₹{{ selected_price_max }}</span>
+  {% endif %}
+</div>
+{% endif %}
+
+<!-- Products Grid -->
+<div class="row g-3 products-grid">
+  {% for product in products %}
+    <div class="col-6 col-md-4 col-lg-3">
+      {% include 'includes/product_card.html' with product=product app_label='accessories' %}
+    </div>
+  {% empty %}
+    <div class="col-12">
+      <div class="empty-state">
+        <i class="fas fa-box-open"></i>
+        <h5>No products found</h5>
+        <p>Try adjusting your filters or browse all accessories.</p>
+        <a href="{% url 'accessories:product_list' %}"><i class="fas fa-rotate-left"></i> Clear Filters</a>
+      </div>
+    </div>
+  {% endfor %}
+</div>
+
+<!-- Filter Overlay -->
+<div class="filter-overlay" id="filterOverlay" onclick="closeDrawer()"></div>
+
+<!-- Filter Drawer -->
+<div class="filter-drawer" id="filterDrawer">
+  <div class="drawer-head">
+    <span class="drawer-title"><i class="fas fa-sliders-h"></i> Filters</span>
+    <button class="drawer-close" onclick="closeDrawer()"><i class="fas fa-times"></i></button>
+  </div>
+
+  <div class="drawer-body">
+    <form method="get" id="filterForm">
+
+      <!-- Category -->
+      <div class="fsec">
+        <div class="fsec-title"><i class="fas fa-folder-open"></i> Categories</div>
+        <label class="fitem">
+          <input type="radio" name="category" value="">
+          <span style="font-size:0.88rem;color:rgba(255,255,255,0.78);">All Categories</span>
+        </label>
+        {% for cat in categories %}
+        <label class="fitem">
+          <input type="radio" name="category" value="{{ cat.slug }}"
+                 {% if category and category.id == cat.id %}checked{% endif %}>
+          <span style="font-size:0.88rem;color:rgba(255,255,255,0.78);">{{ cat.name }}</span>
+        </label>
+        {% endfor %}
+      </div>
+
+      <!-- Price Range -->
+      <div class="fsec">
+        <div class="fsec-title"><i class="fas fa-tag"></i> Price Range</div>
+        <div class="price-disp">
+          <span class="pd-val" id="dispMin">₹{{ selected_price_min }}</span>
+          <span class="pd-sep">to</span>
+          <span class="pd-val" id="dispMax">₹{{ selected_price_max }}</span>
+        </div>
+        <div class="range-wrap">
+          <input type="range" id="priceMin" min="{{ min_price }}" max="{{ max_price }}" value="{{ selected_price_min }}" oninput="syncPrice()">
+          <input type="range" id="priceMax" min="{{ min_price }}" max="{{ max_price }}" value="{{ selected_price_max }}" oninput="syncPrice()">
+        </div>
+        <div class="price-inputs-row">
+          <input type="number" id="minInput" placeholder="Min" value="{{ selected_price_min }}" oninput="syncFromInput('min')">
+          <span class="pi-sep">—</span>
+          <input type="number" id="maxInput" placeholder="Max" value="{{ selected_price_max }}" oninput="syncFromInput('max')">
+        </div>
+        <input type="hidden" name="price_min" id="priceMinH" value="{{ selected_price_min }}">
+        <input type="hidden" name="price_max" id="priceMaxH" value="{{ selected_price_max }}">
+      </div>
+
+      <!-- Sort -->
+      <div class="fsec">
+        <div class="fsec-title"><i class="fas fa-sort-amount-down"></i> Sort By</div>
+        <div style="position:relative;">
+          <select name="sort_by" class="drawer-sort-sel">
+            <option value="-created_at" {% if sort_by == '-created_at' %}selected{% endif %}>Newest First</option>
+            <option value="price"       {% if sort_by == 'price' %}selected{% endif %}>Price: Low → High</option>
+            <option value="-price"      {% if sort_by == '-price' %}selected{% endif %}>Price: High → Low</option>
+            <option value="name"        {% if sort_by == 'name' %}selected{% endif %}>Name A → Z</option>
+          </select>
         </div>
       </div>
-    {% endfor %}
+
+      <!-- Availability -->
+      <div class="fsec">
+        <div class="fsec-title"><i class="fas fa-clock"></i> Availability</div>
+        <label class="fitem">
+          <input type="checkbox" name="show_recent" value="on" {% if show_recent %}checked{% endif %}>
+          <span style="font-size:0.88rem;color:rgba(255,255,255,0.78);">Recently Added (last 7 days)</span>
+        </label>
+      </div>
+
+    </form>
+  </div>
+
+  <div class="drawer-foot">
+    <button type="submit" form="filterForm" class="btn-apply">
+      <i class="fas fa-check me-1"></i> Apply Filters
+    </button>
+    <a href="{% url 'accessories:product_list' %}" class="btn-clear-all">
+      <i class="fas fa-rotate-left me-1"></i> Clear
+    </a>
   </div>
 </div>
 
 <script>
-  function toggleDropdown() {
-    const dropdown = document.getElementById('filterDropdown');
-    dropdown.classList.toggle('show');
+  // Drawer open/close
+  function openDrawer() {
+    document.getElementById('filterDrawer').classList.add('open');
+    document.getElementById('filterOverlay').classList.add('show');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeDrawer() {
+    document.getElementById('filterDrawer').classList.remove('open');
+    document.getElementById('filterOverlay').classList.remove('show');
+    document.body.style.overflow = '';
   }
 
-  // Close dropdown when clicking outside
-  document.addEventListener('click', function(event) {
-    const dropdown = document.getElementById('filterDropdown');
-    const button = document.querySelector('.dropdown-button');
-    if (!dropdown.contains(event.target) && !button.contains(event.target)) {
-      dropdown.classList.remove('show');
+  // Price range sync
+  function syncPrice() {
+    const min = parseInt(document.getElementById('priceMin').value);
+    const max = parseInt(document.getElementById('priceMax').value);
+    if (min > max) {
+      document.getElementById('priceMin').value = max;
+      return syncPrice();
     }
-  });
-
-  const priceMin = document.getElementById('priceMin');
-  const priceMax = document.getElementById('priceMax');
-  const minPrice = document.getElementById('minPrice');
-  const maxPrice = document.getElementById('maxPrice');
-  const priceMinHidden = document.getElementById('priceMinHidden');
-  const priceMaxHidden = document.getElementById('priceMaxHidden');
-
-  // Function to update slider visual progress
-  function updateSliderProgress() {
-    const min = parseInt(priceMin.value);
-    const max = parseInt(priceMax.value);
-    const minPercent = ((min - parseInt(priceMin.min)) / (parseInt(priceMin.max) - parseInt(priceMin.min))) * 100;
-    const maxPercent = ((max - parseInt(priceMax.min)) / (parseInt(priceMax.max) - parseInt(priceMax.min))) * 100;
-    
-    priceMin.style.setProperty('--value', minPercent + '%');
-    priceMax.style.setProperty('--value', maxPercent + '%');
+    document.getElementById('minInput').value = min;
+    document.getElementById('maxInput').value = max;
+    document.getElementById('priceMinH').value = min;
+    document.getElementById('priceMaxH').value = max;
+    document.getElementById('dispMin').textContent = '₹' + min;
+    document.getElementById('dispMax').textContent = '₹' + max;
   }
 
-  // Update inputs when sliders change
-  priceMin.addEventListener('input', function() {
-    if (parseInt(this.value) > parseInt(priceMax.value)) {
-      this.value = priceMax.value;
+  function syncFromInput(which) {
+    const minI = parseInt(document.getElementById('minInput').value) || 0;
+    const maxI = parseInt(document.getElementById('maxInput').value) || 0;
+    if (which === 'min' && minI <= maxI) {
+      document.getElementById('priceMin').value = minI;
+      document.getElementById('priceMinH').value = minI;
+      document.getElementById('dispMin').textContent = '₹' + minI;
     }
-    minPrice.value = this.value;
-    priceMinHidden.value = this.value;
-    updateSliderProgress();
-  });
-
-  priceMax.addEventListener('input', function() {
-    if (parseInt(this.value) < parseInt(priceMin.value)) {
-      this.value = priceMin.value;
+    if (which === 'max' && maxI >= minI) {
+      document.getElementById('priceMax').value = maxI;
+      document.getElementById('priceMaxH').value = maxI;
+      document.getElementById('dispMax').textContent = '₹' + maxI;
     }
-    maxPrice.value = this.value;
-    priceMaxHidden.value = this.value;
-    updateSliderProgress();
-  });
-
-  // Update sliders when text inputs change
-  minPrice.addEventListener('input', function() {
-    if (parseInt(this.value) <= parseInt(priceMax.value)) {
-      priceMin.value = this.value;
-      priceMinHidden.value = this.value;
-      updateSliderProgress();
-    }
-  });
-
-  maxPrice.addEventListener('input', function() {
-    if (parseInt(this.value) >= parseInt(priceMin.value)) {
-      priceMax.value = this.value;
-      priceMaxHidden.value = this.value;
-      updateSliderProgress();
-    }
-  });
-  
-  // Initialize slider progress on page load
-  updateSliderProgress();
+  }
 </script>
 
 {% endblock %}

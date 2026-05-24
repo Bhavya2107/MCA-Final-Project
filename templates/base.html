@@ -1,509 +1,1112 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>
-      {% block title %}
-        COMPUTER & CCTV HUB - Premium Electronics Store
-      {% endblock %}
-    </title>
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-    <link href="{% static 'css/styles.css' %}" rel="stylesheet" />
-    <meta name="theme-color" content="#06b6d4" />
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>
+    {% block title %}
+    COMPUTER & CCTV HUB - Premium Electronics Store
+    {% endblock %}
+  </title>
 
-    <style>
-      :root {
-        --primary: #0f172a;
-        --primary-soft: #1e293b;
-        --accent: #06b6d4;
-        --accent-dark: #0891b2;
-        --text-soft: #cbd5e1;
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link href="{% static 'css/styles.css' %}" rel="stylesheet" />
+  <meta name="theme-color" content="#06b6d4" />
+
+  <style>
+    :root {
+      --primary: #050c18;
+      --primary-soft: #0a1628;
+      --accent: #06b6d4;
+      --accent-dark: #0891b2;
+      --text-soft: #94a3b8;
+      --card-bg: #0d1f35;
+      --text-primary: #f0f9ff;
+      --text-secondary: #94a3b8;
+      --text-muted: #64748b;
+    }
+
+    html,
+    body {
+      width: 100%;
+      min-height: 100%;
+      overflow-x: hidden;
+    }
+
+    body {
+      background: var(--primary);
+      color: var(--text-primary);
+      display: flex;
+      flex-direction: column;
+      font-family: 'DM Sans', sans-serif;
+    }
+
+    main {
+      flex: 1 0 auto;
+    }
+
+    /* ── GLOBAL DARK OVERRIDES ── */
+    .card {
+      background: var(--card-bg);
+      border-color: rgba(6, 182, 212, 0.15);
+      color: var(--text-primary);
+    }
+
+    .card-body {
+      background: var(--card-bg);
+      color: var(--text-primary);
+    }
+
+    .card h5,
+    .card h6,
+    .card p {
+      color: var(--text-primary);
+    }
+
+    .text-muted,
+    .muted {
+      color: var(--text-secondary) !important;
+    }
+
+    .table {
+      color: var(--text-primary);
+    }
+
+    .table thead th {
+      background: var(--primary-soft);
+      color: var(--text-primary);
+    }
+
+    .table tbody tr {
+      background: var(--card-bg);
+      color: var(--text-primary);
+    }
+
+    .form-control {
+      background: var(--card-bg);
+      border-color: rgba(6, 182, 212, 0.25);
+      color: var(--text-primary);
+    }
+
+    .form-control:focus {
+      background: var(--card-bg);
+      border-color: var(--accent);
+      color: var(--text-primary);
+      box-shadow: 0 0 0 0.2rem rgba(6, 182, 212, 0.15);
+    }
+
+    .form-control::placeholder {
+      color: var(--text-muted);
+    }
+
+    label {
+      color: var(--text-primary);
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      color: var(--text-primary);
+    }
+
+    p {
+      color: var(--text-secondary);
+    }
+
+    a {
+      color: var(--accent);
+    }
+
+    .bg-white {
+      background: var(--card-bg) !important;
+    }
+
+    .shadow-sm {
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35) !important;
+    }
+
+    .dropdown-menu {
+      background: rgba(13, 31, 53, 0.98);
+      border: 1px solid rgba(6, 182, 212, 0.18) !important;
+      border-radius: 16px;
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.4);
+      padding: 0.65rem;
+      animation: menuFade 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      backdrop-filter: blur(8px);
+    }
+
+    .dropdown-item {
+      border-radius: 12px;
+      padding: 0.75rem 0.9rem;
+      font-weight: 600;
+      transition: all 0.25s ease;
+      color: var(--text-primary) !important;
+    }
+
+    .dropdown-item:hover {
+      background: rgba(6, 182, 212, 0.15);
+      color: #67e8f9 !important;
+      transform: translateX(6px);
+    }
+
+    .dropdown-item:active {
+      background: rgba(6, 182, 212, 0.2) !important;
+    }
+
+    /* ── NAVBAR ── */
+    .site-header {
+      padding: 0;
+    }
+
+    .navbar {
+      background: linear-gradient(135deg, rgba(2, 6, 23, 0.97) 0%, rgba(5, 12, 24, 0.95) 55%, rgba(7, 18, 32, 0.94) 100%) !important;
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(6, 182, 212, 0.2);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
+      animation: navReveal 0.55s ease-out;
+    }
+
+    .navbar-brand {
+      font-size: 1.45rem;
+      letter-spacing: 0.4px;
+      color: #67e8f9 !important;
+      font-weight: 800;
+      transition: all 0.35s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .navbar-brand:hover {
+      transform: translateY(-2px) scale(1.03);
+      color: #a5f3fc !important;
+      text-shadow: 0 0 12px rgba(6, 182, 212, 0.3);
+    }
+
+    .navbar-toggler {
+      border-width: 1px;
+      border-color: rgba(6, 182, 212, 0.45) !important;
+      box-shadow: none !important;
+    }
+
+    .navbar-toggler:focus {
+      box-shadow: 0 0 0 0.18rem rgba(6, 182, 212, 0.18) !important;
+    }
+
+    .nav-link {
+      color: var(--text-primary) !important;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      margin: 0 0.3rem;
+      position: relative;
+      padding: 0.8rem 0.95rem !important;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .nav-link:hover {
+      color: #67e8f9 !important;
+      transform: translateY(-2px);
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      left: 50%;
+      bottom: 6px;
+      width: 0;
+      height: 2px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #06b6d4 0%, #67e8f9 100%);
+      transform: translateX(-50%);
+      transition: width 0.35s ease;
+    }
+
+    .nav-link:hover::after {
+      width: 70%;
+    }
+
+    .btn-nav-accent {
+      background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%);
+      border: none !important;
+      color: white !important;
+      border-radius: 12px;
+      box-shadow: 0 8px 18px rgba(6, 182, 212, 0.24);
+      transition: all 0.3s ease;
+      font-weight: 600;
+    }
+
+    .btn-nav-accent:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 14px 32px rgba(6, 182, 212, 0.38);
+      color: white !important;
+    }
+
+    .btn-nav-outline {
+      border: 1px solid rgba(6, 182, 212, 0.45) !important;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.04);
+      transition: all 0.3s ease;
+      font-weight: 600;
+      color: var(--text-primary) !important;
+    }
+
+    .btn-nav-outline:hover {
+      background: rgba(6, 182, 212, 0.15);
+      color: #67e8f9 !important;
+      transform: translateY(-3px);
+      border-color: rgba(6, 182, 212, 0.65) !important;
+      box-shadow: 0 8px 18px rgba(6, 182, 212, 0.18);
+    }
+
+    /* ── FOOTER ── */
+    .footer-shell {
+      background: linear-gradient(135deg, #020610 0%, #050c18 60%, #071220 100%);
+      color: var(--text-primary);
+      margin-top: 60px;
+      padding: 55px 0 20px;
+      border-top: 1px solid rgba(6, 182, 212, 0.25);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .footer-shell::before {
+      content: '';
+      position: absolute;
+      top: -80px;
+      right: -80px;
+      width: 280px;
+      height: 280px;
+      background: radial-gradient(circle, rgba(6, 182, 212, 0.08) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+
+    .footer-shell::after {
+      content: '';
+      position: absolute;
+      bottom: 40px;
+      left: -60px;
+      width: 300px;
+      height: 300px;
+      background: radial-gradient(circle, rgba(6, 182, 212, 0.05) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+
+    .footer-brand-box {
+      position: relative;
+      z-index: 2;
+    }
+
+    .footer-social {
+      width: 42px;
+      height: 42px;
+      border-radius: 10px;
+      background: rgba(6, 182, 212, 0.10);
+      border: 1px solid rgba(6, 182, 212, 0.2);
+      color: #67e8f9;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .footer-social:hover {
+      transform: translateY(-4px);
+      background: #06b6d4;
+      border-color: #06b6d4;
+      color: white;
+    }
+
+    .footer-link {
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: all 0.3s ease;
+      display: inline-block;
+      font-size: 0.92rem;
+    }
+
+    .footer-link:hover {
+      color: #67e8f9 !important;
+      padding-left: 8px;
+    }
+
+    .footer-dev-link {
+      color: #67e8f9;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .footer-dev-link:hover {
+      color: var(--text-primary);
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes navReveal {
+      from {
+        transform: translateY(-100%);
+        opacity: 0;
       }
 
-      html,
-      body {
-        width: 100%;
-        min-height: 100%;
-        overflow-x: hidden;
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    @keyframes menuFade {
+      from {
+        opacity: 0;
+        transform: translateY(-8px);
       }
 
-      body {
-        background: linear-gradient(135deg, #f8fafc 0%, #f0f4f8 100%);
-        display: flex;
-        flex-direction: column;
+      to {
+        opacity: 1;
+        transform: translateY(0);
       }
+    }
 
-      main {
-        flex: 1 0 auto;
-      }
-
-      .site-header {
-        padding: 0;
-      }
-
-      .navbar {
-        background: linear-gradient(135deg, rgba(2, 6, 23, 0.96) 0%, rgba(15, 23, 42, 0.94) 55%, rgba(8, 47, 73, 0.92) 100%) !important;
-        backdrop-filter: blur(12px);
-        border-bottom: 1px solid rgba(6, 182, 212, 0.22);
-        box-shadow: 0 10px 30px rgba(15, 23, 42, 0.16);
-        animation: navReveal 0.55s ease-out;
-      }
-
-      .navbar-brand {
-        font-size: 1.45rem;
-        letter-spacing: 0.4px;
-        color: #67e8f9 !important;
-        font-weight: 800;
-        transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-      }
-
-      .navbar-brand:hover {
-        transform: translateY(-2px) scale(1.03);
-        color: #a5f3fc !important;
-        text-shadow: 0 0 12px rgba(6, 182, 212, 0.25);
-      }
-
-      .navbar-toggler {
-        border-width: 1px;
-        border-color: rgba(6, 182, 212, 0.45) !important;
-        box-shadow: none !important;
-      }
-
-      .navbar-toggler:focus {
-        box-shadow: 0 0 0 0.18rem rgba(6, 182, 212, 0.18) !important;
+    /* ── RESPONSIVE ── */
+    @media (max-width: 991.98px) {
+      .navbar-collapse {
+        margin-top: 1rem;
+        padding: 1rem;
+        border-radius: 18px;
+        background: rgba(13, 31, 53, 0.95);
+        border: 1px solid rgba(6, 182, 212, 0.12);
       }
 
       .nav-link {
-        color: #e2e8f0 !important;
-        font-weight: 600;
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        margin: 0 0.3rem;
-        position: relative;
-        padding: 0.8rem 0.95rem !important;
-        border-radius: 12px;
-        overflow: hidden;
+        margin: 0;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .navbar-brand {
+        font-size: 1.1rem;
       }
 
-      .nav-link:hover {
-        color: #67e8f9 !important;
-        transform: translateY(-2px);
-        background: rgba(255, 255, 255, 0.08);
-      }
-
-      .nav-link::after {
-        content: '';
-        position: absolute;
-        left: 50%;
-        right: auto;
-        bottom: 6px;
-        width: 0;
-        height: 2px;
-        border-radius: 999px;
-        background: linear-gradient(90deg, #06b6d4 0%, #67e8f9 100%);
-        transform: translateX(-50%);
-        transition: width 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-      }
-
-      .nav-link:hover::after {
-        width: 70%;
-      }
-
-      .dropdown-menu {
-        background: rgba(255, 255, 255, 0.98);
-        border-radius: 16px;
-        border: 1px solid rgba(6, 182, 212, 0.16) !important;
-        box-shadow: 0 18px 40px rgba(15, 23, 42, 0.14);
-        padding: 0.65rem;
-        animation: menuFade 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        backdrop-filter: blur(4px);
-      }
-
-      .dropdown-item {
-        border-radius: 12px;
-        padding: 0.75rem 0.9rem;
-        font-weight: 600;
-        transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-        color: #0f172a !important;
-        position: relative;
-      }
-
-      .dropdown-item:hover {
-        background: rgba(6, 182, 212, 0.15);
-        color: #0891b2 !important;
-        transform: translateX(6px);
-      }
-
-      .dropdown-item:active {
-        background: rgba(6, 182, 212, 0.2) !important;
-      }
-
-      .btn-nav-accent {
-        background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%);
-        border: none !important;
-        color: white !important;
-        border-radius: 12px;
-        box-shadow: 0 8px 18px rgba(6, 182, 212, 0.24);
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        font-weight: 600;
-      }
-
-      .btn-nav-accent:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 14px 32px rgba(6, 182, 212, 0.36);
-        color: white !important;
-      }
-
-      .btn-nav-accent:active {
-        transform: translateY(-1px);
-        box-shadow: 0 6px 20px rgba(6, 182, 212, 0.28);
-      }
-
-      .btn-nav-outline {
-        border: 1px solid rgba(6, 182, 212, 0.45) !important;
-        border-radius: 12px;
-        background: rgba(255, 255, 255, 0.04);
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        font-weight: 600;
-        color: #e2e8f0 !important;
-      }
-
-      .btn-nav-outline:hover {
-        background: rgba(6, 182, 212, 0.18);
-        color: #67e8f9 !important;
-        transform: translateY(-3px);
-        border-color: rgba(6, 182, 212, 0.65) !important;
-        box-shadow: 0 8px 18px rgba(6, 182, 212, 0.18);
-      }
-
-      .btn-nav-outline:active {
-        transform: translateY(-1px);
-        background: rgba(6, 182, 212, 0.12);
+      main.flex-grow-1.py-5 {
+        padding-top: 2rem !important;
+        padding-bottom: 2rem !important;
       }
 
       .footer-shell {
-        background: linear-gradient(135deg, #0f172a 0%, #134e5e 100%);
-        color: white;
-        margin-top: 60px;
-        padding: 55px 0 20px;
-        border-top: 3px solid #06b6d4;
-        position: relative;
-        overflow: hidden;
-        height: auto !important;
-        min-height: auto !important;
-        max-height: none !important;
-        display: block !important;
+        padding: 40px 0 18px !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  {% load static %}
+
+  <!-- ============================================================
+     COMPUTER & CCTV HUB — Navbar
+     Drop this inside your base.html <body> as the first element.
+     Requires: Bootstrap 5, Font Awesome 6, Google Fonts (Syne + DM Sans)
+============================================================ -->
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Sans:wght@300;400;500&display=swap');
+
+    :root {
+      --nav-bg: rgba(8, 12, 24, 0.97);
+      --nav-border: rgba(6, 182, 212, 0.15);
+      --nav-glow: rgba(6, 182, 212, 0.08);
+      --cyan: #06b6d4;
+      --cyan-dim: rgba(6, 182, 212, 0.65);
+      --cyan-ghost: rgba(6, 182, 212, 0.12);
+      --text-primary: #e2f8fc;
+      --text-muted: rgba(167, 232, 242, 0.55);
+    }
+
+    /* ── Base navbar shell ── */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 1030;
+    }
+
+    .site-header .navbar {
+      background: var(--nav-bg) !important;
+      border-bottom: 1px solid var(--nav-border);
+      padding: 0;
+      font-family: 'DM Sans', sans-serif;
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      box-shadow: 0 1px 0 var(--nav-border), 0 4px 30px rgba(0, 0, 0, 0.4);
+      min-height: 64px;
+    }
+
+    /* Animated top glow strip */
+    .site-header .navbar::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg,
+          transparent 0%,
+          var(--cyan) 30%,
+          #22d3ee 50%,
+          var(--cyan) 70%,
+          transparent 100%);
+      opacity: 0.6;
+      animation: scanLine 4s ease-in-out infinite;
+    }
+
+    @keyframes scanLine {
+
+      0%,
+      100% {
+        opacity: 0.3;
+        transform: scaleX(0.7);
       }
 
-      .footer-shell::before {
-        content: '';
-        position: absolute;
-        top: -80px;
-        right: -80px;
-        width: 220px;
-        height: 220px;
-        background: rgba(255, 255, 255, 0.05);
-        border-radius: 50%;
+      50% {
+        opacity: 0.7;
+        transform: scaleX(1);
+      }
+    }
+
+    .site-header .container-lg {
+      padding-top: 0;
+      padding-bottom: 0;
+      min-height: 64px;
+      display: flex;
+      align-items: center;
+    }
+
+    /* ── Brand ── */
+    .site-header .navbar-brand {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 1.05rem;
+      letter-spacing: 0.04em;
+      color: var(--text-primary) !important;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 0;
+      position: relative;
+      transition: color 0.2s;
+    }
+
+    .brand-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      border-radius: 9px;
+      background: linear-gradient(135deg, rgba(6, 182, 212, 0.2), rgba(8, 145, 178, 0.1));
+      border: 1px solid rgba(6, 182, 212, 0.35);
+      flex-shrink: 0;
+      transition: all 0.3s ease;
+    }
+
+    .brand-icon i {
+      color: var(--cyan);
+      font-size: 0.95rem;
+    }
+
+    .site-header .navbar-brand:hover .brand-icon {
+      background: rgba(6, 182, 212, 0.25);
+      border-color: rgba(6, 182, 212, 0.6);
+      box-shadow: 0 0 12px rgba(6, 182, 212, 0.3);
+    }
+
+    .brand-text {
+      display: flex;
+      flex-direction: column;
+      line-height: 1;
+    }
+
+    .brand-text .brand-main {
+      color: #e2f8fc;
+      font-size: 0.92rem;
+      letter-spacing: 0.08em;
+    }
+
+    .brand-text .brand-tag {
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      font-size: 0.6rem;
+      letter-spacing: 0.15em;
+      color: var(--cyan-dim);
+      text-transform: uppercase;
+      margin-top: 2px;
+    }
+
+    /* ── Nav links ── */
+    .site-header .nav-link {
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 500;
+      font-size: 0.875rem;
+      color: var(--text-muted) !important;
+      padding: 0.5rem 0.75rem !important;
+      border-radius: 8px;
+      transition: color 0.2s, background 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 0;
+      position: relative;
+      letter-spacing: 0.01em;
+    }
+
+    .site-header .nav-link i {
+      font-size: 0.8rem;
+      margin-right: 6px;
+      opacity: 0.7;
+      transition: opacity 0.2s, color 0.2s;
+    }
+
+    .site-header .nav-link:hover,
+    .site-header .nav-link:focus {
+      color: var(--text-primary) !important;
+      background: var(--nav-glow);
+    }
+
+    .site-header .nav-link:hover i {
+      opacity: 1;
+      color: var(--cyan);
+    }
+
+    /* Active underline */
+    .site-header .nav-link.active::after {
+      content: '';
+      position: absolute;
+      bottom: 2px;
+      left: 50%;
+      right: 50%;
+      height: 2px;
+      background: var(--cyan);
+      border-radius: 1px;
+      animation: activeUnderline 0.3s ease forwards;
+    }
+
+    @keyframes activeUnderline {
+      to {
+        left: 16px;
+        right: 16px;
+      }
+    }
+
+    /* ── Dropdown ── */
+    .site-header .dropdown-menu {
+      background: rgba(8, 14, 28, 0.98) !important;
+      border: 1px solid var(--nav-border) !important;
+      border-radius: 14px !important;
+      padding: 8px !important;
+      margin-top: 8px !important;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(6, 182, 212, 0.05) !important;
+      backdrop-filter: blur(20px);
+      min-width: 220px;
+      animation: dropIn 0.18s cubic-bezier(0.34, 1.4, 0.64, 1) both;
+    }
+
+    @keyframes dropIn {
+      from {
+        opacity: 0;
+        transform: translateY(-8px) scale(0.97);
       }
 
-      .footer-shell::after {
-        content: '';
-        position: absolute;
-        bottom: -100px;
-        left: -100px;
-        width: 260px;
-        height: 260px;
-        background: rgba(6, 182, 212, 0.08);
-        border-radius: 50%;
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    .site-header .dropdown-item {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 400;
+      color: var(--text-muted) !important;
+      padding: 0.55rem 0.85rem !important;
+      border-radius: 8px !important;
+      display: flex;
+      align-items: center;
+      transition: all 0.15s;
+      letter-spacing: 0.01em;
+    }
+
+    .site-header .dropdown-item i {
+      width: 18px;
+      text-align: center;
+      margin-right: 10px;
+      font-size: 0.8rem;
+      color: rgba(6, 182, 212, 0.5);
+      transition: color 0.15s;
+    }
+
+    .site-header .dropdown-item:hover {
+      background: var(--cyan-ghost) !important;
+      color: var(--text-primary) !important;
+    }
+
+    .site-header .dropdown-item:hover i {
+      color: var(--cyan) !important;
+    }
+
+    .site-header .dropdown-divider {
+      border-color: rgba(6, 182, 212, 0.12) !important;
+      margin: 6px 8px !important;
+    }
+
+    /* Logout item */
+    .site-header .dropdown-item.logout-item {
+      color: rgba(248, 113, 113, 0.7) !important;
+    }
+
+    .site-header .dropdown-item.logout-item i {
+      color: rgba(248, 113, 113, 0.5) !important;
+    }
+
+    .site-header .dropdown-item.logout-item:hover {
+      background: rgba(239, 68, 68, 0.1) !important;
+      color: #fca5a5 !important;
+    }
+
+    .site-header .dropdown-item.logout-item:hover i {
+      color: #fca5a5 !important;
+    }
+
+    /* ── Right-side CTA buttons ── */
+    /* Cart button */
+    .btn-nav-cart {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: var(--text-muted) !important;
+      background: rgba(6, 182, 212, 0.06);
+      border: 1px solid rgba(6, 182, 212, 0.2);
+      border-radius: 10px;
+      padding: 0.42rem 0.9rem !important;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      transition: all 0.2s;
+      text-decoration: none;
+      position: relative;
+    }
+
+    .btn-nav-cart:hover {
+      background: rgba(6, 182, 212, 0.14);
+      border-color: rgba(6, 182, 212, 0.45);
+      color: #e2f8fc !important;
+      box-shadow: 0 0 15px rgba(6, 182, 212, 0.15);
+    }
+
+    .btn-nav-cart i {
+      font-size: 0.8rem;
+      color: var(--cyan-dim);
+    }
+
+    .cart-badge {
+      position: absolute;
+      top: -6px;
+      right: -6px;
+      min-width: 18px;
+      height: 18px;
+      background: #ef4444;
+      border-radius: 10px;
+      font-size: 0.65rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      padding: 0 4px;
+      border: 2px solid #080c18;
+      animation: badgePop 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+    }
+
+    @keyframes badgePop {
+      from {
+        transform: scale(0);
       }
 
-      .footer-brand-box {
-        position: relative;
-        z-index: 2;
+      to {
+        transform: scale(1);
+      }
+    }
+
+    /* Login button */
+    .btn-nav-login {
+      font-family: 'Syne', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      color: #0a1020 !important;
+      background: linear-gradient(135deg, #06b6d4, #0891b2);
+      border: none;
+      border-radius: 10px;
+      padding: 0.45rem 1.1rem !important;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      transition: all 0.25s;
+      text-decoration: none;
+      box-shadow: 0 3px 14px rgba(6, 182, 212, 0.3);
+    }
+
+    .btn-nav-login:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 22px rgba(6, 182, 212, 0.45);
+      color: #fff !important;
+    }
+
+    .btn-nav-login i {
+      font-size: 0.78rem;
+    }
+
+    /* Profile dropdown toggle */
+    .site-header .nav-link.profile-toggle {
+      background: rgba(6, 182, 212, 0.07);
+      border: 1px solid rgba(6, 182, 212, 0.18);
+      border-radius: 10px;
+      padding: 0.4rem 0.85rem !important;
+    }
+
+    .site-header .nav-link.profile-toggle:hover {
+      background: rgba(6, 182, 212, 0.14);
+      border-color: rgba(6, 182, 212, 0.4);
+    }
+
+    .profile-avatar {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, rgba(6, 182, 212, 0.3), rgba(8, 145, 178, 0.2));
+      border: 1px solid rgba(6, 182, 212, 0.4);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 6px;
+    }
+
+    .profile-avatar i {
+      font-size: 0.7rem;
+      color: var(--cyan);
+      margin: 0 !important;
+    }
+
+    /* ── Mobile toggler ── */
+    .site-header .navbar-toggler {
+      border: 1px solid rgba(6, 182, 212, 0.25) !important;
+      border-radius: 9px !important;
+      padding: 0.35rem 0.6rem !important;
+      background: rgba(6, 182, 212, 0.06) !important;
+      transition: all 0.2s;
+    }
+
+    .site-header .navbar-toggler:hover {
+      background: rgba(6, 182, 212, 0.14) !important;
+      border-color: rgba(6, 182, 212, 0.5) !important;
+    }
+
+    .site-header .navbar-toggler-icon {
+      filter: invert(70%) sepia(100%) saturate(400%) hue-rotate(160deg);
+      width: 18px;
+      height: 18px;
+    }
+
+    /* ── Mobile collapse ── */
+    @media (max-width: 991.98px) {
+      .site-header .navbar-collapse {
+        background: rgba(6, 10, 22, 0.98);
+        border: 1px solid var(--nav-border);
+        border-radius: 16px;
+        margin-top: 12px;
+        padding: 1rem;
+        backdrop-filter: blur(20px);
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
       }
 
-      .footer-social {
-        width: 42px;
-        height: 42px;
+      .site-header .navbar-nav .nav-link {
+        padding: 0.55rem 0.85rem !important;
         border-radius: 10px;
-        background: rgba(255, 255, 255, 0.08);
-        color: #67e8f9;
-        display: inline-flex;
-        align-items: center;
+      }
+
+      .site-header .navbar-nav {
+        gap: 2px !important;
+      }
+
+      .site-header .navbar-nav+.navbar-nav {
+        border-top: 1px solid rgba(6, 182, 212, 0.1);
+        padding-top: 0.75rem;
+        margin-top: 0.75rem;
+      }
+
+      .btn-nav-login,
+      .btn-nav-cart {
         justify-content: center;
-        text-decoration: none;
-        transition: all 0.3s ease;
+        width: 100%;
       }
 
-      .footer-social:hover {
-        transform: translateY(-4px);
-        background: #06b6d4;
-        color: white;
+      .site-header .dropdown-menu {
+        background: rgba(6, 182, 212, 0.04) !important;
+        border: 1px solid rgba(6, 182, 212, 0.1) !important;
+        border-radius: 10px !important;
+        margin-top: 4px !important;
+        box-shadow: none !important;
       }
+    }
 
-      .footer-link {
-        color: rgba(255, 255, 255, 0.85);
-        text-decoration: none;
-        transition: all 0.3s ease;
-        display: inline-block;
+    /* ── Separator pip between right-side items ── */
+    .nav-sep {
+      width: 1px;
+      height: 22px;
+      background: rgba(6, 182, 212, 0.15);
+      margin: 0 4px;
+      align-self: center;
+      display: none;
+    }
+
+    @media (min-width: 992px) {
+      .nav-sep {
+        display: block;
       }
+    }
+  </style>
 
-      .footer-link:hover {
-        color: #67e8f9 !important;
-        padding-left: 8px;
-      }
-
-      .footer-dev-link {
-        color: #67e8f9;
-        text-decoration: none;
-        transition: all 0.3s ease;
-      }
-
-      .footer-dev-link:hover {
-        color: white;
-      }
-
-      input[type='email'] {
-        word-break: break-all;
-        word-wrap: break-word;
-        overflow-wrap: break-word;
-        hyphens: auto;
-      }
-
-      input[type='email'].form-control,
-      input[type='email'].form-control-lg {
-        word-break: break-all !important;
-        word-wrap: break-word !important;
-        overflow-wrap: break-word !important;
-        white-space: normal !important;
-      }
-
-      @keyframes navReveal {
-        from {
-          transform: translateY(-100%);
-          opacity: 0;
-        }
-        to {
-          transform: translateY(0);
-          opacity: 1;
-        }
-      }
-
-      @keyframes menuFade {
-        from {
-          opacity: 0;
-          transform: translateY(-8px);
-        }
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
-      }
-
-      @media (max-width: 991.98px) {
-        .navbar-collapse {
-          margin-top: 1rem;
-          padding: 1rem;
-          border-radius: 18px;
-          background: rgba(255, 255, 255, 0.04);
-          border: 1px solid rgba(255, 255, 255, 0.08);
-        }
-
-        .nav-link {
-          margin: 0;
-        }
-      }
-
-      @media (max-width: 768px) {
-        .navbar-brand {
-          font-size: 1.15rem;
-        }
-
-        main.flex-grow-1.py-5 {
-          padding-top: 2rem !important;
-          padding-bottom: 2rem !important;
-        }
-
-        .footer-shell {
-          padding: 40px 0 18px !important;
-        }
-      }
-    </style>
-  </head>
-
-  <body>
-    <header class="site-header sticky-top">
-      <nav class="navbar navbar-expand-lg navbar-dark">
-        <div class="container-lg">
-          <a class="navbar-brand d-flex align-items-center gap-2" href="/">
-            <span>COMPUTER & CCTV HUB</span>
-          </a>
-
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-
-          <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav me-auto gap-lg-1">
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle fw-500" href="#" id="laptopDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  <i class="fas fa-laptop me-2"></i>Laptop
-                </a>
-                <ul class="dropdown-menu" aria-labelledby="laptopDropdown">
-                  <li><a class="dropdown-item" href="{% url 'new_laptops:request_laptop' %}"><i class="fas fa-star-half-alt me-2"></i>Request New Laptop</a></li>
-                  <li><a class="dropdown-item" href="{% url 'used_laptops:product_list' %}"><i class="fas fa-recycle me-2"></i>Refurbished Laptops</a></li>
-                </ul>
-              </li>
-
-              <li class="nav-item">
-                <a class="nav-link fw-500" href="{% url 'accessories:product_list' %}"><i class="fas fa-keyboard me-2"></i>Accessories</a>
-              </li>
-
-              <li class="nav-item">
-                <a class="nav-link fw-500" href="{% url 'contact:contact_page' %}"><i class="fas fa-envelope me-2"></i>Contact Us</a>
-              </li>
-
-              <li class="nav-item dropdown d-lg-none">
-                <a class="nav-link dropdown-toggle fw-500" href="#" id="aboutDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  <i class="fas fa-info-circle me-2"></i>About
-                </a>
-                <ul class="dropdown-menu" aria-labelledby="aboutDropdown">
-                  <li>
-                    <a class="dropdown-item" href="{% url 'about' %}">
-                      <i class="fas fa-circle-info me-2"></i>About
-                    </a>
-                  </li>
-                  <li>
-                    <a class="dropdown-item" href="{% url 'developer' %}">
-                      <i class="fas fa-user-cog me-2"></i>About Developer
-                    </a>
-                  </li>
-                </ul>
-              </li>
-
-              <li class="nav-item d-none d-lg-block">
-                <a class="nav-link fw-500" href="{% url 'about' %}"><i class="fas fa-info-circle me-2"></i>About</a>
-              </li>
-            </ul>
-
-            <ul class="navbar-nav gap-2 align-items-lg-center">
-              {% if user.is_authenticated %}
-                <li class="nav-item">
-                  <a class="nav-link btn btn-nav-outline btn-sm ms-lg-2 px-3 position-relative text-start" href="{% url 'cart:view' %}">
-                    <i class="fas fa-shopping-cart me-2"></i>Cart
-                    {% if cart_item_count > 0 %}
-                      <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="font-size: 0.7rem;">
-                        {{ cart_item_count }}
-                      </span>
-                    {% endif %}
-                  </a>
-                </li>
-              {% endif %}
-
-              {% if user.is_authenticated %}
-                <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle fw-500" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    <i class="fas fa-user-circle me-2"></i>Profile
-                  </a>
-                  <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
-                    <li><a class="dropdown-item" href="{% url 'accounts:profile' %}"><i class="fas fa-user me-2"></i>My Profile</a></li>
-                    <li><hr class="dropdown-divider" /></li>
-                    <li><a class="dropdown-item text-danger" href="{% url 'accounts:logout' %}"><i class="fas fa-sign-out-alt me-2"></i>Logout</a></li>
-                  </ul>
-                </li>
-              {% else %}
-                <li class="nav-item">
-                  <a class="nav-link btn btn-nav-accent btn-sm ms-lg-2 px-3 text-white text-start" href="{% url 'accounts:login' %}">
-                    <i class="fas fa-sign-in-alt me-2"></i>Login
-                  </a>
-                </li>
-              {% endif %}
-            </ul>
-          </div>
-        </div>
-      </nav>
-    </header>
-
-    <main class="flex-grow-1 pt-4 pb-2">
-
+  <header class="site-header">
+    <nav class="navbar navbar-expand-lg navbar-dark">
       <div class="container-lg">
-        {% block content %}
 
-        {% endblock %}
-      </div>
-    </main>
+        <!-- ── Brand ── -->
+        <a class="navbar-brand" href="/">
+          <div class="brand-text">
+            <span class="brand-main"> <center> COMPUTER <br> &amp; <br>CCTV HUB</center></span>
+          </div>
+        </a>
 
-    <footer class="footer-shell">
-  <div class="container-lg" style="position: relative; z-index: 2;">
-    <div class="row g-4 mb-3">
-      <div class="col-md-4">
-        <div class="footer-brand-box">
-          <div class="d-flex align-items-center gap-3 mb-3">
-            <div style="width: 48px; height: 48px; border-radius: 12px; background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%); display: flex; align-items: center; justify-content: center; box-shadow: 0 10px 24px rgba(6,182,212,0.25);">
-              <i class="fas fa-shield-alt" style="color: white; font-size: 1.2rem;"></i>
+        <!-- Mobile toggler -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+          aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+
+          <!-- ── Left nav ── -->
+          <ul class="navbar-nav me-auto gap-lg-1">
+
+            <!-- Laptop dropdown -->
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="laptopDropdown" role="button" data-bs-toggle="dropdown"
+                aria-expanded="false">
+                <i class="fas fa-laptop"></i>Laptop
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="laptopDropdown">
+                <li>
+                  <a class="dropdown-item" href="{% url 'new_laptops:request_laptop' %}">
+                    <i class="fas fa-star-half-alt"></i>Request New Laptop
+                  </a>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="{% url 'used_laptops:product_list' %}">
+                    <i class="fas fa-recycle"></i>Refurbished Laptops
+                  </a>
+                </li>
+              </ul>
+            </li>
+
+            <!-- Accessories -->
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'accessories:product_list' %}">
+                <i class="fas fa-keyboard"></i>Accessories
+              </a>
+            </li>
+
+            <!-- Contact -->
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'contact:contact_page' %}">
+                <i class="fas fa-envelope"></i>Contact Us
+              </a>
+            </li>
+
+            <!-- About — mobile: dropdown, desktop: link -->
+            <li class="nav-item dropdown d-lg-none">
+              <a class="nav-link dropdown-toggle" href="#" id="aboutDropdownMob" role="button" data-bs-toggle="dropdown"
+                aria-expanded="false">
+                <i class="fas fa-info-circle"></i>About
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="aboutDropdownMob">
+                <li>
+                  <a class="dropdown-item" href="{% url 'about' %}">
+                    <i class="fas fa-circle-info"></i>About Us
+                  </a>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="{% url 'developer' %}">
+                    <i class="fas fa-user-cog"></i>About Developer
+                  </a>
+                </li>
+              </ul>
+            </li>
+
+            <li class="nav-item d-none d-lg-block">
+              <a class="nav-link" href="{% url 'about' %}">
+                <i class="fas fa-info-circle"></i>About
+              </a>
+            </li>
+
+          </ul>
+
+          <!-- ── Right nav ── -->
+          <ul class="navbar-nav gap-2 align-items-lg-center">
+
+            {% if user.is_authenticated %}
+            <!-- Cart -->
+            <li class="nav-item">
+              <a class="btn-nav-cart" href="{% url 'cart:view' %}">
+                <i class="fas fa-shopping-cart"></i>
+                Cart
+                {% if cart_item_count > 0 %}
+                <span class="cart-badge">{{ cart_item_count }}</span>
+                {% endif %}
+              </a>
+            </li>
+
+            <div class="nav-sep"></div>
+
+            <!-- Profile dropdown -->
+            <li class="nav-item dropdown">
+              <a class="nav-link profile-toggle dropdown-toggle" href="#" id="userDropdown" role="button"
+                data-bs-toggle="dropdown" aria-expanded="false">
+                <span class="profile-avatar"><i class="fas fa-user"></i></span>
+                Profile
+              </a>
+              <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                <li>
+                  <a class="dropdown-item" href="{% url 'accounts:profile' %}">
+                    <i class="fas fa-user"></i>My Profile
+                  </a>
+                </li>
+                <li>
+                  <hr class="dropdown-divider">
+                </li>
+                <li>
+                  <a class="dropdown-item logout-item" href="{% url 'accounts:logout' %}">
+                    <i class="fas fa-sign-out-alt"></i>Logout
+                  </a>
+                </li>
+              </ul>
+            </li>
+
+            {% else %}
+
+            <!-- Login CTA -->
+            <li class="nav-item">
+              <a class="btn-nav-login" href="{% url 'accounts:login' %}">
+                <i class="fas fa-sign-in-alt"></i>Login
+              </a>
+            </li>
+
+            {% endif %}
+
+          </ul>
+        </div><!-- /.navbar-collapse -->
+      </div><!-- /.container-lg -->
+    </nav>
+  </header>
+  <main class="flex-grow-1 pt-4 pb-2" style="overflow-x: hidden;">
+    <div class="container-lg" style="overflow-x: hidden;">
+      {% block content %}{% endblock %}
+    </div>
+  </main>
+
+  <footer class="footer-shell">
+    <div class="container-lg" style="position: relative; z-index: 2;">
+      <div class="row g-4 mb-3">
+
+        <div class="col-md-4">
+          <div class="footer-brand-box">
+            <div class="d-flex align-items-center gap-3 mb-3">
+              <div style="width: 48px; height: 48px; border-radius: 12px;
+                  background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%);
+                  display: flex; align-items: center; justify-content: center;
+                  box-shadow: 0 10px 24px rgba(6,182,212,0.25);">
+                <i class="fas fa-shield-alt" style="color: white; font-size: 1.2rem;"></i>
+              </div>
+              <h5 class="mb-0 fw-bold" style="color: #67e8f9;">COMPUTER & CCTV HUB</h5>
             </div>
-            <h5 class="mb-0 fw-bold" style="color: #67e8f9;">COMPUTER & CCTV HUB</h5>
-          </div>
-
-          <p style="color: rgba(255,255,255,0.82); line-height: 1.7; font-size: 0.92rem; margin-bottom: 14px;">
-            Trusted provider of premium computers, CCTV systems, and accessories.
-          </p>
-
-          <div class="d-flex gap-2 mt-2">
-            <a href="#" class="footer-social" title="Facebook"><i class="fab fa-facebook-f"></i></a>
-            <a href="#" class="footer-social" title="Twitter"><i class="fab fa-twitter"></i></a>
-            <a href="#" class="footer-social" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-            <a href="#" class="footer-social" title="Instagram"><i class="fab fa-instagram"></i></a>
+            <p style="color: rgba(255,255,255,0.7); line-height: 1.75; font-size: 0.92rem; margin-bottom: 16px;">
+              Trusted provider of premium computers, CCTV systems, and accessories in Ahmedabad.
+            </p>
+            <div class="d-flex gap-2 mt-2">
+              <a href="#" class="footer-social" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+              <a href="#" class="footer-social" title="Twitter"><i class="fab fa-twitter"></i></a>
+              <a href="#" class="footer-social" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+              <a href="#" class="footer-social" title="Instagram"><i class="fab fa-instagram"></i></a>
+            </div>
           </div>
         </div>
+
+        <div class="col-md-4">
+          <h6 class="fw-bold mb-3" style="color: #67e8f9; text-transform: uppercase; letter-spacing: 1px;">
+            Quick Links
+          </h6>
+          <ul class="list-unstyled d-flex flex-column gap-2 mb-0">
+            <li><a href="{% url 'home' %}" class="footer-link"><i class="fas fa-angle-right me-2 text-info"></i>Home</a>
+            </li>
+            <li><a href="{% url 'new_laptops:request_laptop' %}" class="footer-link"><i
+                  class="fas fa-angle-right me-2 text-info"></i>Request Laptop</a></li>
+            <li><a href="{% url 'used_laptops:product_list' %}" class="footer-link"><i
+                  class="fas fa-angle-right me-2 text-info"></i>Refurbished Laptops</a></li>
+            <li><a href="{% url 'accessories:product_list' %}" class="footer-link"><i
+                  class="fas fa-angle-right me-2 text-info"></i>Accessories</a></li>
+          </ul>
+        </div>
+
+        <div class="col-md-4">
+          <h6 class="fw-bold mb-3" style="color: #67e8f9; text-transform: uppercase; letter-spacing: 1px;">
+            Support & Info
+          </h6>
+          <ul class="list-unstyled d-flex flex-column gap-2 mb-0">
+            <li><a href="{% url 'contact:contact_page' %}" class="footer-link"><i
+                  class="fas fa-angle-right me-2 text-info"></i>Contact Us</a></li>
+            <li><a href="{% url 'cart:view' %}" class="footer-link"><i
+                  class="fas fa-angle-right me-2 text-info"></i>Shopping Cart</a></li>
+            <li><a href="{% url 'privacy' %}" class="footer-link"><i
+                  class="fas fa-angle-right me-2 text-info"></i>Privacy Policy</a></li>
+            <li><a href="{% url 'terms' %}" class="footer-link"><i class="fas fa-angle-right me-2 text-info"></i>Terms &
+                Conditions</a></li>
+          </ul>
+        </div>
+
       </div>
 
-      <div class="col-md-4">
-        <h6 class="fw-bold mb-3" style="color: #67e8f9; text-transform: uppercase; letter-spacing: 1px;">Quick Links</h6>
-        <ul class="list-unstyled d-flex flex-column gap-2 mb-0">
-          <li><a href="{% url 'home' %}" class="footer-link"><i class="fas fa-angle-right me-2 text-info"></i>Home</a></li>
-          <li><a href="{% url 'new_laptops:request_laptop' %}" class="footer-link"><i class="fas fa-angle-right me-2 text-info"></i>Request Laptop</a></li>
-          <li><a href="{% url 'used_laptops:product_list' %}" class="footer-link"><i class="fas fa-angle-right me-2 text-info"></i>Refurbished Laptops</a></li>
-          <li><a href="{% url 'accessories:product_list' %}" class="footer-link"><i class="fas fa-angle-right me-2 text-info"></i>Accessories</a></li>
-        </ul>
-      </div>
-
-      <div class="col-md-4">
-        <h6 class="fw-bold mb-3" style="color: #67e8f9; text-transform: uppercase; letter-spacing: 1px;">Support & Info</h6>
-        <ul class="list-unstyled d-flex flex-column gap-2 mb-0">
-          <li><a href="{% url 'contact:contact_page' %}" class="footer-link"><i class="fas fa-angle-right me-2 text-info"></i>Contact Us</a></li>
-          <li><a href="{% url 'cart:view' %}" class="footer-link"><i class="fas fa-angle-right me-2 text-info"></i>Shopping Cart</a></li>
-          <li><a href="{% url 'privacy' %}" class="footer-link"><i class="fas fa-angle-right me-2 text-info"></i>Privacy Policy</a></li>
-          <li><a href="{% url 'terms' %}" class="footer-link"><i class="fas fa-angle-right me-2 text-info"></i>Terms & Conditions</a></li>
-        </ul>
+      <div style="border-top: 1px solid rgba(6,182,212,0.12); padding-top: 16px;">
+        <div class="row align-items-center">
+          <div class="col-md-6 text-center text-md-start mb-2 mb-md-0">
+            <p style="margin: 0; color: rgba(255,255,255,0.55); font-size: 0.88rem;">
+              &copy;{% now 'Y' %} <strong style="color: #67e8f9;">COMPUTER & CCTV HUB</strong>. All rights reserved.
+            </p>
+          </div>
+          <div class="col-md-6 text-center text-md-end">
+            <small style="color: rgba(255,255,255,0.45);">
+              <i class="fas fa-code me-1"></i>
+              <a href="{% url 'developer' %}" class="footer-dev-link">Developed by Bhavya H. Prajapati</a>
+            </small>
+          </div>
+        </div>
       </div>
     </div>
+  </footer>
 
-    <div style="border-top: 1px solid rgba(255,255,255,0.12); padding-top: 14px;">
-      <div class="row align-items-center">
-        <div class="col-md-6 text-center text-md-start mb-2 mb-md-0">
-          <p style="margin: 0; color: rgba(255,255,255,0.75); font-size: 0.88rem;">
-            &copy; {% now 'Y' %} <strong style="color: #67e8f9;">COMPUTER & CCTV HUB</strong>. All rights reserved.
-          </p>
-        </div>
-        <div class="col-md-6 text-center text-md-end">
-          <small style="color: rgba(255,255,255,0.65);">
-            <i class="fas fa-code me-1"></i>
-            <a href="{% url 'developer' %}" class="footer-dev-link">Developed by Bhavya H. Prajapati</a>
-          </small>
-        </div>
-      </div>
-    </div>
-  </div>
-</footer>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
 
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-  </body>
 </html>

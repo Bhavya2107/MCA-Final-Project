@@ -1,0 +1,122 @@
+================================================================================
+                        ALL PAGES LINK IN THIS PROJECT
+================================================================================
+
+Base URL: http://127.0.0.1:8000/
+
+================================================================================
+                              MAIN PAGES
+================================================================================
+
+Home Page
+http://127.0.0.1:8000/
+
+Admin Panel
+http://127.0.0.1:8000/admin/
+
+About Page
+http://127.0.0.1:8000/about/
+
+Privacy Policy Page
+http://127.0.0.1:8000/privacy/
+
+Terms & Conditions Page
+http://127.0.0.1:8000/terms/
+
+Developer Page
+http://127.0.0.1:8000/developer/
+
+================================================================================
+                            ACCOUNTS PAGES
+================================================================================
+
+Register Page
+http://127.0.0.1:8000/accounts/register/
+
+Login Page
+http://127.0.0.1:8000/accounts/login/
+
+Logout Page
+http://127.0.0.1:8000/accounts/logout/
+
+Forgot Password Page
+http://127.0.0.1:8000/accounts/forgot-password/
+
+Reset Password Page
+http://127.0.0.1:8000/accounts/reset-password/<token>/
+
+Profile Page
+http://127.0.0.1:8000/accounts/profile/
+
+Edit Profile Page
+http://127.0.0.1:8000/accounts/profile/edit/
+
+Change Password Page
+http://127.0.0.1:8000/accounts/change-password/
+
+OTP Verification Page
+http://127.0.0.1:8000/accounts/verify-otp/<user_id>/
+
+================================================================================
+                            NEW LAPTOPS PAGES
+================================================================================
+
+New Laptops List Page
+http://127.0.0.1:8000/new/
+
+Request New Laptop Page
+http://127.0.0.1:8000/new/request/
+
+My Requests Page
+http://127.0.0.1:8000/new/my-requests/
+
+================================================================================
+                            USED LAPTOPS PAGES
+================================================================================
+
+Used Laptops List Page
+http://127.0.0.1:8000/used/
+
+Used Laptops By Category Page
+http://127.0.0.1:8000/used/category/<category_slug>/
+
+Used Laptop Detail Page
+http://127.0.0.1:8000/used/<product_slug>/
+
+================================================================================
+                           ACCESSORIES PAGES
+================================================================================
+
+Accessories List Page
+http://127.0.0.1:8000/accessories/
+
+Accessories By Category Page
+http://127.0.0.1:8000/accessories/category/<category_slug>/
+
+Accessory Detail Page
+http://127.0.0.1:8000/accessories/<product_slug>/
+
+================================================================================
+                              CART PAGES
+================================================================================
+
+Cart Page
+http://127.0.0.1:8000/cart/
+
+Checkout Page
+http://127.0.0.1:8000/cart/checkout/
+
+Delivery Address Page
+http://127.0.0.1:8000/cart/delivery-address/
+
+Order Confirmation Page
+http://127.0.0.1:8000/cart/order-confirmation/<order_id>/
+
+================================================================================
+                            CONTACT PAGES
+================================================================================
+
+Contact Page
+http://127.0.0.1:8000/contact/
+
+================================================================================

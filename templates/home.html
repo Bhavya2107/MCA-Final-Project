@@ -1,431 +1,1604 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block title %}
-  Home - COMPUTER & CCTV HUB
+Home - COMPUTER & CCTV HUB
 {% endblock %}
 
 {% block content %}
-  <style>
-    /* What We Offer Section Styles */
-    .offer-card {
-      position: relative;
-    }
-    
-    .offer-card:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 20px 40px rgba(6, 182, 212, 0.2);
-    }
-    
-    .offer-card .card-header {
-      position: relative;
-      overflow: hidden;
-    }
-    
-    .offer-card .card-header::before {
-      content: '';
-      position: absolute;
-      top: -50%;
-      left: -50%;
-      width: 200%;
-      height: 200%;
-      background: inherit;
-      opacity: 0.1;
-      transform: rotate(45deg);
-      transition: all 0.4s ease;
-    }
-    
-    .offer-card:hover .card-header::before {
-      transform: rotate(45deg) scale(1.1);
-    }
-    
-    .icon-wrapper {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 80px;
-      height: 80px;
-      background: rgba(255, 255, 255, 0.2);
-      border-radius: 50%;
-      backdrop-filter: blur(10px);
-      border: 2px solid rgba(255, 255, 255, 0.3);
-    }
-    
-    .features-list {
-      background: rgba(6, 182, 212, 0.02);
-      border-radius: 12px;
-      padding: 16px;
-    }
-    
-    .feature-item {
-      transition: all 0.3s ease;
-    }
-    
-    .feature-item:hover {
-      transform: translateX(4px);
-    }
-    
-    .btn {
-      transition: all 0.3s ease;
-    }
-    
-    .btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-    }
-    
-    /* Responsive adjustments */
-    @media (max-width: 768px) {
-      .offer-card {
-        margin-bottom: 2rem;
-      }
-    
-      .offer-card .card-header {
-        padding: 2rem 1rem;
-      }
-    
-      .icon-wrapper {
-        width: 60px;
-        height: 60px;
-      }
-    
-      .icon-wrapper i {
-        font-size: 2rem;
-      }
-    
-      .features-list {
-        padding: 12px;
-      }
-    }
-    
-    @media (max-width: 576px) {
-      .offer-card {
-        border-radius: 15px;
-      }
-    
-      .offer-card .card-body {
-        padding: 1.5rem;
-      }
-    }
-    
-    /* Animation keyframes */
-    @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(30px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-    
-    .offer-card {
-      animation: fadeInUp 0.6s ease-out;
-    }
-    
-    .offer-card:nth-child(2) {
-      animation-delay: 0.1s;
-    }
-    
-    .offer-card:nth-child(3) {
-      animation-delay: 0.2s;
-    }
-  </style>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap');
 
-  {% comment %} <!-- Hero Section with Large Logo -->
-  <div class="hero-section mb-5 pt-5 pb-5">
-    <div class="container-lg py-5">
-      <img src="{% static 'images/logo.svg' %}" alt="COMPUTER & CCTV HUB Logo" class="logo-hero" />
-      <h1 class="display-4 fw-bold text-info mb-3">COMPUTER & CCTV HUB</h1>
-      <p class="lead text-white mb-0">Your Trusted Partner for Quality Computers & Security Solutions</p>
-    </div>
-  </div> {% endcomment %}
+  :root {
+    --cyan: #06b6d4;
+    --cyan-deep: #0891b2;
+    --cyan-light: #cffafe;
+    --cyan-soft: #67e8f9;
+    --navy: #050c18;
+    --navy-mid: #0a1628;
+    --navy-card: #0d1f35;
+    --navy-elevated: #112240;
+    --slate: #94a3b8;
+    --slate-light: #cbd5e1;
+    --muted: #64748b;
+    --white: #ffffff;
+    --text-primary: #f0f9ff;
+    --text-secondary: #94a3b8;
+    --text-muted: #64748b;
+    --glass: rgba(255,255,255,0.06);
+    --glass-hover: rgba(255,255,255,0.10);
+    --glass-border: rgba(255,255,255,0.10);
+    --cyan-border: rgba(6,182,212,0.25);
+    --cyan-bg: rgba(6,182,212,0.10);
+  }
 
-  <!-- CTA Section with Background Image -->
-  <div class="mb-5 rounded-4 overflow-hidden laptop-section" style="position: relative; background: linear-gradient(135deg, rgba(248,250,252,1) 0%, rgba(241,245,249,1) 100%); border: 1px solid rgba(6, 182, 212, 0.16); box-shadow: 0 18px 45px rgba(6, 182, 212, 0.12);">
-    <div class="container-fluid px-0">
-      <div class="row g-0 align-items-stretch">
-        <div class="col-12 col-lg-7">
-          <div style="height: 100%; padding: 55px 28px; padding-left: 32px; padding-right: 32px; background: linear-gradient(135deg, rgba(255,255,255,0.96) 0%, rgba(248,250,252,0.98) 100%); position: relative; overflow: hidden;">
-            <div style="position: absolute; top: -80px; left: -80px; width: 220px; height: 220px; border-radius: 50%; background: rgba(6, 182, 212, 0.06);"></div>
-            <div style="position: absolute; bottom: -100px; right: -60px; width: 220px; height: 220px; border-radius: 50%; background: rgba(8, 145, 178, 0.05);"></div>
+  * { box-sizing: border-box; }
 
-            <div style="position: relative; z-index: 2; max-width: 720px;">
-              <div style="display: inline-flex; align-items: center; gap: 10px; padding: 9px 16px; border-radius: 999px; background: rgba(6, 182, 212, 0.08); color: #0891b2; font-size: 0.92rem; font-weight: 700; margin-bottom: 20px;">
-                <i class="fas fa-laptop-house"></i>
-                <span>COMPUTER & CCTV HUB</span>
-              </div>
+  body, .home-root {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--navy);
+    color: var(--text-primary);
+  }
 
-              <h2 class="display-5 fw-bold mb-4" style="background: linear-gradient(135deg, #0f172a 0%, #06b6d4 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; line-height: 1.12;">Find Your Perfect Solution</h2>
+  h1, h2, h3, h4, h5, .display-heading {
+    font-family: 'Syne', sans-serif;
+  }
 
-              <div style="display: flex; flex-direction: column; gap: 14px; margin-bottom: 34px;">
-                <div style="display: flex; align-items: center; padding: 14px 16px; background: rgba(255,255,255,0.72); border: 1px solid rgba(6, 182, 212, 0.10); border-radius: 14px; box-shadow: 0 6px 18px rgba(15, 23, 42, 0.04);">
-                  <i class="fas fa-check-circle text-info me-3" style="font-size: 1.2rem;"></i>
-                  <span><strong>Authentic Products</strong> - 100% genuine items</span>
-                </div>
+  /* ─── HERO ─────────────────────────────────────────── */
+  .hero-wrap {
+    position: relative;
+    min-height: 92vh;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    background: linear-gradient(135deg, #020810 0%, #050c18 40%, #071220 100%);
+    border-radius: 28px;
+    margin-bottom: 80px;
+    border: 1px solid rgba(6,182,212,0.12);
+  }
 
-                <div style="display: flex; align-items: center; padding: 14px 16px; background: rgba(255,255,255,0.72); border: 1px solid rgba(6, 182, 212, 0.10); border-radius: 14px; box-shadow: 0 6px 18px rgba(15, 23, 42, 0.04);">
-                  <i class="fas fa-check-circle text-info me-3" style="font-size: 1.2rem;"></i>
-                  <span><strong>Expert Support</strong> - Knowledgeable team</span>
-                </div>
+  .hero-bg-image {
+    position: absolute;
+    inset: 0;
+    background-image: url('{% static "images/laptop-bg.webp" %}');
+    background-size: cover;
+    background-position: center;
+    opacity: 0.12;
+    z-index: 0;
+  }
 
-                <div style="display: flex; align-items: center; padding: 14px 16px; background: rgba(255,255,255,0.72); border: 1px solid rgba(6, 182, 212, 0.10); border-radius: 14px; box-shadow: 0 6px 18px rgba(15, 23, 42, 0.04);">
-                  <i class="fas fa-check-circle text-info me-3" style="font-size: 1.2rem;"></i>
-                  <span><strong>Best Prices</strong> - Competitive rates</span>
-                </div>
-              </div>
+  .hero-grid-overlay {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(6,182,212,0.07) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(6,182,212,0.07) 1px, transparent 1px);
+    background-size: 60px 60px;
+    z-index: 1;
+  }
 
-              <div class="d-flex flex-column gap-3" style="max-width: auto;">
-                <a class="btn btn-lg fw-bold" style="background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%); color: white; border: none; padding: 15px 28px; box-shadow: 0 8px 20px rgba(6, 182, 212, 0.26); border-radius: 14px; transition: all 0.3s ease; width: 100%;" href="{% url 'new_laptops:request_laptop' %}" onmouseover="this.style.transform='translateY(-4px)'; this.style.boxShadow='0 16px 30px rgba(6, 182, 212, 0.34)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 8px 20px rgba(6, 182, 212, 0.26)';"><i class="fas fa-laptop me-2"></i>Quick Start - Shop New</a>
+  .hero-glow-1 {
+    position: absolute;
+    top: -120px;
+    right: -80px;
+    width: 600px;
+    height: 600px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(6,182,212,0.22) 0%, transparent 65%);
+    z-index: 2;
+    animation: pulse-glow 6s ease-in-out infinite alternate;
+  }
 
-                <a class="btn btn-lg fw-bold" style="border: 2px solid #06b6d4; color: #06b6d4; background: white; padding: 15px 28px; border-radius: 14px; transition: all 0.3s ease; box-shadow: 0 6px 16px rgba(6, 182, 212, 0.08); width: 100%;" href="/used/" onmouseover="this.style.transform='translateY(-4px)'; this.style.background='#ecfeff'; this.style.boxShadow='0 14px 28px rgba(6, 182, 212, 0.18)';" onmouseout="this.style.transform='translateY(0)'; this.style.background='white'; this.style.boxShadow='0 6px 16px rgba(6, 182, 212, 0.08)';"><i class="fas fa-recycle me-2"></i>Refurbished Options</a>
+  .hero-glow-2 {
+    position: absolute;
+    bottom: -100px;
+    left: 15%;
+    width: 420px;
+    height: 420px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(8,145,178,0.14) 0%, transparent 70%);
+    z-index: 2;
+    animation: pulse-glow 8s ease-in-out infinite alternate-reverse;
+  }
 
-                <a class="btn btn-lg fw-bold" style="border: 2px solid #0f172a; color: #0f172a; background: rgba(15, 23, 42, 0.05); padding: 15px 28px; border-radius: 14px; transition: all 0.3s ease; box-shadow: 0 6px 16px rgba(15, 23, 42, 0.05); width: 100%;" href="{% url 'contact:contact_page' %}" onmouseover="this.style.transform='translateY(-4px)'; this.style.background='rgba(15, 23, 42, 0.10)'; this.style.boxShadow='0 14px 28px rgba(15, 23, 42, 0.14)';" onmouseout="this.style.transform='translateY(0)'; this.style.background='rgba(15, 23, 42, 0.05)'; this.style.boxShadow='0 6px 16px rgba(15, 23, 42, 0.05)';"><i class="fas fa-phone me-2"></i>Get Expert Advice</a>
-              </div>
-            </div>
+  @keyframes pulse-glow {
+    from { transform: scale(1); opacity: 0.6; }
+    to { transform: scale(1.15); opacity: 1; }
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 10;
+    padding: 80px 60px;
+    max-width: 780px;
+  }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 18px;
+    background: rgba(6,182,212,0.12);
+    border: 1px solid rgba(6,182,212,0.35);
+    border-radius: 999px;
+    color: var(--cyan-light);
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 28px;
+    animation: fadeSlideUp 0.6s ease both;
+  }
+
+  .hero-badge .dot {
+    width: 7px;
+    height: 7px;
+    background: var(--cyan);
+    border-radius: 50%;
+    animation: blink 1.8s ease-in-out infinite;
+  }
+
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+
+  .hero-title {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(2.8rem, 6vw, 5rem);
+    font-weight: 800;
+    line-height: 1.06;
+    color: var(--text-primary);
+    margin-bottom: 22px;
+    animation: fadeSlideUp 0.7s 0.1s ease both;
+  }
+
+  .hero-title .accent {
+    background: linear-gradient(135deg, #06b6d4 0%, #67e8f9 60%, #a5f3fc 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero-sub {
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+    line-height: 1.8;
+    margin-bottom: 44px;
+    max-width: 520px;
+    animation: fadeSlideUp 0.7s 0.2s ease both;
+  }
+
+  .hero-btns {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+    animation: fadeSlideUp 0.7s 0.3s ease both;
+  }
+
+  .btn-primary-hero {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: linear-gradient(135deg, #06b6d4, #0891b2);
+    color: white;
+    padding: 16px 32px;
+    border-radius: 14px;
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 0.95rem;
+    text-decoration: none;
+    border: none;
+    box-shadow: 0 8px 30px rgba(6,182,212,0.35);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+
+  .btn-primary-hero:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 40px rgba(6,182,212,0.5);
+    color: white;
+    text-decoration: none;
+  }
+
+  .btn-ghost-hero {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(255,255,255,0.05);
+    color: var(--text-primary);
+    padding: 16px 32px;
+    border-radius: 14px;
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 0.95rem;
+    text-decoration: none;
+    border: 1px solid rgba(255,255,255,0.15);
+    backdrop-filter: blur(10px);
+    transition: all 0.25s ease;
+  }
+
+  .btn-ghost-hero:hover {
+    background: rgba(6,182,212,0.12);
+    border-color: var(--cyan-border);
+    transform: translateY(-4px);
+    color: var(--cyan-light);
+    text-decoration: none;
+  }
+
+  /* hero right card stack */
+  .hero-cards-col {
+    position: relative;
+    z-index: 10;
+    padding: 60px 60px 60px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    animation: fadeSlideUp 0.8s 0.35s ease both;
+  }
+
+  .hero-stat-card {
+    background: rgba(13,31,53,0.85);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(6,182,212,0.18);
+    border-radius: 20px;
+    padding: 22px 26px;
+    color: var(--text-primary);
+    transition: transform 0.25s ease, background 0.25s ease, border-color 0.25s ease;
+  }
+
+  .hero-stat-card:hover {
+    background: rgba(17,34,64,0.95);
+    border-color: rgba(6,182,212,0.4);
+    transform: translateX(-6px);
+  }
+
+  .hero-stat-card .label {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 6px;
+  }
+
+  .hero-stat-card .value {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    line-height: 1.2;
+  }
+
+  .hero-stat-card .value span {
+    color: var(--text-secondary);
+  }
+
+  .hero-stat-card .icon-circle {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, rgba(6,182,212,0.25), rgba(8,145,178,0.15));
+    border: 1px solid rgba(6,182,212,0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--cyan);
+    font-size: 1.1rem;
+    margin-bottom: 12px;
+  }
+
+  /* ─── SECTION HEADING ──────────────────────────────── */
+  .section-eyebrow {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--cyan);
+    background: rgba(6,182,212,0.10);
+    border: 1px solid rgba(6,182,212,0.25);
+    padding: 5px 14px;
+    border-radius: 999px;
+    margin-bottom: 14px;
+  }
+
+  .section-title {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(2rem, 4vw, 2.8rem);
+    font-weight: 800;
+    line-height: 1.1;
+    color: var(--text-primary);
+    margin-bottom: 14px;
+  }
+
+  .section-sub {
+    font-size: 1.05rem;
+    color: var(--text-secondary);
+    max-width: 520px;
+    margin: 0 auto 0;
+    line-height: 1.75;
+  }
+
+  /* ─── TRUST BAR ────────────────────────────────────── */
+  .trust-bar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    background: var(--navy-card);
+    border: 1px solid rgba(6,182,212,0.12);
+    border-radius: 20px;
+    margin-bottom: 80px;
+    overflow: hidden;
+  }
+
+  .trust-item {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 24px 30px;
+    border-right: 1px solid rgba(6,182,212,0.10);
+    transition: background 0.25s ease;
+  }
+
+  .trust-item:last-child { border-right: none; }
+  .trust-item:hover { background: rgba(6,182,212,0.05); }
+
+  .trust-item-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, rgba(6,182,212,0.2), rgba(6,182,212,0.06));
+    border: 1px solid var(--cyan-border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--cyan);
+    font-size: 1.2rem;
+    flex-shrink: 0;
+  }
+
+  .trust-item-text .val {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.35rem;
+    font-weight: 800;
+    color: var(--text-primary);
+    line-height: 1.1;
+  }
+
+  .trust-item-text .lbl {
+    font-size: 0.82rem;
+    color: var(--text-secondary);
+    margin-top: 2px;
+  }
+
+  /* ─── OFFER CARDS ──────────────────────────────────── */
+  .offers-section { margin-bottom: 80px; }
+
+  .offer-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+
+  @media (max-width: 991px) { .offer-grid { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 600px) { .offer-grid { grid-template-columns: 1fr; } }
+
+  .offer-card-new {
+    background: var(--navy-card);
+    border-radius: 24px;
+    overflow: hidden;
+    border: 1px solid rgba(6,182,212,0.12);
+    box-shadow: 0 4px 30px rgba(0,0,0,0.3);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    animation: fadeSlideUp 0.7s ease both;
+  }
+
+  .offer-card-new:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 24px 50px rgba(0,0,0,0.5), 0 0 40px rgba(6,182,212,0.12);
+    border-color: rgba(6,182,212,0.35);
+  }
+
+  .offer-card-new:nth-child(2) { animation-delay: 0.1s; }
+  .offer-card-new:nth-child(3) { animation-delay: 0.2s; }
+
+  .offer-card-top {
+    padding: 36px 28px 28px;
+    background: linear-gradient(145deg, #071525 0%, #0a1e38 100%);
+    position: relative;
+    overflow: hidden;
+    border-bottom: 1px solid rgba(6,182,212,0.10);
+  }
+
+  .offer-card-top::after {
+    content: '';
+    position: absolute;
+    top: -50px;
+    right: -50px;
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    background: rgba(6,182,212,0.08);
+  }
+
+  .offer-icon-ring {
+    width: 72px;
+    height: 72px;
+    border-radius: 20px;
+    background: linear-gradient(135deg, rgba(6,182,212,0.2), rgba(6,182,212,0.06));
+    border: 1px solid rgba(6,182,212,0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+    color: var(--cyan);
+    margin-bottom: 18px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .offer-card-top h4 {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0;
+    position: relative;
+    z-index: 1;
+  }
+
+  .offer-card-body {
+    padding: 26px 28px 30px;
+    background: var(--navy-card);
+  }
+
+  .offer-card-body p {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    line-height: 1.75;
+    margin-bottom: 20px;
+  }
+
+  .offer-features {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 26px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .offer-features li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--slate-light);
+  }
+
+  .offer-features li .tick {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: rgba(6,182,212,0.12);
+    border: 1px solid rgba(6,182,212,0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--cyan);
+    font-size: 0.65rem;
+    flex-shrink: 0;
+  }
+
+  .btn-offer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    padding: 14px 20px;
+    background: linear-gradient(135deg, #06b6d4, #0891b2);
+    color: white;
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 0.9rem;
+    border-radius: 12px;
+    text-decoration: none;
+    border: none;
+    box-shadow: 0 6px 20px rgba(6,182,212,0.25);
+    transition: all 0.25s ease;
+  }
+
+  .btn-offer:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 28px rgba(6,182,212,0.4);
+    color: white;
+    text-decoration: none;
+  }
+
+  /* ─── PRODUCTS SECTION ─────────────────────────────── */
+  .products-section {
+    margin-bottom: 80px;
+    background: linear-gradient(180deg, #060f1e 0%, #070d1a 100%);
+    border-radius: 28px;
+    padding: 70px 50px;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(6,182,212,0.10);
+  }
+
+  .products-section::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(6,182,212,0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(6,182,212,0.05) 1px, transparent 1px);
+    background-size: 50px 50px;
+  }
+
+  .products-section .section-title { color: var(--text-primary); }
+  .products-section .section-sub { color: var(--text-secondary); }
+
+  .products-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    position: relative;
+    z-index: 2;
+  }
+
+  @media (max-width: 1199px) { .products-grid { grid-template-columns: repeat(3, 1fr); } }
+  @media (max-width: 767px) { .products-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 480px) { .products-grid { grid-template-columns: 1fr; } }
+
+  .product-card {
+    background: rgba(13,31,53,0.8);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 20px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+  }
+
+  .product-card:hover {
+    transform: translateY(-8px);
+    background: rgba(17,34,64,0.95);
+    border-color: rgba(6,182,212,0.35);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.4), 0 0 30px rgba(6,182,212,0.08);
+  }
+
+  .product-card-img {
+    height: 200px;
+    background: rgba(255,255,255,0.03);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .product-card-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+  }
+
+  .product-card:hover .product-card-img img {
+    transform: scale(1.07);
+  }
+
+  .product-card-body {
+    padding: 18px 20px 22px;
+  }
+
+  .product-cat-tag {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--cyan);
+    margin-bottom: 6px;
+  }
+
+  .product-name {
+    font-family: 'Syne', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 6px;
+    line-height: 1.35;
+  }
+
+  .product-price {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--cyan);
+    margin-bottom: 8px;
+  }
+
+  .product-desc {
+    font-size: 0.83rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: 14px;
+  }
+
+  .btn-product {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    width: 100%;
+    padding: 11px 16px;
+    background: rgba(6,182,212,0.12);
+    border: 1px solid rgba(6,182,212,0.25);
+    color: var(--cyan-light);
+    font-weight: 700;
+    font-size: 0.85rem;
+    border-radius: 10px;
+    text-decoration: none;
+    transition: all 0.25s ease;
+  }
+
+  .btn-product:hover {
+    background: var(--cyan);
+    border-color: var(--cyan);
+    color: white;
+    text-decoration: none;
+    transform: translateY(-2px);
+  }
+
+  /* ─── PROCESS / HOW IT WORKS ────────────────────────── */
+  .process-section {
+    margin-bottom: 80px;
+  }
+
+  .process-steps {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    position: relative;
+  }
+
+  .process-steps::before {
+    content: '';
+    position: absolute;
+    top: 38px;
+    left: calc(12.5% + 20px);
+    right: calc(12.5% + 20px);
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(6,182,212,0.4), rgba(6,182,212,0.4), transparent);
+    z-index: 0;
+  }
+
+  @media (max-width: 767px) {
+    .process-steps { grid-template-columns: repeat(2, 1fr); }
+    .process-steps::before { display: none; }
+  }
+  @media (max-width: 480px) { .process-steps { grid-template-columns: 1fr; } }
+
+  .process-step {
+    text-align: center;
+    padding: 32px 20px;
+    background: var(--navy-card);
+    border: 1px solid rgba(6,182,212,0.10);
+    border-radius: 22px;
+    position: relative;
+    z-index: 1;
+    transition: all 0.3s ease;
+  }
+
+  .process-step:hover {
+    border-color: rgba(6,182,212,0.35);
+    transform: translateY(-8px);
+    box-shadow: 0 16px 40px rgba(0,0,0,0.3), 0 0 20px rgba(6,182,212,0.08);
+  }
+
+  .step-number {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #06b6d4, #0891b2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Syne', sans-serif;
+    font-size: 1.3rem;
+    font-weight: 800;
+    color: white;
+    margin: 0 auto 20px;
+    box-shadow: 0 8px 24px rgba(6,182,212,0.35);
+    transition: transform 0.3s ease;
+  }
+
+  .process-step:hover .step-number {
+    transform: scale(1.1);
+  }
+
+  .process-step h5 {
+    font-family: 'Syne', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 10px;
+  }
+
+  .process-step p {
+    font-size: 0.88rem;
+    color: var(--text-secondary);
+    line-height: 1.7;
+    margin: 0;
+  }
+
+  /* ─── TESTIMONIALS ─────────────────────────────────── */
+  .testimonials-section {
+    margin-bottom: 80px;
+    background: linear-gradient(180deg, #060f1e 0%, #070d1a 100%);
+    border-radius: 28px;
+    padding: 70px 50px;
+    border: 1px solid rgba(6,182,212,0.10);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .testimonials-section::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(6,182,212,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(6,182,212,0.04) 1px, transparent 1px);
+    background-size: 55px 55px;
+  }
+
+  .testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    position: relative;
+    z-index: 2;
+  }
+
+  @media (max-width: 991px) { .testimonials-grid { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 600px) { .testimonials-grid { grid-template-columns: 1fr; } }
+
+  .testimonial-card {
+    background: rgba(13,31,53,0.7);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(6,182,212,0.12);
+    border-radius: 22px;
+    padding: 30px 26px;
+    transition: all 0.3s ease;
+    position: relative;
+  }
+
+  .testimonial-card::before {
+    content: '"';
+    font-family: 'Syne', sans-serif;
+    font-size: 5rem;
+    font-weight: 800;
+    color: rgba(6,182,212,0.12);
+    position: absolute;
+    top: 10px;
+    right: 24px;
+    line-height: 1;
+  }
+
+  .testimonial-card:hover {
+    border-color: rgba(6,182,212,0.35);
+    background: rgba(17,34,64,0.85);
+    transform: translateY(-6px);
+    box-shadow: 0 16px 40px rgba(0,0,0,0.4);
+  }
+
+  .stars {
+    color: #f59e0b;
+    font-size: 0.85rem;
+    margin-bottom: 14px;
+    letter-spacing: 2px;
+  }
+
+  .testimonial-text {
+    font-size: 0.92rem;
+    color: var(--text-secondary);
+    line-height: 1.8;
+    margin-bottom: 20px;
+  }
+
+  .testimonial-author {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .author-avatar {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #06b6d4, #0891b2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: white;
+    flex-shrink: 0;
+  }
+
+  .author-name {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 0.92rem;
+    color: var(--text-primary);
+  }
+
+  .author-role {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    margin-top: 2px;
+  }
+
+  /* ─── WHY US ────────────────────────────────────────── */
+  .why-section { margin-bottom: 80px; }
+
+  .why-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 22px;
+  }
+
+  @media (max-width: 991px) { .why-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 480px) { .why-grid { grid-template-columns: 1fr; } }
+
+  .why-card {
+    background: var(--navy-card);
+    border: 1px solid rgba(6,182,212,0.10);
+    border-radius: 22px;
+    padding: 32px 24px;
+    text-align: center;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .why-card::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #06b6d4, #0891b2);
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+  }
+
+  .why-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 45px rgba(0,0,0,0.4), 0 0 30px rgba(6,182,212,0.10);
+    border-color: rgba(6,182,212,0.28);
+  }
+
+  .why-card:hover::before { transform: scaleX(1); }
+
+  .why-icon {
+    width: 68px;
+    height: 68px;
+    border-radius: 18px;
+    background: linear-gradient(135deg, rgba(6,182,212,0.14), rgba(8,145,178,0.06));
+    border: 1px solid rgba(6,182,212,0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.6rem;
+    color: var(--cyan);
+    margin: 0 auto 20px;
+    transition: all 0.3s ease;
+  }
+
+  .why-card:hover .why-icon {
+    background: linear-gradient(135deg, #06b6d4, #0891b2);
+    color: white;
+    border-color: transparent;
+    transform: rotate(6deg) scale(1.08);
+  }
+
+  .why-card h5 {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 10px;
+  }
+
+  .why-card p {
+    font-size: 0.88rem;
+    color: var(--text-secondary);
+    line-height: 1.7;
+    margin: 0;
+  }
+
+  /* ─── BRANDS SECTION ───────────────────────────────── */
+.brands-section {
+  margin-bottom: 80px;
+}
+
+.brands-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 16px;
+}
+
+@media (max-width: 991px) { .brands-grid { grid-template-columns: repeat(4, 1fr); } }
+@media (max-width: 600px) { .brands-grid { grid-template-columns: repeat(2, 1fr); } }
+
+.brand-tile {
+  background: var(--navy-card);
+  border: 1px solid rgba(6,182,212,0.12);
+  border-radius: 16px;
+  padding: 22px 12px 18px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  transition: border-color 0.25s ease, background 0.25s ease, transform 0.25s ease;
+}
+
+.brand-tile:hover {
+  border-color: rgba(6,182,212,0.4);
+  background: var(--navy-elevated);
+  transform: translateY(-5px);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.3);
+}
+
+.brand-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 12px;
+  background: rgba(6,182,212,0.08);
+  border: 1px solid rgba(6,182,212,0.18);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Syne', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--cyan);
+  text-align: center;
+}
+
+.brand-name {
+  font-family: 'Syne', sans-serif;
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  text-align: center;
+}
+
+.brand-tag {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  text-align: center;
+}
+  /* ─── NEWSLETTER ───────────────────────────────────── */
+  .newsletter-section {
+    margin-bottom: 80px;
+    background: var(--navy-card);
+    border-radius: 24px;
+    padding: 56px 50px;
+    border: 1px solid rgba(6,182,212,0.12);
+    display: flex;
+    align-items: center;
+    gap: 50px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .newsletter-section::before {
+    content: '';
+    position: absolute;
+    right: -80px;
+    top: -80px;
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(6,182,212,0.10) 0%, transparent 70%);
+  }
+
+  .newsletter-text { flex: 1; position: relative; z-index: 1; }
+
+  .newsletter-text h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.7rem;
+    font-weight: 800;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+  }
+
+  .newsletter-text p {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    line-height: 1.7;
+    margin: 0;
+  }
+
+  .newsletter-form {
+    flex: 1;
+    display: flex;
+    gap: 12px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .newsletter-form input {
+    flex: 1;
+    padding: 15px 20px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(6,182,212,0.2);
+    border-radius: 12px;
+    color: var(--text-primary);
+    font-size: 0.92rem;
+    outline: none;
+    font-family: 'DM Sans', sans-serif;
+    transition: border-color 0.25s ease;
+  }
+
+  .newsletter-form input::placeholder { color: var(--text-muted); }
+  .newsletter-form input:focus { border-color: rgba(6,182,212,0.5); }
+
+  .newsletter-form button {
+    padding: 15px 28px;
+    background: linear-gradient(135deg, #06b6d4, #0891b2);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 0.9rem;
+    cursor: pointer;
+    white-space: nowrap;
+    box-shadow: 0 6px 20px rgba(6,182,212,0.3);
+    transition: all 0.25s ease;
+  }
+
+  .newsletter-form button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 28px rgba(6,182,212,0.45);
+  }
+
+  @media (max-width: 767px) {
+    .newsletter-section { flex-direction: column; padding: 40px 28px; }
+    .newsletter-form { flex-direction: column; }
+  }
+
+  /* ─── CTA SECTION ──────────────────────────────────── */
+  .cta-section {
+    background: linear-gradient(135deg, #050e1c 0%, #071525 50%, #060f1e 100%);
+    border-radius: 28px;
+    padding: 80px 60px;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 40px;
+    text-align: center;
+    border: 1px solid rgba(6,182,212,0.12);
+  }
+
+  .cta-section::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 600px;
+    height: 600px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(6,182,212,0.12) 0%, transparent 70%);
+  }
+
+  .cta-section::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(6,182,212,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(6,182,212,0.04) 1px, transparent 1px);
+    background-size: 55px 55px;
+  }
+
+  .cta-inner { position: relative; z-index: 5; }
+
+  .cta-section h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 800;
+    color: var(--text-primary);
+    margin-bottom: 14px;
+    line-height: 1.15;
+  }
+
+  .cta-section p {
+    color: var(--text-secondary);
+    font-size: 1.05rem;
+    max-width: 540px;
+    margin: 0 auto 38px;
+    line-height: 1.75;
+  }
+
+  .cta-btns {
+    display: flex;
+    gap: 14px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  /* ─── ANIMATIONS ───────────────────────────────────── */
+  @keyframes fadeSlideUp {
+    from { opacity: 0; transform: translateY(28px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ─── RESPONSIVE HERO ──────────────────────────────── */
+  @media (max-width: 991px) {
+    .hero-content { padding: 50px 28px; }
+    .hero-cards-col { padding: 28px; display: none; }
+    .cta-section { padding: 50px 28px; }
+    .products-section { padding: 50px 24px; }
+    .testimonials-section { padding: 50px 24px; }
+  }
+
+  @media (max-width: 600px) {
+    .hero-wrap { min-height: auto; border-radius: 18px; }
+    .hero-content { padding: 48px 22px; }
+    .hero-title { font-size: 2.2rem; }
+    .trust-bar { flex-direction: column; }
+    .trust-item { border-right: none; border-bottom: 1px solid rgba(6,182,212,0.10); width: 100%; }
+    .trust-item:last-child { border-bottom: none; }
+    .newsletter-section { gap: 30px; }
+    .process-steps::before { display: none; }
+  }
+</style>
+
+<!-- ════════════════════════════════════════════════
+     HERO SECTION
+════════════════════════════════════════════════ -->
+<div class="hero-wrap mb-5">
+  <div class="hero-bg-image"></div>
+  <div class="hero-grid-overlay"></div>
+  <div class="hero-glow-1"></div>
+  <div class="hero-glow-2"></div>
+
+  <div class="container-fluid px-0">
+    <div class="row g-0 align-items-center" style="min-height: 92vh;">
+
+      <!-- LEFT -->
+      <div class="col-12 col-lg-7">
+        <div class="hero-content">
+          <div class="hero-badge">
+            <span class="dot"></span>
+            COMPUTER &amp; CCTV HUB — Ahmedabad
+          </div>
+
+          <h1 class="hero-title">
+            Premium Tech,<br>
+            <span class="accent">Unbeatable</span><br>
+            Solutions
+          </h1>
+
+          <p class="hero-sub">
+            Your trusted destination for new laptops, refurbished systems, CCTV setups, and accessories — backed by expert support and genuine pricing.
+          </p>
+
+          <div class="hero-btns">
+            <a href="{% url 'new_laptops:request_laptop' %}" class="btn-primary-hero">
+              <i class="fas fa-laptop"></i> Shop New Laptops
+            </a>
+            <a href="/used/" class="btn-ghost-hero">
+              <i class="fas fa-recycle"></i> Refurbished Deals
+            </a>
+            <a href="{% url 'contact:contact_page' %}" class="btn-ghost-hero">
+              <i class="fas fa-phone"></i> Get Advice
+            </a>
           </div>
         </div>
+      </div>
 
-        <div class="col-12 col-lg-5">
-          <div style="position: relative; min-height: 100%; height: 100%; background-image: url('{% static 'images/laptop-bg.webp' %}'); background-size: cover; background-position: center; background-repeat: no-repeat; min-height: 520px;">
-            <div style="position: absolute; inset: 0; background: linear-gradient(180deg, rgba(15,23,42,0.18) 0%, rgba(15,23,42,0.30) 100%);"></div>
-
-            <div style="position: absolute; top: 28px; right: 28px; background: rgba(255,255,255,0.14); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.22); color: white; padding: 10px 16px; border-radius: 999px; font-weight: 600;">Latest Collection</div>
-
-            <div style="position: absolute; left: 28px; bottom: 28px; right: 28px; background: rgba(255,255,255,0.14); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.20); border-radius: 20px; padding: 22px; color: white; box-shadow: 0 12px 30px rgba(15, 23, 42, 0.18);">
-              <div style="font-size: 0.95rem; opacity: 0.9; margin-bottom: 8px;">Reliable Products</div>
-              <div style="font-size: 1.4rem; font-weight: 700; line-height: 1.3;">New laptops, refurbished options, and accessories for every setup.</div>
-            </div>
+      <!-- RIGHT: STAT CARDS -->
+      <div class="col-12 col-lg-5">
+        <div class="hero-cards-col">
+          <div class="hero-stat-card">
+            <div class="icon-circle"><i class="fas fa-shield-alt"></i></div>
+            <div class="label">Quality Guarantee</div>
+            <div class="value">100% Genuine<br><span>Products &amp; Parts</span></div>
           </div>
+          <div class="hero-stat-card">
+            <div class="icon-circle"><i class="fas fa-tag"></i></div>
+            <div class="label">Refurbished Savings</div>
+            <div class="value">Up to 50% Off<br><span>Certified Pre-Owned</span></div>
+          </div>
+          <div class="hero-stat-card">
+            <div class="icon-circle"><i class="fas fa-headset"></i></div>
+            <div class="label">Support</div>
+            <div class="value">Expert Team<br><span>Ready to Help You</span></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<!-- ════════════════════════════════════════════════
+     TRUST BAR  [NEW SECTION]
+════════════════════════════════════════════════ -->
+<div class="trust-bar mb-5">
+  <div class="trust-item">
+    <div class="trust-item-icon"><i class="fas fa-users"></i></div>
+    <div class="trust-item-text">
+      <div class="val">2,000+</div>
+      <div class="lbl">Happy Customers</div>
+    </div>
+  </div>
+  <div class="trust-item">
+    <div class="trust-item-icon"><i class="fas fa-laptop"></i></div>
+    <div class="trust-item-text">
+      <div class="val">500+</div>
+      <div class="lbl">Devices Sold</div>
+    </div>
+  </div>
+  <div class="trust-item">
+    <div class="trust-item-icon"><i class="fas fa-tools"></i></div>
+    <div class="trust-item-text">
+      <div class="val">1,000+</div>
+      <div class="lbl">Repairs Done</div>
+    </div>
+  </div>
+  <div class="trust-item">
+    <div class="trust-item-icon"><i class="fas fa-star"></i></div>
+    <div class="trust-item-text">
+      <div class="val">4.9 / 5</div>
+      <div class="lbl">Customer Rating</div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ════════════════════════════════════════════════
+     WHAT WE OFFER
+════════════════════════════════════════════════ -->
+<div class="offers-section">
+  <div class="text-center mb-5">
+    <span class="section-eyebrow">Our Services</span>
+    <h2 class="section-title">What We Offer</h2>
+    <p class="section-sub">Browse our range of products and services tailored for home, office, and security needs.</p>
+  </div>
+
+  <div class="offer-grid">
+
+    <!-- New Laptops -->
+    <div class="offer-card-new">
+      <div class="offer-card-top">
+        <div class="offer-icon-ring"><i class="fas fa-laptop"></i></div>
+        <h4>New Laptops</h4>
+      </div>
+      <div class="offer-card-body">
+        <p>Latest models from top brands with full manufacturer warranty and hands-on technical support from our team.</p>
+        <ul class="offer-features">
+          <li><span class="tick"><i class="fas fa-check"></i></span> Latest Models Available</li>
+          <li><span class="tick"><i class="fas fa-check"></i></span> Full Manufacturer Warranty</li>
+          <li><span class="tick"><i class="fas fa-check"></i></span> Expert Setup Support</li>
+        </ul>
+        <a href="{% url 'new_laptops:request_laptop' %}" class="btn-offer">
+          <i class="fas fa-arrow-right"></i> Request Now
+        </a>
+      </div>
+    </div>
+
+    <!-- Refurbished -->
+    <div class="offer-card-new">
+      <div class="offer-card-top">
+        <div class="offer-icon-ring"><i class="fas fa-recycle"></i></div>
+        <h4>Refurbished Laptops</h4>
+      </div>
+      <div class="offer-card-body">
+        <p>Thoroughly inspected and tested pre-owned machines offered at unbeatable prices — quality you can trust.</p>
+        <ul class="offer-features">
+          <li><span class="tick"><i class="fas fa-check"></i></span> Save Up to 50%</li>
+          <li><span class="tick"><i class="fas fa-check"></i></span> Fully Tested &amp; Cleaned</li>
+          <li><span class="tick"><i class="fas fa-check"></i></span> Quality Assured</li>
+        </ul>
+        <a href="/used/" class="btn-offer">
+          <i class="fas fa-arrow-right"></i> Browse Deals
+        </a>
+      </div>
+    </div>
+
+    <!-- Accessories -->
+    <div class="offer-card-new">
+      <div class="offer-card-top">
+        <div class="offer-icon-ring"><i class="fas fa-keyboard"></i></div>
+        <h4>Accessories</h4>
+      </div>
+      <div class="offer-card-body">
+        <p>Complete your setup with bags, chargers, mice, keyboards, cables, and all the peripherals you need.</p>
+        <ul class="offer-features">
+          <li><span class="tick"><i class="fas fa-check"></i></span> Wide Selection</li>
+          <li><span class="tick"><i class="fas fa-check"></i></span> Trusted Brands</li>
+          <li><span class="tick"><i class="fas fa-check"></i></span> Competitive Prices</li>
+        </ul>
+        <a href="/accessories/" class="btn-offer">
+          <i class="fas fa-arrow-right"></i> Shop Now
+        </a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- ════════════════════════════════════════════════
+     HOW IT WORKS  [NEW SECTION]
+════════════════════════════════════════════════ -->
+<div class="process-section">
+  <div class="text-center mb-5">
+    <span class="section-eyebrow">Simple Process</span>
+    <h2 class="section-title">How It Works</h2>
+    <p class="section-sub">Getting your perfect device or service is quick, easy, and hassle-free with us.</p>
+  </div>
+
+  <div class="process-steps">
+    <div class="process-step">
+      <div class="step-number">1</div>
+      <h5>Browse &amp; Select</h5>
+      <p>Explore our range of laptops, accessories, and services. Filter by brand, budget, or need.</p>
+    </div>
+    <div class="process-step">
+      <div class="step-number">2</div>
+      <h5>Talk to an Expert</h5>
+      <p>Our team helps you pick the right product. Call, WhatsApp, or visit our store in Ahmedabad.</p>
+    </div>
+    <div class="process-step">
+      <div class="step-number">3</div>
+      <h5>Confirm &amp; Pay</h5>
+      <p>Place your order securely. We accept cash, UPI, cards, and easy EMI options.</p>
+    </div>
+    <div class="process-step">
+      <div class="step-number">4</div>
+      <h5>Get Delivered</h5>
+      <p>Receive your device fast, fully set up and ready to use — with after-sales support included.</p>
+    </div>
+  </div>
+</div>
+
+
+<!-- ════════════════════════════════════════════════
+     FEATURED PRODUCTS
+════════════════════════════════════════════════ -->
+<div class="products-section mb-5">
+  <div class="text-center mb-5" style="position:relative; z-index:2;">
+    <span class="section-eyebrow">Hand-Picked</span>
+    <h2 class="section-title">Featured Products</h2>
+    <p class="section-sub">Explore our curated selection of laptops, refurbished systems, and accessories.</p>
+  </div>
+
+  <div class="products-grid">
+    {% for product in featured_products %}
+    <div class="product-card">
+      <div class="product-card-img">
+        {% if product.image %}
+          <img src="{{ product.image.url }}" alt="{{ product.name }}" />
+        {% else %}
+          <div style="color: rgba(6,182,212,0.3); font-size: 2.5rem;"><i class="fas fa-laptop"></i></div>
+        {% endif %}
+      </div>
+      <div class="product-card-body">
+        {% if product.category %}
+          <div class="product-cat-tag">{{ product.category }}</div>
+        {% endif %}
+        <div class="product-name">{{ product.name }}</div>
+        {% if product.price %}
+          <div class="product-price">Rs. {{ product.price }}</div>
+        {% endif %}
+        {% if product.short_description %}
+          <div class="product-desc">{{ product.short_description|truncatechars:70 }}</div>
+        {% endif %}
+        <a href="{{ product.get_absolute_url }}" class="btn-product">
+          <i class="fas fa-eye"></i> View Product
+        </a>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+
+<!-- ════════════════════════════════════════════════
+     WHY CHOOSE US
+════════════════════════════════════════════════ -->
+<div class="why-section">
+  <div class="text-center mb-5">
+    <span class="section-eyebrow">Why Us</span>
+    <h2 class="section-title">Why Choose COMPUTER &amp; CCTV HUB?</h2>
+    <p class="section-sub">We put quality, trust, and great value at the heart of everything we do.</p>
+  </div>
+
+  <div class="why-grid">
+    <div class="why-card">
+      <div class="why-icon"><i class="fas fa-shield-alt"></i></div>
+      <h5>Trusted Quality</h5>
+      <p>All products are 100% genuine and thoroughly inspected before they reach you.</p>
+    </div>
+    <div class="why-card">
+      <div class="why-icon"><i class="fas fa-headset"></i></div>
+      <h5>Expert Support</h5>
+      <p>Our knowledgeable team is always ready to help you pick the perfect solution.</p>
+    </div>
+    <div class="why-card">
+      <div class="why-icon"><i class="fas fa-tag"></i></div>
+      <h5>Best Prices</h5>
+      <p>Competitive pricing with regular deals, seasonal offers, and bundle discounts.</p>
+    </div>
+    <div class="why-card">
+      <div class="why-icon"><i class="fas fa-truck"></i></div>
+      <h5>Fast Delivery</h5>
+      <p>Quick order processing and reliable delivery straight to your doorstep.</p>
+    </div>
+  </div>
+</div>
+
+
+<!-- ════════════════════════════════════════════════
+     TESTIMONIALS  [NEW SECTION]
+════════════════════════════════════════════════ -->
+<div class="testimonials-section">
+  <div class="text-center mb-5" style="position:relative; z-index:2;">
+    <span class="section-eyebrow">Customer Reviews</span>
+    <h2 class="section-title">What Our Customers Say</h2>
+    <p class="section-sub">Don't just take our word for it — hear from people who've shopped with us.</p>
+  </div>
+
+  <div class="testimonials-grid">
+    <div class="testimonial-card">
+      <div class="stars">★★★★★</div>
+      <p class="testimonial-text">Got my refurbished Dell laptop at an amazing price. Fully cleaned, works like new. The team was very helpful in guiding me to the right model for my budget.</p>
+      <div class="testimonial-author">
+        <div class="author-avatar">RP</div>
+        <div>
+          <div class="author-name">Ravi Patel</div>
+          <div class="author-role">Student, Ahmedabad</div>
+        </div>
+      </div>
+    </div>
+    <div class="testimonial-card">
+      <div class="stars">★★★★★</div>
+      <p class="testimonial-text">Bought a new HP laptop for my office. Fast delivery, great pricing compared to other shops, and the after-sales support has been excellent. Highly recommend!</p>
+      <div class="testimonial-author">
+        <div class="author-avatar">SM</div>
+        <div>
+          <div class="author-name">Sneha Mehta</div>
+          <div class="author-role">Business Owner</div>
+        </div>
+      </div>
+    </div>
+    <div class="testimonial-card">
+      <div class="stars">★★★★★</div>
+      <p class="testimonial-text">The CCTV installation was seamless. Professional setup, clear instructions, and the camera quality is outstanding. Very satisfied with the entire experience.</p>
+      <div class="testimonial-author">
+        <div class="author-avatar">AK</div>
+        <div>
+          <div class="author-name">Amit Kumar</div>
+          <div class="author-role">Home Owner</div>
         </div>
       </div>
     </div>
   </div>
+</div>
 
-  <!-- What We Offer Section -->
-  <div class="mb-5">
-    <div class="container-fluid">
-      <div class="text-center mb-5">
-        <h2 class="display-5 fw-bold mb-3" style="background: linear-gradient(135deg, #0f172a 0%, #06b6d4 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">What We Offer</h2>
-        <p class="text-secondary fs-5 mb-0">Explore our wide range of products and services</p>
-      </div>
 
-      <div class="row g-4 justify-content-center">
-        <!-- New Laptops Card -->
-        <div class="col-12 col-sm-6 col-xl-4">
-          <div class="offer-card h-100" style="background: white; border-radius: 20px; box-shadow: 0 8px 32px rgba(6, 182, 212, 0.1); border: 1px solid rgba(6, 182, 212, 0.1); transition: all 0.4s ease; cursor: pointer; overflow: hidden;">
-            <div class="card-header text-center py-4" style="background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%); color: white;">
-              <div class="icon-wrapper mb-3">
-                <i class="fas fa-laptop" style="font-size: 3rem;"></i>
-              </div>
-              <h4 class="fw-bold mb-0">New Laptops</h4>
-            </div>
-            <div class="card-body p-4">
-              <p class="text-secondary mb-4 lh-base">Latest models from top brands with full warranty and technical support.</p>
-              <div class="features-list mb-4">
-                <div class="feature-item d-flex align-items-center mb-2">
-                  <i class="fas fa-check-circle text-info me-3"></i>
-                  <span class="small fw-medium">Latest Models</span>
-                </div>
-                <div class="feature-item d-flex align-items-center mb-2">
-                  <i class="fas fa-check-circle text-info me-3"></i>
-                  <span class="small fw-medium">Full Warranty</span>
-                </div>
-                <div class="feature-item d-flex align-items-center">
-                  <i class="fas fa-check-circle text-info me-3"></i>
-                  <span class="small fw-medium">Expert Support</span>
-                </div>
-              </div>
-              <a href="{% url 'new_laptops:request_laptop' %}" class="btn w-100 fw-bold" style="border-radius: 10px; padding: 12px; background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%); color: #fff; border: none;"><i class="fas fa-arrow-right me-2"></i>Request Now</a>
-            </div>
-          </div>
-        </div>
-
-        <!-- Refurbished Laptops Card -->
-        <div class="col-12 col-sm-6 col-xl-4">
-          <div class="offer-card h-100" style="background: white; border-radius: 20px; box-shadow: 0 8px 32px rgba(6, 182, 212, 0.1); border: 1px solid rgba(6, 182, 212, 0.1); transition: all 0.4s ease; cursor: pointer; overflow: hidden;">
-            <div class="card-header text-center py-4" style="background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%); color: white;">
-              <div class="icon-wrapper mb-3">
-                <i class="fas fa-recycle" style="font-size: 3rem;"></i>
-              </div>
-              <h4 class="fw-bold mb-0">Refurbished Laptops</h4>
-            </div>
-            <div class="card-body p-4">
-              <p class="text-secondary mb-4 lh-base">Thoroughly inspected pre-owned machines at unbeatable prices.</p>
-              <div class="features-list mb-4">
-                <div class="feature-item d-flex align-items-center mb-2">
-                  <i class="fas fa-check-circle text-info me-3"></i>
-                  <span class="small fw-medium">Save Up to 50%</span>
-                </div>
-                <div class="feature-item d-flex align-items-center mb-2">
-                  <i class="fas fa-check-circle text-info me-3"></i>
-                  <span class="small fw-medium">Fully Tested</span>
-                </div>
-                <div class="feature-item d-flex align-items-center">
-                  <i class="fas fa-check-circle text-info me-3"></i>
-                  <span class="small fw-medium">Quality Assured</span>
-                </div>
-              </div>
-              <a href="/used/" class="btn w-100 fw-bold" style="border-radius: 10px; padding: 12px; background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%); color: #fff; border: none;"><i class="fas fa-arrow-right me-2"></i>Browse Deals</a>
-            </div>
-          </div>
-        </div>
-
-        <!-- Accessories Card -->
-        <div class="col-12 col-sm-6 col-xl-4">
-          <div class="offer-card h-100" style="background: white; border-radius: 20px; box-shadow: 0 8px 32px rgba(6, 182, 212, 0.1); border: 1px solid rgba(6, 182, 212, 0.1); transition: all 0.4s ease; cursor: pointer; overflow: hidden;">
-            <div class="card-header text-center py-4" style="background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%); color: white;">
-              <div class="icon-wrapper mb-3">
-                <i class="fas fa-keyboard" style="font-size: 3rem;"></i>
-              </div>
-              <h4 class="fw-bold mb-0">Accessories</h4>
-            </div>
-            <div class="card-body p-4">
-              <p class="text-secondary mb-4 lh-base">Complete your setup with bags, chargers, peripherals, and more.</p>
-              <div class="features-list mb-4">
-                <div class="feature-item d-flex align-items-center mb-2">
-                  <i class="fas fa-check-circle text-info me-3"></i>
-                  <span class="small fw-medium">Wide Selection</span>
-                </div>
-                <div class="feature-item d-flex align-items-center mb-2">
-                  <i class="fas fa-check-circle text-info me-3"></i>
-                  <span class="small fw-medium">Quality Brands</span>
-                </div>
-                <div class="feature-item d-flex align-items-center">
-                  <i class="fas fa-check-circle text-info me-3"></i>
-                  <span class="small fw-medium">Best Prices</span>
-                </div>
-              </div>
-              <a href="/accessories/" class="btn w-100 fw-bold" style="background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%); color: white; border: none; border-radius: 10px; padding: 12px;"><i class="fas fa-arrow-right me-2"></i>Shop Now</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+<!-- ════════════════════════════════════════════════
+     BRANDS WE CARRY  [NEW SECTION]
+════════════════════════════════════════════════ -->
+<!-- ════ BRANDS WE CARRY ════ -->
+<div class="brands-section">
+  <div class="text-center mb-5">
+    <span class="section-eyebrow">Trusted Brands</span>
+    <h2 class="section-title">Brands We Carry</h2>
+    <p class="section-sub">Products from the world's most trusted technology brands.</p>
   </div>
 
-  <!-- Featured Products Section -->
-  <div class="mb-5 rounded-4 overflow-hidden" style="position: relative; background-image: url('{% static 'images/laptop-bg.webp' %}'); background-size: cover; background-position: center; background-repeat: no-repeat; border: 1px solid rgba(6, 182, 212, 0.16); box-shadow: 0 18px 45px rgba(6, 182, 212, 0.10);">
-    <div style="position: absolute; inset: 0; background: linear-gradient(135deg, rgba(255,255,255,0.35) 0%, rgba(248,250,252,0.32) 45%, rgba(241,245,249,0.28) 100%); z-index: 1;"></div>
-
-    <div class="container-fluid py-5 px-4 px-lg-5" style="position: relative; z-index: 2;">
-      <div class="text-center mb-5">
-        <h2 class="display-6 fw-bold mb-3" style="background: linear-gradient(135deg, #0f172a 0%, #06b6d4 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Featured Products</h2>
-        <p class="text-secondary fs-5 mb-0">Explore our latest laptops, refurbished systems, and accessories</p>
-      </div>
-
-      <div class="row g-4">
-        {% for product in featured_products %}
-          <div class="col-12 col-sm-6 col-lg-4 col-xl-3">
-            <div style="background: rgba(255,255,255,0.96); border-radius: 18px; overflow: hidden; box-shadow: 0 8px 24px rgba(6, 182, 212, 0.08); border: 1px solid rgba(6, 182, 212, 0.10); height: 100%; transition: all 0.35s ease;" onmouseover="this.style.transform='translateY(-8px)'; this.style.boxShadow='0 18px 36px rgba(6, 182, 212, 0.18)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 8px 24px rgba(6, 182, 212, 0.08)';">
-              <div style="height: 220px; background: #f8fafc; display: flex; align-items: center; justify-content: center; overflow: hidden;">
-                {% if product.image %}
-                  <img src="{{ product.image.url }}" alt="{{ product.name }}" style="width: 100%; height: 100%; object-fit: cover; transition: all 0.35s ease;" onmouseover="this.style.transform='scale(1.06)';" onmouseout="this.style.transform='scale(1)';" />
-                {% else %}
-                  <div style="color: #94a3b8; font-size: 2rem;">
-                    <i class="fas fa-laptop"></i>
-                  </div>
-                {% endif %}
-              </div>
-
-              <div style="padding: 20px;">
-                <h5 class="fw-bold mb-2" style="color: #0f172a; font-size: 1.05rem; line-height: 1.4;">{{ product.name }}</h5>
-
-                {% if product.category %}
-                  <div style="font-size: 0.85rem; color: #0891b2; font-weight: 600; margin-bottom: 10px;">{{ product.category }}</div>
-                {% endif %}
-
-                {% if product.price %}
-                  <div class="mb-3" style="font-size: 1.15rem; font-weight: 700; color: #06b6d4;">Rs. {{ product.price }}</div>
-                {% endif %}
-
-                {% if product.short_description %}
-                  <p class="text-secondary mb-3" style="font-size: 0.92rem; line-height: 1.6;">{{ product.short_description|truncatechars:80 }}</p>
-                {% endif %}
-
-                <a href="{{ product.get_absolute_url }}" class="btn w-100 fw-bold" style="background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%); color: white; border: none; border-radius: 12px; padding: 12px; transition: all 0.3s ease;" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 12px 24px rgba(6, 182, 212, 0.22)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';"><i class="fas fa-eye me-2"></i>View Product</a>
-              </div>
-            </div>
-          </div>
-        {% endfor %}
-      </div>
+  <div class="brands-grid">
+    <div class="brand-tile">
+      <div class="brand-icon">HP</div>
+      <div class="brand-name">HP</div>
+      <div class="brand-tag">Laptops &amp; PCs</div>
+    </div>
+    <div class="brand-tile">
+      <div class="brand-icon">Dell</div>
+      <div class="brand-name">Dell</div>
+      <div class="brand-tag">Laptops &amp; PCs</div>
+    </div>
+    <div class="brand-tile">
+      <div class="brand-icon">Lenovo</div>
+      <div class="brand-name">Lenovo</div>
+      <div class="brand-tag">Laptops &amp; PCs</div>
+    </div>
+    <div class="brand-tile">
+      <div class="brand-icon">Asus</div>
+      <div class="brand-name">Asus</div>
+      <div class="brand-tag">Laptops &amp; PCs</div>
+    </div>
+    <div class="brand-tile">
+      <div class="brand-icon">Acer</div>
+      <div class="brand-name">Acer</div>
+      <div class="brand-tag">Laptops &amp; PCs</div>
+    </div>
+    <div class="brand-tile">
+      <div class="brand-icon">Apple</div>
+      <div class="brand-name">Apple</div>
+      <div class="brand-tag">MacBooks</div>
+    </div>
+    <div class="brand-tile">
+      <div class="brand-icon">Samsung</div>
+      <div class="brand-name">Samsung</div>
+      <div class="brand-tag">Displays &amp; More</div>
+    </div>
+    <div class="brand-tile">
+      <div class="brand-icon">Hikvision</div>
+      <div class="brand-name">Hikvision</div>
+      <div class="brand-tag">CCTV Systems</div>
+    </div>
+    <div class="brand-tile">
+      <div class="brand-icon">Dahua</div>
+      <div class="brand-name">Dahua</div>
+      <div class="brand-tag">CCTV Systems</div>
+    </div>
+    <div class="brand-tile">
+      <div class="brand-icon">Logitech</div>
+      <div class="brand-name">Logitech</div>
+      <div class="brand-tag">Accessories</div>
     </div>
   </div>
+</div>
 
-  <!-- Why Choose Us Section -->
-  <div class="mb-5 py-5" style="background: linear-gradient(135deg, rgba(6, 182, 212, 0.05) 0%, rgba(6, 182, 212, 0.02) 100%); border-radius: 15px; border: 1px solid rgba(6, 182, 212, 0.15);">
-    <div class="container-fluid">
-      <h2 class="display-6 fw-bold mb-5 text-center">Why Choose COMPUTER & CCTV HUB?</h2>
 
-      <div class="row g-5">
-        <div class="col-12 col-md-6 col-lg-3">
-          <div style="background: white; border-radius: 14px; padding: 2rem; box-shadow: 0 4px 15px rgba(6, 182, 212, 0.1); text-align: center; height: 100%; transition: all 0.35s ease;" onmouseover="this.style.transform='translateY(-12px) scale(1.02)'; this.style.boxShadow='0 12px 30px rgba(6, 182, 212, 0.22)'; this.children[0].style.transform='rotate(8deg) scale(1.12)'; this.children[0].style.boxShadow='0 10px 20px rgba(6, 182, 212, 0.28)'; this.children[0].children[0].style.transform='scale(1.15)';" onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.boxShadow='0 4px 15px rgba(6, 182, 212, 0.1)'; this.children[0].style.transform='rotate(0deg) scale(1)'; this.children[0].style.boxShadow='none'; this.children[0].children[0].style.transform='scale(1)';">
-            <div style="width: 70px; height: 70px; background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; color: white; transition: all 0.35s ease;">
-              <i class="fas fa-shield-alt" style="font-size: 2rem; transition: all 0.35s ease;"></i>
-            </div>
-            <h5 class="fw-bold mb-3" style="font-size: 1.15rem;">Trusted Quality</h5>
-            <p class="text-secondary" style="line-height: 1.6;">All products are genuine and thoroughly inspected for quality assurance.</p>
-          </div>
-        </div>
+<!-- ════════════════════════════════════════════════
+     NEWSLETTER  [NEW SECTION]
+════════════════════════════════════════════════ -->
+<div class="newsletter-section">
+  <div class="newsletter-text">
+    <span class="section-eyebrow" style="margin-bottom:12px;">Stay Updated</span>
+    <h3>Get the Latest Deals<br>in Your Inbox</h3>
+    <p>Subscribe for exclusive offers, new arrivals, and seasonal discounts — no spam, ever.</p>
+  </div>
+  <div class="newsletter-form">
+    <input type="email" placeholder="Enter your email address…" />
+    <button type="button"><i class="fas fa-paper-plane"></i> Subscribe</button>
+  </div>
+</div>
 
-        <div class="col-12 col-md-6 col-lg-3">
-          <div style="background: white; border-radius: 14px; padding: 2rem; box-shadow: 0 4px 15px rgba(6, 182, 212, 0.1); text-align: center; height: 100%; transition: all 0.35s ease;" onmouseover="this.style.transform='translateY(-12px) scale(1.02)'; this.style.boxShadow='0 12px 30px rgba(6, 182, 212, 0.22)'; this.children[0].style.transform='rotate(8deg) scale(1.12)'; this.children[0].style.boxShadow='0 10px 20px rgba(6, 182, 212, 0.28)'; this.children[0].children[0].style.transform='scale(1.15)';" onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.boxShadow='0 4px 15px rgba(6, 182, 212, 0.1)'; this.children[0].style.transform='rotate(0deg) scale(1)'; this.children[0].style.boxShadow='none'; this.children[0].children[0].style.transform='scale(1)';">
-            <div style="width: 70px; height: 70px; background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; color: white; transition: all 0.35s ease;">
-              <i class="fas fa-headset" style="font-size: 2rem; transition: all 0.35s ease;"></i>
-            </div>
-            <h5 class="fw-bold mb-3" style="font-size: 1.15rem;">Expert Support</h5>
-            <p class="text-secondary" style="line-height: 1.6;">Our knowledgeable team is ready to help you find the perfect product.</p>
-          </div>
-        </div>
 
-        <div class="col-12 col-md-6 col-lg-3">
-          <div style="background: white; border-radius: 14px; padding: 2rem; box-shadow: 0 4px 15px rgba(6, 182, 212, 0.1); text-align: center; height: 100%; transition: all 0.35s ease;" onmouseover="this.style.transform='translateY(-12px) scale(1.02)'; this.style.boxShadow='0 12px 30px rgba(6, 182, 212, 0.22)'; this.children[0].style.transform='rotate(8deg) scale(1.12)'; this.children[0].style.boxShadow='0 10px 20px rgba(6, 182, 212, 0.28)'; this.children[0].children[0].style.transform='scale(1.15)';" onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.boxShadow='0 4px 15px rgba(6, 182, 212, 0.1)'; this.children[0].style.transform='rotate(0deg) scale(1)'; this.children[0].style.boxShadow='none'; this.children[0].children[0].style.transform='scale(1)';">
-            <div style="width: 70px; height: 70px; background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; color: white; transition: all 0.35s ease;">
-              <i class="fas fa-tag" style="font-size: 2rem; transition: all 0.35s ease;"></i>
-            </div>
-            <h5 class="fw-bold mb-3" style="font-size: 1.15rem;">Best Prices</h5>
-            <p class="text-secondary" style="line-height: 1.6;">Competitive pricing with regular deals and special offers.</p>
-          </div>
-        </div>
-
-        <div class="col-12 col-md-6 col-lg-3">
-          <div style="background: white; border-radius: 14px; padding: 2rem; box-shadow: 0 4px 15px rgba(6, 182, 212, 0.1); text-align: center; height: 100%; transition: all 0.35s ease;" onmouseover="this.style.transform='translateY(-12px) scale(1.02)'; this.style.boxShadow='0 12px 30px rgba(6, 182, 212, 0.22)'; this.children[0].style.transform='rotate(8deg) scale(1.12)'; this.children[0].style.boxShadow='0 10px 20px rgba(6, 182, 212, 0.28)'; this.children[0].children[0].style.transform='scale(1.15)';" onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.boxShadow='0 4px 15px rgba(6, 182, 212, 0.1)'; this.children[0].style.transform='rotate(0deg) scale(1)'; this.children[0].style.boxShadow='none'; this.children[0].children[0].style.transform='scale(1)';">
-            <div style="width: 70px; height: 70px; background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; color: white; transition: all 0.35s ease;">
-              <i class="fas fa-truck" style="font-size: 2rem; transition: all 0.35s ease;"></i>
-            </div>
-            <h5 class="fw-bold mb-3" style="font-size: 1.15rem;">Fast Delivery</h5>
-            <p class="text-secondary" style="line-height: 1.6;">Quick processing and reliable delivery to your doorstep.</p>
-          </div>
-        </div>
-      </div>
+<!-- ════════════════════════════════════════════════
+     CTA SECTION
+════════════════════════════════════════════════ -->
+<div class="cta-section">
+  <div class="cta-inner">
+    <span class="section-eyebrow" style="color: var(--cyan-light); background: rgba(6,182,212,0.12); border-color: rgba(6,182,212,0.25);">Get Started Today</span>
+    <h2>Ready to Upgrade<br>Your Setup?</h2>
+    <p>Explore reliable products for home, office, and security — or connect with our team for fast, expert guidance on choosing the right solution.</p>
+    <div class="cta-btns">
+      <a href="{% url 'new_laptops:request_laptop' %}" class="btn-primary-hero">
+        <i class="fas fa-shopping-cart"></i> Start Shopping
+      </a>
+      <a href="{% url 'contact:contact_page' %}" class="btn-ghost-hero">
+        <i class="fas fa-envelope"></i> Contact Us
+      </a>
     </div>
   </div>
+</div>
 
-  <!-- CTA Section -->
-  <div class="mb-4 pt-5 pb-4">
-    <div class="container-fluid">
-      <div style="background: linear-gradient(135deg, #0f172a 0%, #164e63 100%); border-radius: 24px; padding: 50px 25px; position: relative; overflow: hidden;">
-        <div style="position: absolute; top: -40px; right: -40px; width: 180px; height: 180px; background: rgba(255,255,255,0.06); border-radius: 50%;"></div>
-        <div style="position: absolute; bottom: -50px; left: -50px; width: 220px; height: 220px; background: rgba(255,255,255,0.04); border-radius: 50%;"></div>
-
-        <div class="row align-items-center text-center text-lg-start" style="position: relative; z-index: 2;">
-          <div class="col-12 col-lg-8 mb-4 mb-lg-0">
-            <span style="display: inline-block; background: rgba(255,255,255,0.12); color: #cffafe; padding: 8px 16px; border-radius: 50px; font-size: 0.9rem; font-weight: 600; margin-bottom: 18px;">COMPUTER & CCTV HUB</span>
-
-            <h2 class="fw-bold mb-3" style="font-size: clamp(2rem, 4vw, 3rem); color: white; line-height: 1.2;">Ready to Upgrade Your Setup?</h2>
-
-            <p class="mb-0" style="font-size: 1.08rem; color: rgba(255,255,255,0.78); max-width: 700px;">Explore reliable products for home, office, and security needs, or connect with our team for quick help choosing the right solution.</p>
-          </div>
-
-          <div class="col-12 col-lg-4">
-            <div class="d-flex flex-column flex-sm-row flex-lg-column gap-3 align-items-center align-items-lg-stretch justify-content-center">
-              <a href="{% url 'new_laptops:request_laptop' %}" class="btn" style="background: #06b6d4; color: white; border: none; border-radius: 14px; padding: 15px 28px; font-size: 1rem; font-weight: 700; box-shadow: 0 10px 25px rgba(6, 182, 212, 0.28); transition: all 0.3s ease; min-width: 220px;" onmouseover="this.style.transform='translateY(-3px)'; this.style.background='#0891b2'; this.style.boxShadow='0 16px 30px rgba(6, 182, 212, 0.35)';" onmouseout="this.style.transform='translateY(0)'; this.style.background='#06b6d4'; this.style.boxShadow='0 10px 25px rgba(6, 182, 212, 0.28)';"><i class="fas fa-shopping-cart me-2"></i>Start Shopping</a>
-
-              <a href="{% url 'contact:contact_page' %}" class="btn" style="background: transparent; color: white; border: 1.5px solid rgba(255,255,255,0.35); border-radius: 14px; padding: 15px 28px; font-size: 1rem; font-weight: 700; transition: all 0.3s ease; min-width: 220px;" onmouseover="this.style.transform='translateY(-3px)'; this.style.background='rgba(255,255,255,0.10)'; this.style.borderColor='rgba(255,255,255,0.65)';" onmouseout="this.style.transform='translateY(0)'; this.style.background='transparent'; this.style.borderColor='rgba(255,255,255,0.35)';"><i class="fas fa-envelope me-2"></i>Contact Us</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
 {% endblock %}
