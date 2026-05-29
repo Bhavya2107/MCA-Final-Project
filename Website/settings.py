@@ -182,8 +182,8 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 # EMAIL_HOST = 'smtp.gmail.com'
 # EMAIL_PORT = 587
 # EMAIL_USE_TLS = True
-# EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER', '2402107017@shreyarthuni.ac.in')
-# EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD', 'zwysmcjjjffuliwc')
+# EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER', 'bhavya@example.com')
+# EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD', 'abcdefghijkl')
 DEFAULT_FROM_EMAIL = '2402107017@shreyarthuni.ac.in'
 NEW_LAPTOP_REQUEST_NOTIFICATION_EMAIL = os.environ.get('NEW_LAPTOP_REQUEST_NOTIFICATION_EMAIL', '2402107017@shreyarthuni.ac.in')
 
